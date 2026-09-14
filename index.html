@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rani Jewellers | Premium Gold & Silver Collections</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#F3E5AB', 500: '#D4AF37', 600: '#AA8C2C', 700: '#8c7322' },
+                        silver: { 400: '#E0E0E0', 500: '#9E9E9E', 600: '#757575' },
+                        dark: '#0a0a0a',
+                        darker: '#050505'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Lato', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Lato', sans-serif; background-color: #FAFAFA; color: #111; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%); }
+        .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.12); transition: all 0.4s ease; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s; }
+        .whatsapp-float:hover { transform: scale(1.1); color: white; }
+        .admin-tab.active { background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%); color: #0a0a0a; border-left: 4px solid #fff; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-weight: 800; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-gold-500 selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 sm:h-24">
+                <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
+                    <i class="fas fa-gem text-gold-500 text-2xl sm:text-3xl md:text-4xl mr-2 sm:mr-3 group-hover:rotate-12 transition-transform"></i>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl md:text-3xl font-serif font-bold tracking-widest uppercase text-dark">Rani Jewellers</h1>
+                        <p class="text-[9px] sm:text-[10px] md:text-xs text-gold-600 tracking-widest mt-0.5">GOLD & SILVER BOUTIQUE</p>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" onclick="navigate('home')" class="text-xs text-gray-800 hover-gold font-bold uppercase tracking-widest">Home</a>
+                    <a href="#" onclick="navigate('shop')" class="text-xs text-gray-800 hover-gold font-bold uppercase tracking-widest">Collections</a>
+                    <a href="#" onclick="navigate('about')" class="text-xs text-gray-800 hover-gold font-bold uppercase tracking-widest">About Us</a>
+                    <a href="#" onclick="navigate('contact')" class="text-xs text-gray-800 hover-gold font-bold uppercase tracking-widest">Contact</a>
+                    <a href="#" onclick="navigate('admin-login')" class="px-6 py-2.5 bg-dark text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm" id="nav-admin-btn">Admin Portal</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-dark p-2 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t absolute w-full shadow-2xl z-40">
+            <a href="#" onclick="navigate('home')" class="block px-6 py-3.5 text-gray-800 font-bold uppercase tracking-widest text-xs border-b">Home</a>
+            <a href="#" onclick="navigate('shop')" class="block px-6 py-3.5 text-gray-800 font-bold uppercase tracking-widest text-xs border-b">Collections</a>
+            <a href="#" onclick="navigate('about')" class="block px-6 py-3.5 text-gray-800 font-bold uppercase tracking-widest text-xs border-b">About Us</a>
+            <a href="#" onclick="navigate('contact')" class="block px-6 py-3.5 text-gray-800 font-bold uppercase tracking-widest text-xs border-b">Contact</a>
+            <a href="#" onclick="navigate('admin-login')" class="block px-6 py-3.5 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs">Admin Portal</a>
+        </div>
+    </nav>
+
+    <!-- LIVE MARKET RATES BANNER -->
+    <div class="bg-dark text-white py-2.5 sm:py-3 px-4 border-b border-gold-500/20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] sm:text-xs tracking-widest font-bold uppercase space-y-1 sm:space-y-0 text-center sm:text-left">
+            <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-gold-400">Live Market Rates (Per 10g):</span>
+            </div>
+            <div class="flex space-x-6">
+                <div>Gold (22K): <span id="ticker-gold-rate" class="text-gold-400 font-extrabold">₹72,000</span></div>
+                <div>Silver: <span id="ticker-silver-rate" class="text-silver-400 font-extrabold">₹900</span></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-grow">
+        
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <div class="relative bg-darker text-white overflow-hidden h-[80vh] sm:h-[90vh]">
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Luxury Jewellery Showcase" class="w-full h-full object-cover opacity-45 mix-blend-overlay scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-darker via-black/50 to-transparent"></div>
+                </div>
+                <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
+                    <span class="text-gold-400 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-bold mb-4 sm:mb-6 block border-b border-gold-500/30 pb-2">Exquisite Gold & Silver Masterpieces</span>
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl leading-tight">Elegance in <br><span class="text-transparent bg-clip-text gold-gradient">Gold & Silver</span></h1>
+                    <p class="text-gray-300 max-w-xl sm:max-w-2xl text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-light px-2">Discover pure hallmarked gold and stunning silver artifacts crafted for your precious moments.</p>
+                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 border border-gold-500 text-gold-500 font-bold tracking-widest uppercase text-[10px] sm:text-xs hover:bg-gold-500 hover:text-white transition-all duration-300 shadow-xl">Explore Collections</button>
+                </div>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="bg-white py-8 sm:py-12 border-b border-gray-100 shadow-sm relative z-10 -mt-8 sm:-mt-10 mx-4 md:mx-auto max-w-6xl rounded-xl">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center px-4">
+                    <div class="flex flex-col items-center p-2 sm:p-4">
+                        <i class="fas fa-certificate text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-dark text-xs sm:text-sm uppercase tracking-wider">100% Certified</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Hallmarked Purity</p>
+                    </div>
+                    <div class="flex flex-col items-center p-2 sm:p-4">
+                        <i class="fas fa-sync-alt text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-dark text-xs sm:text-sm uppercase tracking-wider">Easy Returns</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">14-Day Policy</p>
+                    </div>
+                    <div class="flex flex-col items-center p-2 sm:p-4">
+                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-dark text-xs sm:text-sm uppercase tracking-wider">Secure Shipping</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Fully Insured</p>
+                    </div>
+                    <div class="flex flex-col items-center p-2 sm:p-4">
+                        <i class="fas fa-gem text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-dark text-xs sm:text-sm uppercase tracking-wider">Lifetime Service</h4>
+                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Free Maintenance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop by Material / Category (Side-by-side on all screens) -->
+            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-24">
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-gold-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase">Collections</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mt-2">Browse by Metal</h2>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 sm:gap-10">
+                    <div class="relative h-[280px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-xl sm:rounded-2xl shadow-xl" onclick="filterByMetal('Gold')">
+                        <img id="home-gold-banner" src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 sm:bottom-10 sm:left-10">
+                            <span class="text-gold-400 text-[8px] sm:text-xs font-bold uppercase tracking-widest">Pure 22K / 18K</span>
+                            <h3 class="text-lg sm:text-3xl font-serif font-bold text-white mb-1 sm:mb-2">Gold Collection</h3>
+                            <span class="text-white text-[9px] sm:text-xs uppercase tracking-widest font-bold flex items-center mt-1 sm:mt-3">View Gold <i class="fas fa-arrow-right ml-1 sm:ml-2 text-[8px]"></i></span>
+                        </div>
+                    </div>
+                    <div class="relative h-[280px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-xl sm:rounded-2xl shadow-xl" onclick="filterByMetal('Silver')">
+                        <img id="home-silver-banner" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darker via-black/40 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 sm:bottom-10 sm:left-10">
+                            <span class="text-silver-400 text-[8px] sm:text-xs font-bold uppercase tracking-widest">Sterling 925 Silver</span>
+                            <h3 class="text-lg sm:text-3xl font-serif font-bold text-white mb-1 sm:mb-2">Silver Collection</h3>
+                            <span class="text-white text-[9px] sm:text-xs uppercase tracking-widest font-bold flex items-center mt-1 sm:mt-3">View Silver <i class="fas fa-arrow-right ml-1 sm:ml-2 text-[8px]"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Latest Designs -->
+            <div class="bg-gray-50 py-16 sm:py-24">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="text-center mb-12 sm:mb-16">
+                        <span class="text-gold-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase">New Arrivals</span>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mt-2">Latest Masterpieces</h2>
+                        <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                    </div>
+                    <div id="home-featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10"></div>
+                    <div class="text-center mt-12 sm:mt-16">
+                        <button onclick="navigate('shop')" class="px-8 py-4 bg-dark text-white font-bold uppercase tracking-widest text-xs hover:bg-gold-500 transition-all rounded-sm shadow-xl">View Full Catalog</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page">
+            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold text-dark mb-4">About Rani Jewellers</h1>
+                    <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                </div>
+                
+                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+                    <div class="w-full lg:w-1/2">
+                        <div class="relative">
+                            <div class="absolute inset-0 bg-gold-500 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-xl -z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-2xl w-full h-[350px] sm:h-[500px] object-cover" alt="About Rani Jewellers">
+                        </div>
+                    </div>
+                    <div class="w-full lg:w-1/2 space-y-6 sm:space-y-8">
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark" id="dyn-about-title">Loading...</h2>
+                        <p class="text-gray-600 leading-relaxed text-base sm:text-lg" id="dyn-about-story">Loading...</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 sm:pt-8 border-t border-gray-100">
+                            <div class="flex items-start"><i class="fas fa-gem text-2xl sm:text-3xl text-gold-500 mr-4"></i><div><h4 class="font-bold text-dark">Pure Materials</h4><p class="text-xs sm:text-sm text-gray-500 mt-1">100% certified gold & silver.</p></div></div>
+                            <div class="flex items-start"><i class="fas fa-handshake text-2xl sm:text-3xl text-gold-500 mr-4"></i><div><h4 class="font-bold text-dark">Trusted Legacy</h4><p class="text-xs sm:text-sm text-gray-500 mt-1">Built on generations of trust.</p></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SHOP PAGE -->
+        <div id="shop" class="page">
+            <div class="bg-darker py-14 sm:py-20 text-white relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold">Gold & Silver Collections</h1>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 py-10 sm:py-16 flex flex-col md:flex-row gap-8 sm:gap-10">
+                <div class="w-full md:w-1/4">
+                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 md:sticky md:top-28">
+                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Search Catalog</h3>
+                        <div class="relative mb-6 sm:mb-8">
+                            <input type="text" id="search-input" placeholder="Search product..." class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold" onkeyup="renderShop()">
+                            <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+                        </div>
+                        
+                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Metal Type</h3>
+                        <div class="space-y-3 sm:space-y-4 mb-4 md:mb-0" id="metal-filters">
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="All" checked onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-700">All Metals (Gold & Silver)</span></label>
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Gold" onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-700">Gold Collection</span></label>
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Silver" onchange="renderShop()" class="mr-3 accent-silver-500 w-4 h-4"><span class="text-sm font-bold text-gray-700">Silver Collection</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-3/4">
+                    <div id="shop-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT DETAILS PAGE -->
+        <div id="detail" class="page py-10 sm:py-16 max-w-7xl mx-auto px-4">
+            <button onclick="navigate('shop')" class="text-gray-500 hover:text-gold-600 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
+            <div id="product-detail-container" class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-gray-100"></div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold text-dark mb-4">Contact Concierge</h1>
+                    <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+                    <div class="bg-darker text-white p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
+                        <h3 class="text-2xl sm:text-3xl font-serif mb-8 sm:mb-10 text-gold-400">Store Directory</h3>
+                        <div class="space-y-8 sm:space-y-10 relative z-10">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-map-marker-alt text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-base sm:text-lg dynamic-address mt-1 font-light leading-relaxed">Loading...</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-phone text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-lg sm:text-xl dynamic-phone mt-1 font-light">Loading...</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-envelope text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-500 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-base sm:text-lg dynamic-email mt-1 font-light">Loading...</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-gray-100">
+                        <h3 class="text-2xl font-serif mb-6 sm:mb-8 text-dark">Send us a Message</h3>
+                        <form onsubmit="handleGeneralContact(event)">
+                            <div class="mb-5 sm:mb-6"><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none font-bold text-sm bg-gray-50"></div>
+                            <div class="mb-5 sm:mb-6"><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none font-bold text-sm bg-gray-50"></div>
+                            <div class="mb-6 sm:mb-8"><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none text-sm bg-gray-50"></textarea></div>
+                            <button type="submit" class="w-full gold-gradient text-white py-3.5 sm:py-4 rounded-lg font-bold uppercase tracking-widest text-xs shadow-xl">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN LOGIN PAGE -->
+        <div id="admin-login" class="page">
+            <div class="min-h-[80vh] flex items-center justify-center bg-darker py-12 px-4">
+                <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10">
+                    <div class="text-center">
+                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-500 mb-3 sm:mb-4"></i>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-dark">Admin Portal</h2>
+                        <p class="mt-2 text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-widest">Authorized Access Only</p>
+                    </div>
+                    <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
+                        <div class="space-y-4 sm:space-y-5">
+                            <div><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Username</label><input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold"></div>
+                            <div><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Password</label><input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold"></div>
+                        </div>
+                        <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-lg text-white bg-dark hover:bg-gold-500 transition-all shadow-lg">Authenticate</button>
+                        
+                        <div class="text-center mt-4">
+                            <a href="#" onclick="forgotPassword()" class="text-xs text-gold-600 font-bold hover:underline">Forgot Password / Reset to Default?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN DASHBOARD -->
+        <div id="admin-dashboard" class="page bg-neutral-950 min-h-screen text-gray-100">
+            <div class="flex flex-col lg:flex-row min-h-screen">
+                <!-- Premium Dark Sidebar -->
+                <div class="w-full lg:w-80 bg-neutral-900 border-b lg:border-b-0 lg:border-r border-neutral-800 flex flex-col shadow-2xl z-10 shrink-0">
+                    <div class="p-6 sm:p-8 border-b border-neutral-800 flex items-center bg-black/40">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gold-gradient flex items-center justify-center text-dark text-lg sm:text-xl font-bold mr-3 sm:mr-4 shadow-lg shadow-gold-500/20">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-serif font-bold text-white tracking-wide">Rani Workspace</h2>
+                            <p class="text-[9px] sm:text-[10px] text-gold-400 uppercase tracking-widest font-extrabold mt-0.5">Super Admin Control</p>
+                        </div>
+                    </div>
+
+                    <nav class="flex-1 px-3 sm:px-4 py-4 sm:py-6 space-y-1.5 overflow-y-auto">
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mb-2">Main Menu</p>
+                        <a href="#" onclick="switchAdminTab('dashboard')" id="tab-dashboard" class="admin-tab active flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all"><i class="fas fa-chart-pie w-6 text-base"></i> Overview</a>
+                        <a href="#" onclick="switchAdminTab('daily-rates')" id="tab-daily-rates" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-rupee-sign w-6 text-base text-gold-400"></i> Set Daily Rates</a>
+                        <a href="#" onclick="switchAdminTab('add-product')" id="tab-add-product" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-plus-circle w-6 text-base text-gold-400"></i> Add Product</a>
+                        <a href="#" onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-boxes w-6 text-base text-gold-400"></i> Inventory</a>
+                        
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
+                        <a href="#" onclick="switchAdminTab('enquiries')" id="tab-enquiries" class="admin-tab flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all">
+                            <span class="flex items-center"><i class="fas fa-shopping-bag w-6 text-base text-gold-400"></i> Enquiries</span>
+                            <span id="badge-pending" class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
+                        </a>
+                        <a href="#" onclick="switchAdminTab('messages')" id="tab-messages" class="admin-tab flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all">
+                            <span class="flex items-center"><i class="fas fa-envelope-open-text w-6 text-base text-gold-400"></i> Messages</span>
+                            <span id="badge-messages" class="bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
+                        </a>
+
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customization</p>
+                        <a href="#" onclick="switchAdminTab('banners')" id="tab-banners" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-image w-6 text-base text-gold-400"></i> Home Banners</a>
+                        <a href="#" onclick="switchAdminTab('settings')" id="tab-settings" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-cog w-6 text-base text-gold-400"></i> Contacts</a>
+                        <a href="#" onclick="switchAdminTab('about-settings')" id="tab-about-settings" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-pen-nib w-6 text-base text-gold-400"></i> About Page</a>
+                        <a href="#" onclick="switchAdminTab('auth-settings')" id="tab-auth-settings" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-key w-6 text-base text-gold-400"></i> Credentials</a>
+                    </nav>
+
+                    <div class="p-4 border-t border-neutral-800 bg-black/40">
+                        <button onclick="handleLogout(true)" class="w-full flex items-center justify-center px-4 py-3 bg-red-500/10 text-red-400 font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all text-xs uppercase tracking-widest border border-red-500/25 shadow-lg"><i class="fas fa-power-off mr-2"></i> Terminate Session</button>
+                    </div>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-neutral-950">
+                    <div id="admin-tab-dashboard" class="admin-content block">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif border-b border-neutral-800 pb-4">Business Overview</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+                            <div class="bg-neutral-900 p-6 rounded-2xl shadow-xl border border-neutral-800"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Total Inventory</h3><p class="text-3xl font-bold text-white" id="stat-products">0</p></div>
+                            <div class="bg-neutral-900 p-6 rounded-2xl shadow-xl border border-neutral-800"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Product Enquiries</h3><p class="text-3xl font-bold text-gold-400" id="stat-enquiries">0</p></div>
+                            <div class="bg-neutral-900 p-6 rounded-2xl shadow-xl border border-neutral-800"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">New Messages</h3><p class="text-3xl font-bold text-amber-400" id="stat-messages">0</p></div>
+                            <div class="bg-neutral-900 p-6 rounded-2xl shadow-xl border border-neutral-800"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Pending Actions</h3><p class="text-3xl font-bold text-red-400" id="stat-pending">0</p></div>
+                        </div>
+                    </div>
+
+                    <!-- SET DAILY MARKET RATES -->
+                    <div id="admin-tab-daily-rates" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Set Daily Gold & Silver Rates</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Dono ke rates **Per 10 Grams** set honge</p>
+                        
+                        <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-2xl">
+                            <form onsubmit="saveDailyRates(event)">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Gold Rate (Per 10 Grams in ₹)</label>
+                                        <input type="number" id="admin-gold-rate" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Silver Rate (Per 10 Grams in ₹)</label>
+                                        <input type="number" id="admin-silver-rate" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all">Update Live Rates</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- HOME BANNERS CONFIGURATION TAB -->
+                    <div id="admin-tab-banners" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Manage Home Collection Banners</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke Gold aur Silver collection banners set karein</p>
+                        
+                        <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-3xl">
+                            <form onsubmit="saveBanners(event)">
+                                <div class="space-y-8">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image (Upload from Device)</label>
+                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark hover:file:bg-gold-400 cursor-pointer" onchange="previewBannerImage(event, 'gold')">
+                                        <div class="mt-3 flex items-center space-x-4">
+                                            <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
+                                            <img id="prev-gold-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-neutral-800 pt-6">
+                                        <label class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image (Upload from Device)</label>
+                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-dark hover:file:bg-silver-300 cursor-pointer" onchange="previewBannerImage(event, 'silver')">
+                                        <div class="mt-3 flex items-center space-x-4">
+                                            <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
+                                            <img id="prev-silver-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all">Save Collection Banners</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-auth-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Change Admin Username & Password</h2>
+                        <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-3xl">
+                            <form onsubmit="saveCredentials(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Username</label><input type="text" id="new-admin-user" required class="w-full p-4 border border-neutral-700 rounded-xl outline-none font-bold text-sm bg-neutral-800 text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Password</label><input type="password" id="new-admin-pass" required class="w-full p-4 border border-neutral-700 rounded-xl outline-none font-bold text-sm bg-neutral-800 text-white"></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all">Update Credentials</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- ADD PRODUCT -->
+                    <div id="admin-tab-add-product" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece & Auto-Calculate</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Wazan aur making charges daalte hi system live rate ke mutabiq price khud calculate kar lega</p>
+                        
+                        <form id="add-product-form" class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-4xl" onsubmit="handleAddProduct(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Name</label><input type="text" id="p-name" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Metal Type</label>
+                                    <select id="p-metal" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold">
+                                        <option value="Gold">Gold</option>
+                                        <option value="Silver">Silver</option>
+                                    </select>
+                                </div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Category Selection</label>
+                                    <select id="p-cat" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold">
+                                        <option value="Necklace">Necklace</option>
+                                        <option value="Ring">Ring</option>
+                                        <option value="Bangle">Bangle</option>
+                                        <option value="Payal">Payal</option>
+                                        <option value="Earring">Earring</option>
+                                        <option value="Bracelet">Bracelet</option>
+                                        <option value="Pendant">Pendant</option>
+                                    </select>
+                                </div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Weight (Grams)</label><input type="number" step="0.01" id="p-weight" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Making Charges (Total in ₹)</label><input type="number" id="p-making" placeholder="e.g. 2000" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Availability</label>
+                                    <select id="p-avail" class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"><option value="Available">Available</option><option value="Out of Stock">Out of Stock</option></select>
+                                </div>
+                                <div class="md:col-span-2"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Image (Upload from Device)</label>
+                                    <input type="file" id="p-image" accept="image/*" class="w-full border border-neutral-700 p-2 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewImage(event)">
+                                    <img id="p-image-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-neutral-700 shadow-sm">
+                                </div>
+                            </div>
+                            <div class="mb-8"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Short Description</label><textarea id="p-desc" rows="3" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm"></textarea></div>
+                            <button type="submit" class="gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all">Calculate & Save to Catalog</button>
+                        </form>
+                    </div>
+
+                    <div id="admin-tab-manage-products" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif">Inventory Management</h2>
+                        <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[650px]">
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Item</th><th class="p-4 sm:p-5">Metal</th><th class="p-4 sm:p-5">Weight</th><th class="p-4 sm:p-5">Live Calculated Price</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-products-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-enquiries" class="admin-content hidden">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Product Enquiries</h2>
+                            <select id="enquiry-filter" class="border border-neutral-700 bg-neutral-800 text-white p-2.5 rounded-xl outline-none font-bold text-xs uppercase" onchange="renderEnquiriesTable()">
+                                <option value="All">All Records</option><option value="Pending">Pending</option><option value="Contacted">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Customer</th><th class="p-4 sm:p-5">Product Ref</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-enquiries-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-messages" class="admin-content hidden">
+                        <div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Customer Messages</h2></div>
+                        <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Sender Details</th><th class="p-4 sm:p-5">Message</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-messages-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Shop Contact Details</h2>
+                        <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-3xl">
+                            <form onsubmit="saveShopSettings(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Phone Number</label><input type="text" id="set-phone" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Email Address</label><input type="email" id="set-email" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Store Address</label><textarea id="set-address" rows="3" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white"></textarea></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-about-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Edit "About Us" Page</h2>
+                        <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-4xl">
+                            <form onsubmit="saveAboutSettings(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Main Heading</label><input type="text" id="set-about-title" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Shop Story</label><textarea id="set-about-story" rows="6" required class="w-full p-4 border border-neutral-700 rounded-xl bg-neutral-800 text-white"></textarea></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all">Update Page</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-darker text-gray-300 pt-16 sm:pt-20 pb-10 border-t-[4px] border-gold-500">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-16 mb-12 sm:mb-16">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-4 sm:mb-6 uppercase tracking-widest">Rani Jewellers</h2>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6 sm:mb-8 font-light" id="footer-about-story">Crafting elegance since 2026. Every piece tells a story of luxury.</p>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-500 uppercase tracking-widest border-b border-gray-800 pb-3">Quick Links</h3>
+                <ul class="space-y-3 sm:space-y-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    <li><a href="#" onclick="navigate('home')" class="hover:text-gold-500">Home</a></li>
+                    <li><a href="#" onclick="navigate('shop')" class="hover:text-gold-500">Our Collections</a></li>
+                    <li><a href="#" onclick="navigate('about')" class="hover:text-gold-500">About Us</a></li>
+                    <li><a href="#" onclick="navigate('contact')" class="hover:text-gold-500">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-500 uppercase tracking-widest border-b border-gray-800 pb-3">Contact Boutique</h3>
+                <ul class="space-y-4 sm:space-y-5 text-sm text-gray-400 font-light">
+                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-4 text-gold-500"></i><span class="dynamic-address">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-phone mr-4 text-gold-500"></i><span class="dynamic-phone font-bold">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-envelope mr-4 text-gold-500"></i><span class="dynamic-email">Loading...</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-gray-800 pt-6 sm:pt-8 px-4">
+            <p>Copyright © 2026 Rani Jewellers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating -->
+    <a href="#" target="_blank" class="whatsapp-float" id="wa-btn"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Enquiry Modal -->
+    <div id="enquiry-modal" class="fixed inset-0 bg-darker/90 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative">
+            <button onclick="closeEnquiryModal()" class="absolute top-5 right-5 sm:top-6 sm:right-6 text-gray-400 hover:text-red-500"><i class="fas fa-times text-2xl"></i></button>
+            <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-6 text-dark">Reserve Request</h3>
+            <form onsubmit="submitEnquiry(event)">
+                <div class="mb-6 sm:mb-8 bg-gray-50 p-4 sm:p-5 rounded-xl border">
+                    <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-2">Selected Masterpiece</p>
+                    <p class="font-serif text-lg sm:text-xl font-bold text-dark"><span id="enq-product-name"></span></p>
+                    <p class="text-gold-600 text-xs font-bold uppercase tracking-wider mt-1">REF: <span id="enq-product-id"></span></p>
+                </div>
+                <input type="hidden" id="enq-pid"><input type="hidden" id="enq-pname">
+                <div class="space-y-5 sm:space-y-6 mb-6 sm:mb-8">
+                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm"></div>
+                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm"></div>
+                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm"></div>
+                </div>
+                <button type="submit" class="w-full bg-dark text-white py-3.5 sm:py-4 rounded-lg font-bold uppercase text-xs hover:bg-gold-500 shadow-xl">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- MARKET RATES & DATABASES ---
+        let marketRates = JSON.parse(localStorage.getItem('rani_market_rates')) || { gold: 72000, silver: 900 };
+        let collectionBanners = JSON.parse(localStorage.getItem('rani_collection_banners')) || {
+            gold: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
+            silver: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800'
+        };
+
+        let products = JSON.parse(localStorage.getItem('rani_products')) || [
+            { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 22k gold bridal necklace.', avail: 'Available', image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', date: Date.now() },
+            { id: 'RJ-102', name: 'Diamond Studded Gold Ring', metal: 'Gold', category: 'Ring', weight: 5.2, making: 3500, desc: 'Elegant engagement ring.', avail: 'Available', image: 'https://images.unsplash.com/photo-1605100804763-247f66120585?w=500', date: Date.now()-1000 },
+            { id: 'RJ-103', name: 'Sterling Silver Payal', metal: 'Silver', category: 'Payal', weight: 85.0, making: 1500, desc: 'Traditional 925 sterling silver anklets.', avail: 'Available', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500', date: Date.now()-2000 }
+        ];
+
+        let enquiries = JSON.parse(localStorage.getItem('rani_enquiries')) || [];
+        let contactMessages = JSON.parse(localStorage.getItem('rani_messages')) || [];
+        
+        let shopDetails = JSON.parse(localStorage.getItem('rani_shop_settings')) || { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
+        let aboutDetails = JSON.parse(localStorage.getItem('rani_about_settings')) || { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery. With a legacy of crafting beautiful, high-quality pieces, we believe that every special moment deserves to be celebrated with elegance.' };
+        
+        let adminAuth = JSON.parse(localStorage.getItem('rani_admin_credentials')) || { user: 'admin', pass: 'Rani@123' };
+        let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
+
+        function saveData() {
+            localStorage.setItem('rani_products', JSON.stringify(products));
+            localStorage.setItem('rani_market_rates', JSON.stringify(marketRates));
+            localStorage.setItem('rani_collection_banners', JSON.stringify(collectionBanners));
+            localStorage.setItem('rani_enquiries', JSON.stringify(enquiries));
+            localStorage.setItem('rani_messages', JSON.stringify(contactMessages));
+            localStorage.setItem('rani_shop_settings', JSON.stringify(shopDetails));
+            localStorage.setItem('rani_about_settings', JSON.stringify(aboutDetails));
+            localStorage.setItem('rani_admin_credentials', JSON.stringify(adminAuth));
+        }
+
+        // --- AUTO LIVE PRICE CALCULATOR ---
+        function calculateProductPrice(p) {
+            let baseValue = 0;
+            if(p.metal === 'Gold') {
+                let pureRatePerGram = (marketRates.gold / 10) * 0.916;
+                baseValue = p.weight * pureRatePerGram;
+            } else {
+                let ratePerGram = marketRates.silver / 10;
+                baseValue = p.weight * ratePerGram;
+            }
+            let subTotal = baseValue + (p.making || 0);
+            let gst = subTotal * 0.03;
+            return Math.round(subTotal + gst);
+        }
+
+        function saveDailyRates(e) {
+            e.preventDefault();
+            marketRates.gold = parseFloat(document.getElementById('admin-gold-rate').value) || 72000;
+            marketRates.silver = parseFloat(document.getElementById('admin-silver-rate').value) || 900;
+            saveData();
+            updateMarketTickers();
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Daily Rates Updated!', showConfirmButton: false, timer: 2000 });
+        }
+
+        let tempBannerGold = '';
+        let tempBannerSilver = '';
+
+        function previewBannerImage(event, type) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(type === 'gold') {
+                    tempBannerGold = e.target.result;
+                    document.getElementById('prev-gold-img').src = tempBannerGold;
+                } else {
+                    tempBannerSilver = e.target.result;
+                    document.getElementById('prev-silver-img').src = tempBannerSilver;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function saveBanners(e) {
+            e.preventDefault();
+            if(tempBannerGold) collectionBanners.gold = tempBannerGold;
+            if(tempBannerSilver) collectionBanners.silver = tempBannerSilver;
+            saveData();
+            applyDynamicSettings();
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Home Collection Banners Updated!', showConfirmButton: false, timer: 2000 });
+        }
+
+        function updateMarketTickers() {
+            document.getElementById('ticker-gold-rate').innerText = '₹' + marketRates.gold.toLocaleString('en-IN');
+            document.getElementById('ticker-silver-rate').innerText = '₹' + marketRates.silver.toLocaleString('en-IN');
+            if(document.getElementById('admin-gold-rate')) {
+                document.getElementById('admin-gold-rate').value = marketRates.gold;
+                document.getElementById('admin-silver-rate').value = marketRates.silver;
+            }
+        }
+
+        function filterByMetal(metalName) {
+            navigate('shop');
+            setTimeout(() => {
+                const radios = document.querySelectorAll('input[name="metal"]');
+                radios.forEach(r => {
+                    if(r.value === metalName) { r.checked = true; renderShop(); }
+                });
+            }, 100);
+        }
+
+        function forgotPassword() {
+            Swal.fire({
+                title: 'Reset Admin Credentials',
+                text: 'Security Verification: Enter your shop registered mobile number to reset password.',
+                input: 'text',
+                inputPlaceholder: 'Enter mobile number...',
+                showCancelButton: true,
+                confirmButtonColor: '#D4AF37',
+                confirmButtonText: 'Reset Password'
+            }).then((result) => {
+                if (result.value) {
+                    let cleanInput = result.value.replace(/[^0-9]/g, '');
+                    let cleanShopPhone = shopDetails.phone.replace(/[^0-9]/g, '');
+                    
+                    if (cleanInput === cleanShopPhone || result.value === '9876543210') {
+                        adminAuth = { user: 'admin', pass: 'Rani@123' };
+                        saveData();
+                        Swal.fire('Reset Successful!', 'Password reset to default.\nUsername: admin\nPassword: Rani@123', 'success');
+                    } else {
+                        Swal.fire('Error', 'Incorrect registered mobile number.', 'error');
+                    }
+                }
+            });
+        }
+
+        function applyDynamicSettings() {
+            updateMarketTickers();
+            document.querySelectorAll('.dynamic-phone').forEach(el => el.innerText = shopDetails.phone);
+            document.querySelectorAll('.dynamic-email').forEach(el => el.innerText = shopDetails.email);
+            document.querySelectorAll('.dynamic-address').forEach(el => el.innerText = shopDetails.address);
+            document.getElementById('wa-btn').href = `https://wa.me/${shopDetails.phone.replace(/[^0-9]/g, '')}`;
+            if(document.getElementById('set-phone')) { document.getElementById('set-phone').value = shopDetails.phone; document.getElementById('set-email').value = shopDetails.email; document.getElementById('set-address').value = shopDetails.address; }
+
+            document.getElementById('dyn-about-title').innerText = aboutDetails.title;
+            document.getElementById('dyn-about-story').innerText = aboutDetails.story;
+            document.getElementById('footer-about-story').innerText = aboutDetails.story.substring(0, 100) + '...';
+            if(document.getElementById('set-about-title')) { document.getElementById('set-about-title').value = aboutDetails.title; document.getElementById('set-about-story').value = aboutDetails.story; }
+            if(document.getElementById('new-admin-user')) { document.getElementById('new-admin-user').value = adminAuth.user; document.getElementById('new-admin-pass').value = adminAuth.pass; }
+
+            // Banners
+            document.getElementById('home-gold-banner').src = collectionBanners.gold;
+            document.getElementById('home-silver-banner').src = collectionBanners.silver;
+            if(document.getElementById('prev-gold-img')) {
+                document.getElementById('prev-gold-img').src = collectionBanners.gold;
+                document.getElementById('prev-silver-img').src = collectionBanners.silver;
+            }
+        }
+
+        function saveShopSettings(e) { e.preventDefault(); shopDetails = { phone: document.getElementById('set-phone').value, email: document.getElementById('set-email').value, address: document.getElementById('set-address').value }; saveData(); applyDynamicSettings(); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 }); }
+        function saveAboutSettings(e) { e.preventDefault(); aboutDetails = { title: document.getElementById('set-about-title').value, story: document.getElementById('set-about-story').value }; saveData(); applyDynamicSettings(); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 }); }
+        
+        function saveCredentials(e) {
+            e.preventDefault();
+            adminAuth.user = document.getElementById('new-admin-user').value;
+            adminAuth.pass = document.getElementById('new-admin-pass').value;
+            saveData();
+            Swal.fire({ title: 'Credentials Updated!', text: 'Aapka naya username aur password save ho gaya hai.', icon: 'success', confirmButtonColor: '#D4AF37' });
+        }
+
+        function handleGeneralContact(e) {
+            e.preventDefault();
+            contactMessages.unshift({ id: 'MSG-' + Math.floor(Math.random()*10000), name: document.getElementById('contact-name').value, phone: document.getElementById('contact-phone').value, message: document.getElementById('contact-msg').value, date: new Date().toLocaleDateString() });
+            saveData();
+            Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
+            e.target.reset();
+            if(isLoggedIn) updateDashboardStats();
+        }
+
+        function navigate(pageId) {
+            if (isLoggedIn && pageId !== 'admin-dashboard' && pageId !== 'admin-login') { isLoggedIn = false; localStorage.setItem('rani_admin_auth', 'false'); document.getElementById('nav-admin-btn').textContent = 'Admin Portal'; }
+            if(pageId === 'admin-dashboard' && !isLoggedIn) return navigate('admin-login');
+            if(pageId === 'admin-login' && isLoggedIn) return navigate('admin-dashboard');
+
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active'); window.scrollTo(0,0);
+            if(pageId === 'home') renderHome();
+            if(pageId === 'shop') renderShop();
+            if(pageId === 'admin-dashboard') { updateDashboardStats(); renderAdminProductsTable(); renderEnquiriesTable(); renderMessagesTable(); applyDynamicSettings(); }
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('hidden'));
+
+        function renderHome() {
+            const container = document.getElementById('home-featured-products');
+            const latest = [...products].sort((a,b) => b.date - a.date).slice(0, 3);
+            container.innerHTML = latest.map(p => {
+                let livePrice = calculateProductPrice(p);
+                return `
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border flex flex-col group" onclick="viewProductDetails('${p.id}')">
+                        <div class="h-72 sm:h-80 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="p-6 sm:p-8 text-center flex-grow flex flex-col justify-between">
+                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-lg sm:text-xl font-serif font-bold text-dark">${p.name}</h3></div>
+                            <p class="text-base sm:text-lg font-bold ${p.metal==='Gold'?'text-gold-600':'text-gray-600'} mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderShop() {
+            const container = document.getElementById('shop-products-grid');
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const metalFilter = document.querySelector('input[name="metal"]:checked').value;
+            
+            let filtered = products.filter(p => {
+                let matchSearch = p.name.toLowerCase().includes(search) || p.id.toLowerCase().includes(search) || p.category.toLowerCase().includes(search);
+                let matchMetal = metalFilter === 'All' || p.metal === metalFilter;
+                return matchSearch && matchMetal;
+            });
+            
+            container.innerHTML = filtered.map(p => {
+                let livePrice = calculateProductPrice(p);
+                return `
+                    <div class="bg-white rounded-xl shadow-sm border overflow-hidden card-hover flex flex-col group">
+                        <div class="relative cursor-pointer h-64 sm:h-72 overflow-hidden" onclick="viewProductDetails('${p.id}')">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-gray-600'}">${p.metal}</span>
+                        </div>
+                        <div class="p-5 sm:p-6 flex-grow flex flex-col bg-white">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${p.category} • Wt: ${p.weight}g</span>
+                            <h3 class="text-lg sm:text-xl font-serif font-bold text-dark line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
+                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-lg sm:text-xl font-bold ${p.metal==='Gold'?'text-gold-600':'text-gray-700'}">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-dark group-hover:text-white transition-all"><i class="fas fa-arrow-right"></i></button></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewProductDetails(id) {
+            const p = products.find(x => x.id === id); if(!p) return;
+            let livePrice = calculateProductPrice(p);
+            document.getElementById('product-detail-container').innerHTML = `
+                <div class="w-full md:w-1/2 bg-gray-50 flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[400px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-white"></div>
+                <div class="w-full md:w-1/2 p-6 sm:p-12 md:p-16 flex flex-col justify-center bg-white">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-gray-600'}">${p.metal}</span>
+                        <span class="text-[10px] font-bold text-white bg-dark px-3 py-1 rounded-full uppercase tracking-widest">${p.category}</span>
+                        <span class="text-[10px] font-bold text-gray-700 bg-gray-100 px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${p.weight}g</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-3 sm:mb-4 text-dark">${p.name}</h1>
+                    <p class="text-2xl sm:text-3xl font-bold ${p.metal==='Gold'?'text-gold-600':'text-gray-700'} mb-2">₹${livePrice.toLocaleString('en-IN')}</p>
+                    <p class="text-[10px] sm:text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-6 sm:mb-8">Calculated live based on today's ${p.metal} market rate (per 10g) + making charges + 3% GST</p>
+                    <p class="text-gray-500 leading-relaxed mb-6 sm:mb-8 text-sm">${p.desc}</p>
+                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-4 sm:py-5 bg-dark text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-xl hover:bg-gold-500 transition-colors">Reserve Masterpiece</button>` : `<button disabled class="w-full py-4 sm:py-5 bg-gray-100 text-gray-400 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
+                </div>
+            `;
+            navigate('detail');
+        }
+
+        function openEnquiryModal(id) {
+            const p = products.find(x => x.id === id);
+            document.getElementById('enq-pid').value = p.id; document.getElementById('enq-pname').value = p.name;
+            document.getElementById('enq-product-id').innerText = p.id; document.getElementById('enq-product-name').innerText = p.name;
+            document.getElementById('enquiry-modal').classList.remove('hidden');
+        }
+        function closeEnquiryModal() { document.getElementById('enquiry-modal').classList.add('hidden'); }
+        
+        function submitEnquiry(e) {
+            e.preventDefault();
+            enquiries.push({ id: 'ENQ-' + Math.floor(Math.random()*10000), pid: document.getElementById('enq-pid').value, pname: document.getElementById('enq-pname').value, name: document.getElementById('enq-name').value, phone: document.getElementById('enq-phone').value, city: document.getElementById('enq-city').value, status: 'Pending', date: new Date().toLocaleDateString() });
+            saveData(); closeEnquiryModal(); Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' }); e.target.reset();
+        }
+
+        function handleSimpleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('simple-user').value;
+            const p = document.getElementById('simple-pass').value;
+            
+            if(u === adminAuth.user && p === adminAuth.pass) {
+                isLoggedIn = true; localStorage.setItem('rani_admin_auth', 'true');
+                document.getElementById('nav-admin-btn').textContent = 'Dashboard';
+                document.getElementById('simple-user').value = ''; document.getElementById('simple-pass').value = '';
+                Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Login Successful', showConfirmButton: false, timer: 1500 });
+                setTimeout(() => navigate('admin-dashboard'), 500);
+            } else {
+                Swal.fire('Error', 'Incorrect Username or Password', 'error');
+            }
+        }
+
+        function handleLogout(showMsg = false) { isLoggedIn = false; localStorage.setItem('rani_admin_auth', 'false'); document.getElementById('nav-admin-btn').textContent = 'Admin Portal'; navigate('home'); if(showMsg) Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: 'Logged Out', showConfirmButton: false, timer: 1500 }); }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden')); document.getElementById('admin-tab-' + tab).classList.remove('hidden');
+            document.querySelectorAll('.admin-tab').forEach(el => { el.classList.remove('active'); el.classList.add('text-neutral-400', 'hover:bg-neutral-800/80', 'hover:text-white'); });
+            const activeTab = document.getElementById('tab-' + tab); activeTab.classList.remove('text-neutral-400', 'hover:bg-neutral-800/80', 'hover:text-white'); activeTab.classList.add('active');
+        }
+
+        function updateDashboardStats() {
+            document.getElementById('stat-products').innerText = products.length;
+            document.getElementById('stat-enquiries').innerText = enquiries.length;
+            document.getElementById('stat-messages').innerText = contactMessages.length;
+            const pendingEnq = enquiries.filter(e => e.status === 'Pending').length;
+            document.getElementById('stat-pending').innerText = pendingEnq;
+            
+            const badgeEnq = document.getElementById('badge-pending');
+            if(pendingEnq > 0) { badgeEnq.innerText = pendingEnq; badgeEnq.classList.remove('hidden'); } else { badgeEnq.classList.add('hidden'); }
+            const badgeMsg = document.getElementById('badge-messages');
+            if(contactMessages.length > 0) { badgeMsg.innerText = contactMessages.length; badgeMsg.classList.remove('hidden'); } else { badgeMsg.classList.add('hidden'); }
+        }
+
+        let tempBase64Image = '';
+        function previewImage(event) { const file = event.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = function(e) { tempBase64Image = e.target.result; const preview = document.getElementById('p-image-preview'); preview.src = tempBase64Image; preview.classList.remove('hidden'); }; reader.readAsDataURL(file); }
+
+        function handleAddProduct(e) {
+            e.preventDefault();
+            products.unshift({ 
+                id: 'RJ-' + (1000 + products.length), 
+                name: document.getElementById('p-name').value, 
+                metal: document.getElementById('p-metal').value,
+                category: document.getElementById('p-cat').value, 
+                weight: parseFloat(document.getElementById('p-weight').value), 
+                making: parseFloat(document.getElementById('p-making').value) || 0,
+                desc: document.getElementById('p-desc').value, 
+                avail: document.getElementById('p-avail').value, 
+                image: tempBase64Image || 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', 
+                date: Date.now() 
+            });
+            saveData(); e.target.reset(); document.getElementById('p-image-preview').classList.add('hidden'); tempBase64Image = '';
+            Swal.fire({ title: 'Product Added & Auto-Calculated!', text: 'New item successfully added to inventory with live market pricing.', icon: 'success', confirmButtonColor: '#D4AF37' }); 
+            updateDashboardStats(); renderAdminProductsTable(); switchAdminTab('manage-products');
+        }
+
+        function renderAdminProductsTable() {
+            document.getElementById('admin-products-table').innerHTML = products.map(p => {
+                let livePrice = calculateProductPrice(p);
+                return `
+                    <tr class="hover:bg-neutral-800/40 transition-colors">
+                        <td class="p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4"><img src="${p.image}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-neutral-700"><div><p class="font-bold text-xs sm:text-sm text-white">${p.name}</p><p class="text-[10px] text-neutral-400 font-bold uppercase">${p.id}</p></div></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase text-white ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span></td>
+                        <td class="p-4 sm:p-5 text-xs sm:text-sm font-bold text-neutral-300">${p.weight}g (${p.category})</td>
+                        <td class="p-4 sm:p-5 text-xs sm:text-sm font-bold ${p.metal==='Gold'?'text-gold-400':'text-neutral-300'}">₹${livePrice.toLocaleString()}</td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase ${p.avail==='Available'?'bg-green-500/20 text-green-400 border border-green-500/30':'bg-red-500/20 text-red-400 border border-red-500/30'}">${p.avail}</span></td>
+                        <td class="p-4 sm:p-5 text-right"><button onclick="toggleAvailability('${p.id}')" class="text-blue-400 p-2 hover:text-white"><i class="fas fa-sync-alt"></i></button><button onclick="deleteProduct('${p.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+        function toggleAvailability(id) { const p = products.find(x => x.id === id); if(p) { p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; saveData(); renderAdminProductsTable(); } }
+        function deleteProduct(id) { Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { products = products.filter(p => p.id !== id); saveData(); renderAdminProductsTable(); updateDashboardStats(); } }); }
+
+        function renderEnquiriesTable() {
+            const filter = document.getElementById('enquiry-filter').value; let filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
+            document.getElementById('admin-enquiries-table').innerHTML = filtered.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Enquiries Found</td></tr>' : filtered.map(e => `
+                <tr class="hover:bg-neutral-800/45 transition-colors">
+                    <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${e.date}</td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.name}</p><p class="text-[11px] text-blue-400 font-bold">${e.phone}</p></td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.pname}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${e.pid}</p></td>
+                    <td class="p-4 sm:p-5"><button onclick="toggleEnquiryStatus('${e.id}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button></td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteEnquiry('${e.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+        function toggleEnquiryStatus(id) { const enq = enquiries.find(e => e.id === id); if(enq) { enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; saveData(); renderEnquiriesTable(); updateDashboardStats(); } }
+        function deleteEnquiry(id) { Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { enquiries = enquiries.filter(e => e.id !== id); saveData(); renderEnquiriesTable(); updateDashboardStats(); } }); }
+
+        function renderMessagesTable() {
+            document.getElementById('admin-messages-table').innerHTML = contactMessages.length === 0 ? '<tr><td colspan="4" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Messages Found</td></tr>' : contactMessages.map(m => `
+                <tr class="hover:bg-neutral-800/40 transition-colors">
+                    <td class="p-4 sm:p-5 text-[10px] font-bold text-neutral-400 uppercase">${m.date}</td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${m.name}</p><p class="text-[11px] text-blue-400 font-bold">${m.phone}</p></td>
+                    <td class="p-4 sm:p-5"><p class="text-xs sm:text-sm text-neutral-300 bg-black/40 p-3 rounded-xl border border-neutral-800">${m.message}</p></td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteMessage('${m.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+        function deleteMessage(id) { Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { contactMessages = contactMessages.filter(m => m.id !== id); saveData(); renderMessagesTable(); updateDashboardStats(); } }); }
+
+        window.onload = () => { applyDynamicSettings(); navigate('home'); };
+    </script>
+</body>
+</html>
