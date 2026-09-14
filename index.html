@@ -193,7 +193,7 @@
                     <div class="w-full lg:w-1/2">
                         <div class="relative">
                             <div class="absolute inset-0 bg-gold-500 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-xl -z-10"></div>
-                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-2xl w-full h-[350px] sm:h-[500px] object-cover" alt="About Rani Jewellers">
+                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?lib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-2xl w-full h-[350px] sm:h-[500px] object-cover" alt="About Rani Jewellers">
                         </div>
                     </div>
                     <div class="w-full lg:w-1/2 space-y-6 sm:space-y-8">
@@ -288,7 +288,7 @@
             </div>
         </div>
 
-        <!-- ADMIN LOGIN PAGE -->
+        <!-- ADMIN LOGIN PAGE (SECURED) -->
         <div id="admin-login" class="page">
             <div class="min-h-[80vh] flex items-center justify-center bg-darker py-12 px-4">
                 <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10">
@@ -297,16 +297,22 @@
                         <h2 class="text-2xl sm:text-3xl font-serif font-bold text-dark">Admin Portal</h2>
                         <p class="mt-2 text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
-                    <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
+                    <!-- autocomplete="off" aur fake attributes lagaye hain taaki browser password save na kare -->
+                    <form class="mt-8 sm:mt-10 space-y-6" autocomplete="off" onsubmit="handleSimpleLogin(event)">
+                        <input type="text" style="display:none">
+                        <input type="password" style="display:none">
+                        
                         <div class="space-y-4 sm:space-y-5">
-                            <div><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Username</label><input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold"></div>
-                            <div><label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Password</label><input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold"></div>
+                            <div>
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Username</label>
+                                <input id="simple-user" type="text" autocomplete="new-password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Password</label>
+                                <input id="simple-pass" type="password" autocomplete="new-password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                            </div>
                         </div>
                         <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-lg text-white bg-dark hover:bg-gold-500 transition-all shadow-lg">Authenticate</button>
-                        
-                        <div class="text-center mt-4">
-                            <a href="#" onclick="forgotPassword()" class="text-xs text-gold-600 font-bold hover:underline">Forgot Password / Reset to Default?</a>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -484,6 +490,7 @@
                         </div>
                     </div>
 
+                    <!-- PRODUCT ENQUIRIES TAB -->
                     <div id="admin-tab-enquiries" class="admin-content hidden">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
                             <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Product Enquiries</h2>
@@ -493,17 +500,18 @@
                         </div>
                         <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[700px]">
-                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Customer</th><th class="p-4 sm:p-5">Product Ref</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Customer</th><th class="p-4 sm:p-5">Product Ref</th><th class="p-4 sm:p-5">Status & WhatsApp</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
                                 <tbody id="admin-enquiries-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
                             </table>
                         </div>
                     </div>
 
+                    <!-- CUSTOMER MESSAGES TAB -->
                     <div id="admin-tab-messages" class="admin-content hidden">
                         <div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Customer Messages</h2></div>
                         <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[700px]">
-                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Sender Details</th><th class="p-4 sm:p-5">Message</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Sender Details</th><th class="p-4 sm:p-5">Message & WhatsApp</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
                                 <tbody id="admin-messages-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
                             </table>
                         </div>
@@ -597,6 +605,32 @@
         </div>
     </div>
 
+    <!-- ADMIN WHATSAPP REPLY POPUP MODAL -->
+    <div id="reply-modal" class="fixed inset-0 bg-darker/90 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
+            <button onclick="closeReplyModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-lg"><i class="fab fa-whatsapp"></i></div>
+                <div>
+                    <h3 class="text-lg font-serif font-bold text-white">Reply via WhatsApp</h3>
+                    <p class="text-xs text-neutral-400">To: <span id="reply-cust-name" class="font-bold text-gold-400"></span> (<span id="reply-cust-phone" class="text-blue-400"></span>)</p>
+                </div>
+            </div>
+            
+            <div class="my-6">
+                <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Type Message:</label>
+                <textarea id="reply-msg-text" rows="4" class="w-full p-3.5 bg-neutral-800 border border-neutral-700 rounded-xl outline-none text-sm text-white focus:border-gold-500" placeholder="Type your response here..."></textarea>
+            </div>
+            
+            <div class="flex space-x-3">
+                <button onclick="closeReplyModal()" class="w-1/2 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold py-3.5 rounded-xl uppercase text-xs tracking-wider transition-all">Cancel</button>
+                <button onclick="sendWhatsAppReplyNow()" class="w-1/2 bg-green-600 hover:bg-green-500 text-white font-extrabold py-3.5 rounded-xl uppercase text-xs tracking-wider shadow-lg transition-all flex items-center justify-center">
+                    <i class="fab fa-whatsapp mr-1.5 text-base"></i> Send Now
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- MARKET RATES & DATABASES ---
         let marketRates = JSON.parse(localStorage.getItem('rani_market_rates')) || { gold: 72000, silver: 900 };
@@ -611,8 +645,15 @@
             { id: 'RJ-103', name: 'Sterling Silver Payal', metal: 'Silver', category: 'Payal', weight: 85.0, making: 1500, desc: 'Traditional 925 sterling silver anklets.', avail: 'Available', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500', date: Date.now()-2000 }
         ];
 
-        let enquiries = JSON.parse(localStorage.getItem('rani_enquiries')) || [];
-        let contactMessages = JSON.parse(localStorage.getItem('rani_messages')) || [];
+        let enquiries = JSON.parse(localStorage.getItem('rani_enquiries')) || [
+            { id: 'ENQ-101', pid: 'RJ-102', pname: 'diamand Ring', name: 'Rohit kumar', phone: '7250124657', city: 'Patna', status: 'Pending', date: '14/09/2026' },
+            { id: 'ENQ-102', pid: 'RJ-103', pname: 'Jumka', name: 'Salman khan', phone: '98745985287', city: 'Mumbai', status: 'Pending', date: '14/09/2026' }
+        ];
+
+        let contactMessages = JSON.parse(localStorage.getItem('rani_messages')) || [
+            { id: 'MSG-101', name: 'Rohit', phone: '7250124657', message: 'i can intersted in your prouct', date: '14/09/2026' },
+            { id: 'MSG-102', name: 'Rohit kumar', phone: '7250124657', message: 'i can intersted in your prouct', date: '14/09/2026 19:59:04' }
+        ];
         
         let shopDetails = JSON.parse(localStorage.getItem('rani_shop_settings')) || { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
         let aboutDetails = JSON.parse(localStorage.getItem('rani_about_settings')) || { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery. With a legacy of crafting beautiful, high-quality pieces, we believe that every special moment deserves to be celebrated with elegance.' };
@@ -700,31 +741,6 @@
                     if(r.value === metalName) { r.checked = true; renderShop(); }
                 });
             }, 100);
-        }
-
-        function forgotPassword() {
-            Swal.fire({
-                title: 'Reset Admin Credentials',
-                text: 'Security Verification: Enter your shop registered mobile number to reset password.',
-                input: 'text',
-                inputPlaceholder: 'Enter mobile number...',
-                showCancelButton: true,
-                confirmButtonColor: '#D4AF37',
-                confirmButtonText: 'Reset Password'
-            }).then((result) => {
-                if (result.value) {
-                    let cleanInput = result.value.replace(/[^0-9]/g, '');
-                    let cleanShopPhone = shopDetails.phone.replace(/[^0-9]/g, '');
-                    
-                    if (cleanInput === cleanShopPhone || result.value === '9876543210') {
-                        adminAuth = { user: 'admin', pass: 'Rani@123' };
-                        saveData();
-                        Swal.fire('Reset Successful!', 'Password reset to default.\nUsername: admin\nPassword: Rani@123', 'success');
-                    } else {
-                        Swal.fire('Error', 'Incorrect registered mobile number.', 'error');
-                    }
-                }
-            });
         }
 
         function applyDynamicSettings() {
@@ -950,7 +966,10 @@
                     <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${e.date}</td>
                     <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.name}</p><p class="text-[11px] text-blue-400 font-bold">${e.phone}</p></td>
                     <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.pname}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${e.pid}</p></td>
-                    <td class="p-4 sm:p-5"><button onclick="toggleEnquiryStatus('${e.id}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button></td>
+                    <td class="p-4 sm:p-5 flex items-center space-x-3">
+                        <button onclick="toggleEnquiryStatus('${e.id}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button>
+                        <button onclick="openReplyModal('${e.name}', '${e.phone}', 'Enquiry for ${e.pname}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
+                    </td>
                     <td class="p-4 sm:p-5 text-right"><button onclick="deleteEnquiry('${e.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
                 </tr>
             `).join('');
@@ -958,16 +977,46 @@
         function toggleEnquiryStatus(id) { const enq = enquiries.find(e => e.id === id); if(enq) { enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; saveData(); renderEnquiriesTable(); updateDashboardStats(); } }
         function deleteEnquiry(id) { Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { enquiries = enquiries.filter(e => e.id !== id); saveData(); renderEnquiriesTable(); updateDashboardStats(); } }); }
 
+        let activeReplyPhone = '';
+        let activeReplyName = '';
+
         function renderMessagesTable() {
             document.getElementById('admin-messages-table').innerHTML = contactMessages.length === 0 ? '<tr><td colspan="4" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Messages Found</td></tr>' : contactMessages.map(m => `
                 <tr class="hover:bg-neutral-800/40 transition-colors">
                     <td class="p-4 sm:p-5 text-[10px] font-bold text-neutral-400 uppercase">${m.date}</td>
                     <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${m.name}</p><p class="text-[11px] text-blue-400 font-bold">${m.phone}</p></td>
-                    <td class="p-4 sm:p-5"><p class="text-xs sm:text-sm text-neutral-300 bg-black/40 p-3 rounded-xl border border-neutral-800">${m.message}</p></td>
+                    <td class="p-4 sm:p-5 flex items-center justify-between space-x-4 bg-black/40 p-3 rounded-xl border border-neutral-800">
+                        <p class="text-xs sm:text-sm text-neutral-300">${m.message}</p>
+                        <button onclick="openReplyModal('${m.name}', '${m.phone}', '${m.message}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all shrink-0" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
+                    </td>
                     <td class="p-4 sm:p-5 text-right"><button onclick="deleteMessage('${m.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
                 </tr>
             `).join('');
         }
+
+        function openReplyModal(name, phone, contextText) {
+            activeReplyName = name;
+            activeReplyPhone = phone;
+            document.getElementById('reply-cust-name').innerText = name;
+            document.getElementById('reply-cust-phone').innerText = phone;
+            document.getElementById('reply-msg-text').value = `Hello ${name}, Thank you for contacting Rani Jewellers regarding "${contextText}". How can we assist you?`;
+            document.getElementById('reply-modal').classList.remove('hidden');
+        }
+
+        function closeReplyModal() {
+            document.getElementById('reply-modal').classList.add('hidden');
+        }
+
+        function sendWhatsAppReplyNow() {
+            let msgText = document.getElementById('reply-msg-text').value;
+            let cleanPhone = activeReplyPhone.replace(/[^0-9]/g, '');
+            if(cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+            
+            let finalUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`;
+            window.open(finalUrl, '_blank');
+            closeReplyModal();
+        }
+
         function deleteMessage(id) { Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { contactMessages = contactMessages.filter(m => m.id !== id); saveData(); renderMessagesTable(); updateDashboardStats(); } }); }
 
         window.onload = () => { applyDynamicSettings(); navigate('home'); };
