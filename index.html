@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- Firebase SDKs (Firestore Database Only) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKfYxuq7-FMC4bEFuHBUk_CMP-G9B3BPQ",
+            authDomain: "rani-jewellers-5c921.firebaseapp.com",
+            projectId: "rani-jewellers-5c921",
+            storageBucket: "rani-jewellers-5c921.firebasestorage.app",
+            messagingSenderId: "720584344566",
+            appId: "1:720584344566:web:2ad326d631e5508ed2bdd7",
+            measurementId: "G-N47DW71HTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.firebaseModules = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc };
+
+        initFirebaseApp();
+    </script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -136,7 +160,7 @@
                 </div>
             </div>
 
-            <!-- Shop by Material / Category (Side-by-side on all screens) -->
+            <!-- Shop by Material / Category -->
             <div class="max-w-7xl mx-auto px-4 py-16 sm:py-24">
                 <div class="text-center mb-12 sm:mb-16">
                     <span class="text-gold-500 text-[10px] sm:text-xs font-bold tracking-widest uppercase">Collections</span>
@@ -288,7 +312,7 @@
             </div>
         </div>
 
-        <!-- ADMIN LOGIN PAGE (SECURED) -->
+        <!-- ADMIN LOGIN PAGE -->
         <div id="admin-login" class="page">
             <div class="min-h-[80vh] flex items-center justify-center bg-darker py-12 px-4">
                 <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10">
@@ -297,19 +321,19 @@
                         <h2 class="text-2xl sm:text-3xl font-serif font-bold text-dark">Admin Portal</h2>
                         <p class="mt-2 text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
-                    <!-- autocomplete="off" aur fake attributes lagaye hain taaki browser password save na kare -->
+                    
                     <form class="mt-8 sm:mt-10 space-y-6" autocomplete="off" onsubmit="handleSimpleLogin(event)">
-                        <input type="text" style="display:none">
-                        <input type="password" style="display:none">
-                        
+                        <input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;" />
+                        <password autocomplete="new-password" style="display:none;" />
+
                         <div class="space-y-4 sm:space-y-5">
                             <div>
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Username</label>
-                                <input id="simple-user" type="text" autocomplete="new-password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                                <input id="simple-user" type="text" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
                             </div>
                             <div>
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Password</label>
-                                <input id="simple-pass" type="password" autocomplete="new-password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                                <input id="simple-pass" type="password" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
                             </div>
                         </div>
                         <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-lg text-white bg-dark hover:bg-gold-500 transition-all shadow-lg">Authenticate</button>
@@ -321,7 +345,6 @@
         <!-- ADMIN DASHBOARD -->
         <div id="admin-dashboard" class="page bg-neutral-950 min-h-screen text-gray-100">
             <div class="flex flex-col lg:flex-row min-h-screen">
-                <!-- Premium Dark Sidebar -->
                 <div class="w-full lg:w-80 bg-neutral-900 border-b lg:border-b-0 lg:border-r border-neutral-800 flex flex-col shadow-2xl z-10 shrink-0">
                     <div class="p-6 sm:p-8 border-b border-neutral-800 flex items-center bg-black/40">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gold-gradient flex items-center justify-center text-dark text-lg sm:text-xl font-bold mr-3 sm:mr-4 shadow-lg shadow-gold-500/20">
@@ -362,7 +385,6 @@
                     </div>
                 </div>
 
-                <!-- Main Content Area -->
                 <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-neutral-950">
                     <div id="admin-tab-dashboard" class="admin-content block">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif border-b border-neutral-800 pb-4">Business Overview</h2>
@@ -396,17 +418,17 @@
                         </div>
                     </div>
 
-                    <!-- HOME BANNERS CONFIGURATION TAB -->
+                    <!-- HOME BANNERS -->
                     <div id="admin-tab-banners" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Manage Home Collection Banners</h2>
-                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke Gold aur Silver collection banners set karein</p>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke banners set karein</p>
                         
                         <div class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-3xl">
                             <form onsubmit="saveBanners(event)">
                                 <div class="space-y-8">
                                     <div>
-                                        <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image (Upload from Device)</label>
-                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark hover:file:bg-gold-400 cursor-pointer" onchange="previewBannerImage(event, 'gold')">
+                                        <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image</label>
+                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewBannerImage(event, 'gold')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
                                             <img id="prev-gold-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
@@ -414,8 +436,8 @@
                                     </div>
 
                                     <div class="border-t border-neutral-800 pt-6">
-                                        <label class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image (Upload from Device)</label>
-                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-dark hover:file:bg-silver-300 cursor-pointer" onchange="previewBannerImage(event, 'silver')">
+                                        <label class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image</label>
+                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-dark cursor-pointer" onchange="previewBannerImage(event, 'silver')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
                                             <img id="prev-silver-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
@@ -442,8 +464,8 @@
 
                     <!-- ADD PRODUCT -->
                     <div id="admin-tab-add-product" class="admin-content hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece & Auto-Calculate</h2>
-                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Wazan aur making charges daalte hi system live rate ke mutabiq price khud calculate kar lega</p>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Photo direct database mein save hogi aur sabhi browsers par dikhegi</p>
                         
                         <form id="add-product-form" class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-4xl" onsubmit="handleAddProduct(event)">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
@@ -471,12 +493,12 @@
                                     <select id="p-avail" class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"><option value="Available">Available</option><option value="Out of Stock">Out of Stock</option></select>
                                 </div>
                                 <div class="md:col-span-2"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Image (Upload from Device)</label>
-                                    <input type="file" id="p-image" accept="image/*" class="w-full border border-neutral-700 p-2 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewImage(event)">
-                                    <img id="p-image-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-neutral-700 shadow-sm">
+                                    <input type="file" id="p-image-file" accept="image/*" required class="w-full border border-neutral-700 p-2 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewProductImage(event)">
+                                    <img id="p-img-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-neutral-700 shadow-sm">
                                 </div>
                             </div>
                             <div class="mb-8"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Short Description</label><textarea id="p-desc" rows="3" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm"></textarea></div>
-                            <button type="submit" class="gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all">Calculate & Save to Catalog</button>
+                            <button type="submit" class="gold-gradient text-dark font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all">Save to Database</button>
                         </form>
                     </div>
 
@@ -484,13 +506,13 @@
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif">Inventory Management</h2>
                         <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[650px]">
-                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Item</th><th class="p-4 sm:p-5">Metal</th><th class="p-4 sm:p-5">Weight</th><th class="p-4 sm:p-5">Live Calculated Price</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <thead><tr class="bg-black/50 border-b border-neutral-800 text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Item</th><th class="p-4 sm:p-5">Metal</th><th class="p-4 sm:p-5">Weight</th><th class="p-4 sm:p-5">Live Price</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
                                 <tbody id="admin-products-table" class="divide-y divide-neutral-800 text-neutral-300"></tbody>
                             </table>
                         </div>
                     </div>
 
-                    <!-- PRODUCT ENQUIRIES TAB -->
+                    <!-- ENQUIRIES -->
                     <div id="admin-tab-enquiries" class="admin-content hidden">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
                             <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Product Enquiries</h2>
@@ -506,7 +528,7 @@
                         </div>
                     </div>
 
-                    <!-- CUSTOMER MESSAGES TAB -->
+                    <!-- MESSAGES -->
                     <div id="admin-tab-messages" class="admin-content hidden">
                         <div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Customer Messages</h2></div>
                         <div class="bg-neutral-900 rounded-2xl shadow-xl border border-neutral-800 overflow-x-auto">
@@ -605,7 +627,7 @@
         </div>
     </div>
 
-    <!-- ADMIN WHATSAPP REPLY POPUP MODAL -->
+    <!-- WHATSAPP REPLY MODAL -->
     <div id="reply-modal" class="fixed inset-0 bg-darker/90 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
         <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
             <button onclick="closeReplyModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
@@ -632,47 +654,62 @@
     </div>
 
     <script>
-        // --- MARKET RATES & DATABASES ---
-        let marketRates = JSON.parse(localStorage.getItem('rani_market_rates')) || { gold: 72000, silver: 900 };
-        let collectionBanners = JSON.parse(localStorage.getItem('rani_collection_banners')) || {
+        let marketRates = { gold: 72000, silver: 900 };
+        let collectionBanners = {
             gold: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
             silver: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800'
         };
 
-        let products = JSON.parse(localStorage.getItem('rani_products')) || [
-            { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 22k gold bridal necklace.', avail: 'Available', image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', date: Date.now() },
-            { id: 'RJ-102', name: 'Diamond Studded Gold Ring', metal: 'Gold', category: 'Ring', weight: 5.2, making: 3500, desc: 'Elegant engagement ring.', avail: 'Available', image: 'https://images.unsplash.com/photo-1605100804763-247f66120585?w=500', date: Date.now()-1000 },
-            { id: 'RJ-103', name: 'Sterling Silver Payal', metal: 'Silver', category: 'Payal', weight: 85.0, making: 1500, desc: 'Traditional 925 sterling silver anklets.', avail: 'Available', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500', date: Date.now()-2000 }
-        ];
-
-        let enquiries = JSON.parse(localStorage.getItem('rani_enquiries')) || [
-            { id: 'ENQ-101', pid: 'RJ-102', pname: 'diamand Ring', name: 'Rohit kumar', phone: '7250124657', city: 'Patna', status: 'Pending', date: '14/09/2026' },
-            { id: 'ENQ-102', pid: 'RJ-103', pname: 'Jumka', name: 'Salman khan', phone: '98745985287', city: 'Mumbai', status: 'Pending', date: '14/09/2026' }
-        ];
-
-        let contactMessages = JSON.parse(localStorage.getItem('rani_messages')) || [
-            { id: 'MSG-101', name: 'Rohit', phone: '7250124657', message: 'i can intersted in your prouct', date: '14/09/2026' },
-            { id: 'MSG-102', name: 'Rohit kumar', phone: '7250124657', message: 'i can intersted in your prouct', date: '14/09/2026 19:59:04' }
-        ];
-        
-        let shopDetails = JSON.parse(localStorage.getItem('rani_shop_settings')) || { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
-        let aboutDetails = JSON.parse(localStorage.getItem('rani_about_settings')) || { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery. With a legacy of crafting beautiful, high-quality pieces, we believe that every special moment deserves to be celebrated with elegance.' };
-        
-        let adminAuth = JSON.parse(localStorage.getItem('rani_admin_credentials')) || { user: 'admin', pass: 'Rani@123' };
+        let products = [];
+        let enquiries = [];
+        let contactMessages = [];
+        let shopDetails = { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
+        let aboutDetails = { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery.' };
+        let adminAuth = { user: 'admin', pass: 'Rani@123' };
         let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
 
-        function saveData() {
-            localStorage.setItem('rani_products', JSON.stringify(products));
-            localStorage.setItem('rani_market_rates', JSON.stringify(marketRates));
-            localStorage.setItem('rani_collection_banners', JSON.stringify(collectionBanners));
-            localStorage.setItem('rani_enquiries', JSON.stringify(enquiries));
-            localStorage.setItem('rani_messages', JSON.stringify(contactMessages));
-            localStorage.setItem('rani_shop_settings', JSON.stringify(shopDetails));
-            localStorage.setItem('rani_about_settings', JSON.stringify(aboutDetails));
-            localStorage.setItem('rani_admin_credentials', JSON.stringify(adminAuth));
+        async function initFirebaseApp() {
+            const { collection, getDocs } = window.firebaseModules;
+            try {
+                const settingsSnap = await getDocs(collection(window.db, "settings"));
+                settingsSnap.forEach(docSnap => {
+                    let data = docSnap.data();
+                    if(docSnap.id === 'rates') marketRates = data;
+                    if(docSnap.id === 'banners') collectionBanners = data;
+                    if(docSnap.id === 'shop') shopDetails = data;
+                    if(docSnap.id === 'about') aboutDetails = data;
+                    if(docSnap.id === 'auth') adminAuth = data;
+                });
+
+                const prodSnap = await getDocs(collection(window.db, "products"));
+                products = [];
+                prodSnap.forEach(docSnap => { products.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+                if(products.length === 0) {
+                    products = [
+                        { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 22k gold bridal necklace.', avail: 'Available', image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', date: Date.now() }
+                    ];
+                }
+
+                const enqSnap = await getDocs(collection(window.db, "enquiries"));
+                enquiries = [];
+                enqSnap.forEach(docSnap => { enquiries.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+
+                const msgSnap = await getDocs(collection(window.db, "messages"));
+                contactMessages = [];
+                msgSnap.forEach(docSnap => { contactMessages.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+
+                applyDynamicSettings();
+                renderHome();
+            } catch(err) {
+                console.log("Firebase Init Error:", err);
+            }
         }
 
-        // --- AUTO LIVE PRICE CALCULATOR ---
+        async function saveSettingToFirebase(docName, dataObj) {
+            const { doc, setDoc } = window.firebaseModules;
+            try { await setDoc(doc(window.db, "settings", docName), dataObj); } catch(e) { console.log(e); }
+        }
+
         function calculateProductPrice(p) {
             let baseValue = 0;
             if(p.metal === 'Gold') {
@@ -687,41 +724,54 @@
             return Math.round(subTotal + gst);
         }
 
-        function saveDailyRates(e) {
+        async function saveDailyRates(e) {
             e.preventDefault();
             marketRates.gold = parseFloat(document.getElementById('admin-gold-rate').value) || 72000;
             marketRates.silver = parseFloat(document.getElementById('admin-silver-rate').value) || 900;
-            saveData();
+            await saveSettingToFirebase('rates', marketRates);
             updateMarketTickers();
             Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Daily Rates Updated!', showConfirmButton: false, timer: 2000 });
         }
 
-        let tempBannerGold = '';
-        let tempBannerSilver = '';
+        let tempProductImageBase64 = '';
+        function previewProductImage(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                tempProductImageBase64 = e.target.result;
+                const prev = document.getElementById('p-img-preview');
+                prev.src = tempProductImageBase64;
+                prev.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
 
+        let tempBannerGoldBase64 = '';
+        let tempBannerSilverBase64 = '';
         function previewBannerImage(event, type) {
             const file = event.target.files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
                 if(type === 'gold') {
-                    tempBannerGold = e.target.result;
-                    document.getElementById('prev-gold-img').src = tempBannerGold;
+                    tempBannerGoldBase64 = e.target.result;
+                    document.getElementById('prev-gold-img').src = tempBannerGoldBase64;
                 } else {
-                    tempBannerSilver = e.target.result;
-                    document.getElementById('prev-silver-img').src = tempBannerSilver;
+                    tempBannerSilverBase64 = e.target.result;
+                    document.getElementById('prev-silver-img').src = tempBannerSilverBase64;
                 }
             };
             reader.readAsDataURL(file);
         }
 
-        function saveBanners(e) {
+        async function saveBanners(e) {
             e.preventDefault();
-            if(tempBannerGold) collectionBanners.gold = tempBannerGold;
-            if(tempBannerSilver) collectionBanners.silver = tempBannerSilver;
-            saveData();
+            if(tempBannerGoldBase64) collectionBanners.gold = tempBannerGoldBase64;
+            if(tempBannerSilverBase64) collectionBanners.silver = tempBannerSilverBase64;
+            await saveSettingToFirebase('banners', collectionBanners);
             applyDynamicSettings();
-            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Home Collection Banners Updated!', showConfirmButton: false, timer: 2000 });
+            Swal.fire({ title: 'Banners Updated Successfully!', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
         function updateMarketTickers() {
@@ -737,9 +787,7 @@
             navigate('shop');
             setTimeout(() => {
                 const radios = document.querySelectorAll('input[name="metal"]');
-                radios.forEach(r => {
-                    if(r.value === metalName) { r.checked = true; renderShop(); }
-                });
+                radios.forEach(r => { if(r.value === metalName) { r.checked = true; renderShop(); } });
             }, 100);
         }
 
@@ -757,7 +805,6 @@
             if(document.getElementById('set-about-title')) { document.getElementById('set-about-title').value = aboutDetails.title; document.getElementById('set-about-story').value = aboutDetails.story; }
             if(document.getElementById('new-admin-user')) { document.getElementById('new-admin-user').value = adminAuth.user; document.getElementById('new-admin-pass').value = adminAuth.pass; }
 
-            // Banners
             document.getElementById('home-gold-banner').src = collectionBanners.gold;
             document.getElementById('home-silver-banner').src = collectionBanners.silver;
             if(document.getElementById('prev-gold-img')) {
@@ -766,21 +813,39 @@
             }
         }
 
-        function saveShopSettings(e) { e.preventDefault(); shopDetails = { phone: document.getElementById('set-phone').value, email: document.getElementById('set-email').value, address: document.getElementById('set-address').value }; saveData(); applyDynamicSettings(); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 }); }
-        function saveAboutSettings(e) { e.preventDefault(); aboutDetails = { title: document.getElementById('set-about-title').value, story: document.getElementById('set-about-story').value }; saveData(); applyDynamicSettings(); Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 }); }
+        async function saveShopSettings(e) { 
+            e.preventDefault(); 
+            shopDetails = { phone: document.getElementById('set-phone').value, email: document.getElementById('set-email').value, address: document.getElementById('set-address').value }; 
+            await saveSettingToFirebase('shop', shopDetails);
+            applyDynamicSettings(); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 }); 
+        }
+
+        async function saveAboutSettings(e) { 
+            e.preventDefault(); 
+            aboutDetails = { title: document.getElementById('set-about-title').value, story: document.getElementById('set-about-story').value }; 
+            await saveSettingToFirebase('about', aboutDetails);
+            applyDynamicSettings(); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 }); 
+        }
         
-        function saveCredentials(e) {
+        async function saveCredentials(e) {
             e.preventDefault();
             adminAuth.user = document.getElementById('new-admin-user').value;
             adminAuth.pass = document.getElementById('new-admin-pass').value;
-            saveData();
+            await saveSettingToFirebase('auth', adminAuth);
             Swal.fire({ title: 'Credentials Updated!', text: 'Aapka naya username aur password save ho gaya hai.', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
-        function handleGeneralContact(e) {
+        async function handleGeneralContact(e) {
             e.preventDefault();
-            contactMessages.unshift({ id: 'MSG-' + Math.floor(Math.random()*10000), name: document.getElementById('contact-name').value, phone: document.getElementById('contact-phone').value, message: document.getElementById('contact-msg').value, date: new Date().toLocaleDateString() });
-            saveData();
+            const { collection, addDoc } = window.firebaseModules;
+            let newMsg = { id: 'MSG-' + Math.floor(Math.random()*10000), name: document.getElementById('contact-name').value, phone: document.getElementById('contact-phone').value, message: document.getElementById('contact-msg').value, date: new Date().toLocaleDateString() };
+            
+            const docRef = await addDoc(collection(window.db, "messages"), newMsg);
+            newMsg.firebaseId = docRef.id;
+            contactMessages.unshift(newMsg);
+
             Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
             e.target.reset();
             if(isLoggedIn) updateDashboardStats();
@@ -876,10 +941,18 @@
         }
         function closeEnquiryModal() { document.getElementById('enquiry-modal').classList.add('hidden'); }
         
-        function submitEnquiry(e) {
+        async function submitEnquiry(e) {
             e.preventDefault();
-            enquiries.push({ id: 'ENQ-' + Math.floor(Math.random()*10000), pid: document.getElementById('enq-pid').value, pname: document.getElementById('enq-pname').value, name: document.getElementById('enq-name').value, phone: document.getElementById('enq-phone').value, city: document.getElementById('enq-city').value, status: 'Pending', date: new Date().toLocaleDateString() });
-            saveData(); closeEnquiryModal(); Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' }); e.target.reset();
+            const { collection, addDoc } = window.firebaseModules;
+            let newEnq = { id: 'ENQ-' + Math.floor(Math.random()*10000), pid: document.getElementById('enq-pid').value, pname: document.getElementById('enq-pname').value, name: document.getElementById('enq-name').value, phone: document.getElementById('enq-phone').value, city: document.getElementById('enq-city').value, status: 'Pending', date: new Date().toLocaleDateString() };
+            
+            const docRef = await addDoc(collection(window.db, "enquiries"), newEnq);
+            newEnq.firebaseId = docRef.id;
+            enquiries.unshift(newEnq);
+
+            closeEnquiryModal(); 
+            Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' }); 
+            e.target.reset();
         }
 
         function handleSimpleLogin(e) {
@@ -919,13 +992,12 @@
             if(contactMessages.length > 0) { badgeMsg.innerText = contactMessages.length; badgeMsg.classList.remove('hidden'); } else { badgeMsg.classList.add('hidden'); }
         }
 
-        let tempBase64Image = '';
-        function previewImage(event) { const file = event.target.files[0]; if(!file) return; const reader = new FileReader(); reader.onload = function(e) { tempBase64Image = e.target.result; const preview = document.getElementById('p-image-preview'); preview.src = tempBase64Image; preview.classList.remove('hidden'); }; reader.readAsDataURL(file); }
-
-        function handleAddProduct(e) {
+        async function handleAddProduct(e) {
             e.preventDefault();
-            products.unshift({ 
-                id: 'RJ-' + (1000 + products.length), 
+            if(!tempProductImageBase64) return Swal.fire('Error', 'Please select an image', 'error');
+
+            let newProd = {
+                id: 'RJ-' + (1000 + products.length + 1), 
                 name: document.getElementById('p-name').value, 
                 metal: document.getElementById('p-metal').value,
                 category: document.getElementById('p-cat').value, 
@@ -933,11 +1005,20 @@
                 making: parseFloat(document.getElementById('p-making').value) || 0,
                 desc: document.getElementById('p-desc').value, 
                 avail: document.getElementById('p-avail').value, 
-                image: tempBase64Image || 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', 
+                image: tempProductImageBase64, 
                 date: Date.now() 
-            });
-            saveData(); e.target.reset(); document.getElementById('p-image-preview').classList.add('hidden'); tempBase64Image = '';
-            Swal.fire({ title: 'Product Added & Auto-Calculated!', text: 'New item successfully added to inventory with live market pricing.', icon: 'success', confirmButtonColor: '#D4AF37' }); 
+            };
+
+            const { collection, addDoc } = window.firebaseModules;
+            const docRef = await addDoc(collection(window.db, "products"), newProd);
+            newProd.firebaseId = docRef.id;
+            products.unshift(newProd);
+
+            e.target.reset();
+            document.getElementById('p-img-preview').classList.add('hidden');
+            tempProductImageBase64 = '';
+
+            Swal.fire({ title: 'Success!', text: 'Product saved to cloud database and visible across all browsers!', icon: 'success', confirmButtonColor: '#D4AF37' }); 
             updateDashboardStats(); renderAdminProductsTable(); switchAdminTab('manage-products');
         }
 
@@ -951,31 +1032,73 @@
                         <td class="p-4 sm:p-5 text-xs sm:text-sm font-bold text-neutral-300">${p.weight}g (${p.category})</td>
                         <td class="p-4 sm:p-5 text-xs sm:text-sm font-bold ${p.metal==='Gold'?'text-gold-400':'text-neutral-300'}">₹${livePrice.toLocaleString()}</td>
                         <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase ${p.avail==='Available'?'bg-green-500/20 text-green-400 border border-green-500/30':'bg-red-500/20 text-red-400 border border-red-500/30'}">${p.avail}</span></td>
-                        <td class="p-4 sm:p-5 text-right"><button onclick="toggleAvailability('${p.id}')" class="text-blue-400 p-2 hover:text-white"><i class="fas fa-sync-alt"></i></button><button onclick="deleteProduct('${p.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash-alt"></i></button></td>
+                        <td class="p-4 sm:p-5 text-right"><button onclick="toggleAvailability('${p.firebaseId}')" class="text-blue-400 p-2 hover:text-white"><i class="fas fa-sync-alt"></i></button><button onclick="deleteProduct('${p.firebaseId}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash-alt"></i></button></td>
                     </tr>
                 `;
             }).join('');
         }
-        function toggleAvailability(id) { const p = products.find(x => x.id === id); if(p) { p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; saveData(); renderAdminProductsTable(); } }
-        function deleteProduct(id) { Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { products = products.filter(p => p.id !== id); saveData(); renderAdminProductsTable(); updateDashboardStats(); } }); }
+
+        async function toggleAvailability(firebaseId) { 
+            const p = products.find(x => x.firebaseId === firebaseId); 
+            if(p) { 
+                p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; 
+                const { doc, updateDoc } = window.firebaseModules;
+                await updateDoc(doc(window.db, "products", firebaseId), { avail: p.avail });
+                renderAdminProductsTable(); 
+            } 
+        }
+
+        async function deleteProduct(firebaseId) { 
+            Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    const { doc, deleteDoc } = window.firebaseModules;
+                    await deleteDoc(doc(window.db, "products", firebaseId));
+                    products = products.filter(p => p.firebaseId !== firebaseId); 
+                    renderAdminProductsTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
 
         function renderEnquiriesTable() {
-            const filter = document.getElementById('enquiry-filter').value; let filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
+            const filter = document.getElementById('enquiry-filter').value; 
+            let filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
             document.getElementById('admin-enquiries-table').innerHTML = filtered.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Enquiries Found</td></tr>' : filtered.map(e => `
                 <tr class="hover:bg-neutral-800/45 transition-colors">
                     <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${e.date}</td>
                     <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.name}</p><p class="text-[11px] text-blue-400 font-bold">${e.phone}</p></td>
                     <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.pname}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${e.pid}</p></td>
                     <td class="p-4 sm:p-5 flex items-center space-x-3">
-                        <button onclick="toggleEnquiryStatus('${e.id}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button>
+                        <button onclick="toggleEnquiryStatus('${e.firebaseId}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button>
                         <button onclick="openReplyModal('${e.name}', '${e.phone}', 'Enquiry for ${e.pname}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
                     </td>
-                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteEnquiry('${e.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteEnquiry('${e.firebaseId}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
                 </tr>
             `).join('');
         }
-        function toggleEnquiryStatus(id) { const enq = enquiries.find(e => e.id === id); if(enq) { enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; saveData(); renderEnquiriesTable(); updateDashboardStats(); } }
-        function deleteEnquiry(id) { Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { enquiries = enquiries.filter(e => e.id !== id); saveData(); renderEnquiriesTable(); updateDashboardStats(); } }); }
+
+        async function toggleEnquiryStatus(firebaseId) { 
+            const enq = enquiries.find(e => e.firebaseId === firebaseId); 
+            if(enq) { 
+                enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; 
+                const { doc, updateDoc } = window.firebaseModules;
+                await updateDoc(doc(window.db, "enquiries", firebaseId), { status: enq.status });
+                renderEnquiriesTable(); 
+                updateDashboardStats(); 
+            } 
+        }
+
+        async function deleteEnquiry(firebaseId) { 
+            Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    const { doc, deleteDoc } = window.firebaseModules;
+                    await deleteDoc(doc(window.db, "enquiries", firebaseId));
+                    enquiries = enquiries.filter(e => e.firebaseId !== firebaseId); 
+                    renderEnquiriesTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
 
         let activeReplyPhone = '';
         let activeReplyName = '';
@@ -989,7 +1112,7 @@
                         <p class="text-xs sm:text-sm text-neutral-300">${m.message}</p>
                         <button onclick="openReplyModal('${m.name}', '${m.phone}', '${m.message}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all shrink-0" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
                     </td>
-                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteMessage('${m.id}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteMessage('${m.firebaseId}')" class="text-red-400 p-2 hover:text-white"><i class="fas fa-trash"></i></button></td>
                 </tr>
             `).join('');
         }
@@ -1003,23 +1126,29 @@
             document.getElementById('reply-modal').classList.remove('hidden');
         }
 
-        function closeReplyModal() {
-            document.getElementById('reply-modal').classList.add('hidden');
-        }
+        function closeReplyModal() { document.getElementById('reply-modal').classList.add('hidden'); }
 
         function sendWhatsAppReplyNow() {
             let msgText = document.getElementById('reply-msg-text').value;
             let cleanPhone = activeReplyPhone.replace(/[^0-9]/g, '');
             if(cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
-            
-            let finalUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`;
-            window.open(finalUrl, '_blank');
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`, '_blank');
             closeReplyModal();
         }
 
-        function deleteMessage(id) { Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then((res) => { if (res.isConfirmed) { contactMessages = contactMessages.filter(m => m.id !== id); saveData(); renderMessagesTable(); updateDashboardStats(); } }); }
+        async function deleteMessage(firebaseId) { 
+            Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    const { doc, deleteDoc } = window.firebaseModules;
+                    await deleteDoc(doc(window.db, "messages", firebaseId));
+                    contactMessages = contactMessages.filter(m => m.firebaseId !== firebaseId); 
+                    renderMessagesTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
 
-        window.onload = () => { applyDynamicSettings(); navigate('home'); };
+        window.onload = () => { navigate('home'); };
     </script>
 </body>
 </html>
