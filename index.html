@@ -312,7 +312,7 @@
             </div>
         </div>
 
-        <!-- ADMIN LOGIN PAGE -->
+        <!-- ADMIN LOGIN PAGE (Fixed Form Render) -->
         <div id="admin-login" class="page">
             <div class="min-h-[80vh] flex items-center justify-center bg-darker py-12 px-4">
                 <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10">
@@ -322,18 +322,15 @@
                         <p class="mt-2 text-[10px] sm:text-xs text-gray-500 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
                     
-                    <form class="mt-8 sm:mt-10 space-y-6" autocomplete="off" onsubmit="handleSimpleLogin(event)">
-                        <input type="text" name="prevent_autofill" id="prevent_autofill" value="" style="display:none;" />
-                        <password autocomplete="new-password" style="display:none;" />
-
+                    <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
                         <div class="space-y-4 sm:space-y-5">
                             <div>
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Username</label>
-                                <input id="simple-user" type="text" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                                <input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold text-dark">
                             </div>
                             <div>
                                 <label class="block text-[10px] sm:text-xs font-bold text-gray-500 uppercase mb-2">Password</label>
-                                <input id="simple-pass" type="password" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold">
+                                <input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-gray-50 text-sm font-bold text-dark">
                             </div>
                         </div>
                         <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-xs sm:text-sm rounded-lg text-white bg-dark hover:bg-gold-500 transition-all shadow-lg">Authenticate</button>
@@ -428,7 +425,7 @@
                                 <div class="space-y-8">
                                     <div>
                                         <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image</label>
-                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewBannerImage(event, 'gold')">
+                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="compressAndPreviewBanner(event, 'gold')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
                                             <img id="prev-gold-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
@@ -437,7 +434,7 @@
 
                                     <div class="border-t border-neutral-800 pt-6">
                                         <label class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image</label>
-                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-dark cursor-pointer" onchange="previewBannerImage(event, 'silver')">
+                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-neutral-700 p-3 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-dark cursor-pointer" onchange="compressAndPreviewBanner(event, 'silver')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
                                             <img id="prev-silver-img" class="h-24 w-36 object-cover rounded-xl border border-neutral-700 shadow-md">
@@ -465,7 +462,7 @@
                     <!-- ADD PRODUCT -->
                     <div id="admin-tab-add-product" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
-                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Photo direct database mein save hogi aur sabhi browsers par dikhegi</p>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Photo automatically compress hokar database mein save hogi aur sabhi browsers par dikhegi</p>
                         
                         <form id="add-product-form" class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-4xl" onsubmit="handleAddProduct(event)">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
@@ -493,7 +490,7 @@
                                     <select id="p-avail" class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"><option value="Available">Available</option><option value="Out of Stock">Out of Stock</option></select>
                                 </div>
                                 <div class="md:col-span-2"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Image (Upload from Device)</label>
-                                    <input type="file" id="p-image-file" accept="image/*" required class="w-full border border-neutral-700 p-2 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="previewProductImage(event)">
+                                    <input type="file" id="p-image-file" accept="image/*" required class="w-full border border-neutral-700 p-2 rounded-xl bg-neutral-800 text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-dark cursor-pointer" onchange="compressAndPreviewProduct(event)">
                                     <img id="p-img-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-neutral-700 shadow-sm">
                                 </div>
                             </div>
@@ -669,8 +666,9 @@
         let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
 
         async function initFirebaseApp() {
-            const { collection, getDocs } = window.firebaseModules;
             try {
+                if(!window.db || !window.firebaseModules) return;
+                const { collection, getDocs } = window.firebaseModules;
                 const settingsSnap = await getDocs(collection(window.db, "settings"));
                 settingsSnap.forEach(docSnap => {
                     let data = docSnap.data();
@@ -706,8 +704,10 @@
         }
 
         async function saveSettingToFirebase(docName, dataObj) {
-            const { doc, setDoc } = window.firebaseModules;
-            try { await setDoc(doc(window.db, "settings", docName), dataObj); } catch(e) { console.log(e); }
+            try {
+                const { doc, setDoc } = window.firebaseModules;
+                await setDoc(doc(window.db, "settings", docName), dataObj);
+            } catch(e) { console.log(e); }
         }
 
         function calculateProductPrice(p) {
@@ -733,36 +733,64 @@
             Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Daily Rates Updated!', showConfirmButton: false, timer: 2000 });
         }
 
-        let tempProductImageBase64 = '';
-        function previewProductImage(event) {
-            const file = event.target.files[0];
-            if(!file) return;
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
             const reader = new FileReader();
-            reader.onload = function(e) {
-                tempProductImageBase64 = e.target.result;
-                const prev = document.getElementById('p-img-preview');
-                prev.src = tempProductImageBase64;
-                prev.classList.remove('hidden');
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    let canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.src = e.target.result;
             };
             reader.readAsDataURL(file);
         }
 
-        let tempBannerGoldBase64 = '';
-        let tempBannerSilverBase64 = '';
-        function previewBannerImage(event, type) {
+        let tempProductImageBase64 = '';
+        function compressAndPreviewProduct(event) {
             const file = event.target.files[0];
             if(!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
+            compressImage(file, 800, 800, 0.7, function(compressedDataUrl) {
+                tempProductImageBase64 = compressedDataUrl;
+                const prev = document.getElementById('p-img-preview');
+                prev.src = tempProductImageBase64;
+                prev.classList.remove('hidden');
+            });
+        }
+
+        let tempBannerGoldBase64 = '';
+        let tempBannerSilverBase64 = '';
+        function compressAndPreviewBanner(event, type) {
+            const file = event.target.files[0];
+            if(!file) return;
+            compressImage(file, 1000, 1000, 0.7, function(compressedDataUrl) {
                 if(type === 'gold') {
-                    tempBannerGoldBase64 = e.target.result;
+                    tempBannerGoldBase64 = compressedDataUrl;
                     document.getElementById('prev-gold-img').src = tempBannerGoldBase64;
                 } else {
-                    tempBannerSilverBase64 = e.target.result;
+                    tempBannerSilverBase64 = compressedDataUrl;
                     document.getElementById('prev-silver-img').src = tempBannerSilverBase64;
                 }
-            };
-            reader.readAsDataURL(file);
+            });
         }
 
         async function saveBanners(e) {
@@ -839,11 +867,13 @@
 
         async function handleGeneralContact(e) {
             e.preventDefault();
-            const { collection, addDoc } = window.firebaseModules;
             let newMsg = { id: 'MSG-' + Math.floor(Math.random()*10000), name: document.getElementById('contact-name').value, phone: document.getElementById('contact-phone').value, message: document.getElementById('contact-msg').value, date: new Date().toLocaleDateString() };
             
-            const docRef = await addDoc(collection(window.db, "messages"), newMsg);
-            newMsg.firebaseId = docRef.id;
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "messages"), newMsg);
+                newMsg.firebaseId = docRef.id;
+            }
             contactMessages.unshift(newMsg);
 
             Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
@@ -943,11 +973,13 @@
         
         async function submitEnquiry(e) {
             e.preventDefault();
-            const { collection, addDoc } = window.firebaseModules;
             let newEnq = { id: 'ENQ-' + Math.floor(Math.random()*10000), pid: document.getElementById('enq-pid').value, pname: document.getElementById('enq-pname').value, name: document.getElementById('enq-name').value, phone: document.getElementById('enq-phone').value, city: document.getElementById('enq-city').value, status: 'Pending', date: new Date().toLocaleDateString() };
             
-            const docRef = await addDoc(collection(window.db, "enquiries"), newEnq);
-            newEnq.firebaseId = docRef.id;
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "enquiries"), newEnq);
+                newEnq.firebaseId = docRef.id;
+            }
             enquiries.unshift(newEnq);
 
             closeEnquiryModal(); 
@@ -1009,9 +1041,11 @@
                 date: Date.now() 
             };
 
-            const { collection, addDoc } = window.firebaseModules;
-            const docRef = await addDoc(collection(window.db, "products"), newProd);
-            newProd.firebaseId = docRef.id;
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "products"), newProd);
+                newProd.firebaseId = docRef.id;
+            }
             products.unshift(newProd);
 
             e.target.reset();
@@ -1042,8 +1076,10 @@
             const p = products.find(x => x.firebaseId === firebaseId); 
             if(p) { 
                 p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; 
-                const { doc, updateDoc } = window.firebaseModules;
-                await updateDoc(doc(window.db, "products", firebaseId), { avail: p.avail });
+                if(window.db && window.firebaseModules) {
+                    const { doc, updateDoc } = window.firebaseModules;
+                    await updateDoc(doc(window.db, "products", firebaseId), { avail: p.avail });
+                }
                 renderAdminProductsTable(); 
             } 
         }
@@ -1051,8 +1087,10 @@
         async function deleteProduct(firebaseId) { 
             Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
                 if (res.isConfirmed) { 
-                    const { doc, deleteDoc } = window.firebaseModules;
-                    await deleteDoc(doc(window.db, "products", firebaseId));
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "products", firebaseId));
+                    }
                     products = products.filter(p => p.firebaseId !== firebaseId); 
                     renderAdminProductsTable(); 
                     updateDashboardStats(); 
@@ -1081,8 +1119,10 @@
             const enq = enquiries.find(e => e.firebaseId === firebaseId); 
             if(enq) { 
                 enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; 
-                const { doc, updateDoc } = window.firebaseModules;
-                await updateDoc(doc(window.db, "enquiries", firebaseId), { status: enq.status });
+                if(window.db && window.firebaseModules) {
+                    const { doc, updateDoc } = window.firebaseModules;
+                    await updateDoc(doc(window.db, "enquiries", firebaseId), { status: enq.status });
+                }
                 renderEnquiriesTable(); 
                 updateDashboardStats(); 
             } 
@@ -1091,8 +1131,10 @@
         async function deleteEnquiry(firebaseId) { 
             Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
                 if (res.isConfirmed) { 
-                    const { doc, deleteDoc } = window.firebaseModules;
-                    await deleteDoc(doc(window.db, "enquiries", firebaseId));
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "enquiries", firebaseId));
+                    }
                     enquiries = enquiries.filter(e => e.firebaseId !== firebaseId); 
                     renderEnquiriesTable(); 
                     updateDashboardStats(); 
@@ -1139,8 +1181,10 @@
         async function deleteMessage(firebaseId) { 
             Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
                 if (res.isConfirmed) { 
-                    const { doc, deleteDoc } = window.firebaseModules;
-                    await deleteDoc(doc(window.db, "messages", firebaseId));
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "messages", firebaseId));
+                    }
                     contactMessages = contactMessages.filter(m => m.firebaseId !== firebaseId); 
                     renderMessagesTable(); 
                     updateDashboardStats(); 
