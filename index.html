@@ -10,30 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Firebase SDKs (Firestore Database Only) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCKfYxuq7-FMC4bEFuHBUk_CMP-G9B3BPQ",
-            authDomain: "rani-jewellers-5c921.firebaseapp.com",
-            projectId: "rani-jewellers-5c921",
-            storageBucket: "rani-jewellers-5c921.firebasestorage.app",
-            messagingSenderId: "720584344566",
-            appId: "1:720584344566:web:2ad326d631e5508ed2bdd7",
-            measurementId: "G-N47DW71HTZ"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        window.db = db;
-        window.firebaseModules = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc };
-
-        initFirebaseApp();
-    </script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -653,6 +629,7 @@
         </div>
     </div>
 
+    <!-- MAIN APP LOGIC SCRIPT -->
     <script>
         let marketRates = { gold: 72000, silver: 900 };
         let collectionBanners = {
@@ -669,9 +646,14 @@
         let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
 
         async function initFirebaseApp() {
+            if (!window.db || !window.firebaseModules) {
+                setTimeout(initFirebaseApp, 300);
+                return;
+            }
+
             try {
-                if(!window.db || !window.firebaseModules) return;
                 const { collection, getDocs } = window.firebaseModules;
+                
                 const settingsSnap = await getDocs(collection(window.db, "settings"));
                 settingsSnap.forEach(docSnap => {
                     let data = docSnap.data();
@@ -685,9 +667,10 @@
                 const prodSnap = await getDocs(collection(window.db, "products"));
                 products = [];
                 prodSnap.forEach(docSnap => { products.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+                
                 if(products.length === 0) {
                     products = [
-                        { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 22k gold bridal necklace.', avail: 'Available', image: 'https://images.unsplash.com/photo-1599643478524-fb66f7ca2b6e?w=500', date: Date.now() }
+                        { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 22k gold necklace' }
                     ];
                 }
 
@@ -701,6 +684,7 @@
 
                 applyDynamicSettings();
                 renderHome();
+                console.log("Rani Jewellers Database Synced Successfully!");
             } catch(err) {
                 console.log("Firebase Init Error:", err);
             }
@@ -1196,6 +1180,34 @@
         }
 
         window.onload = () => { navigate('home'); };
+    </script>
+
+    <!-- FIREBASE INITIALIZATION SCRIPT (BOTTOM) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKfXyuq7-FMC4bEFuHBuK_CMP-G9B3BPQ",
+            authDomain: "rani-jewellers-5c921.firebaseapp.com",
+            projectId: "rani-jewellers-5c921",
+            storageBucket: "rani-jewellers-5c921.appspot.com",
+            messagingSenderId: "720584344566",
+            appId: "1:720584344566:web:2ad326d631e5508ed2bdd7",
+            measurementId: "G-N47DW71HTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.firebaseModules = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc };
+
+        console.log("Firestore Database Connected Successfully!");
+
+        if (typeof initFirebaseApp === 'function') {
+            initFirebaseApp();
+        }
     </script>
 </body>
 </html>
