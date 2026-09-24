@@ -17,7 +17,7 @@
                     colors: {
                         gold: { 400: '#E6C687', 500: '#C5A059', 600: '#997A38', 700: '#7A602B' },
                         silver: { 400: '#F0F0F0', 500: '#C0C0C0', 600: '#808080' },
-                        luxury: { light: '#F9F6F0', border: '#EFECE6', text: '#2C2A29' }
+                        luxury: { light: '#0d0d0d', border: '#2a2a2a', text: '#FDFBF7' }
                     },
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
@@ -28,110 +28,126 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #F9F6F0; color: #2C2A29; scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Lato', sans-serif; background-color: #050505; color: #FDFBF7; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .gold-gradient { background: linear-gradient(135deg, #C5A059 0%, #997A38 100%); }
+        .gold-gradient { background: linear-gradient(135deg, #C5A059 0%, #E6C687 100%); }
         .hover-gold:hover { color: #C5A059; transition: 0.3s; }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15); transition: all 0.4s ease; }
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 1000; transition: transform 0.3s; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.25); transition: all 0.4s ease; }
+        
+        /* 3D Rotating Animation for Background Image */
+        @keyframes rotate3D {
+            0% { transform: perspective(1000px) rotateX(10deg) rotateY(0deg) scale(1.1); }
+            50% { transform: perspective(1000px) rotateX(15deg) rotateY(180deg) scale(1.2); }
+            100% { transform: perspective(1000px) rotateX(10deg) rotateY(360deg) scale(1.1); }
+        }
+        .animate-3d-bg {
+            animation: rotate3D 30s linear infinite;
+            transform-style: preserve-3d;
+        }
+
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); z-index: 1000; transition: transform 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; }
-        .admin-tab.active { background: linear-gradient(135deg, #C5A059 0%, #997A38 100%); color: #ffffff; border-left: 4px solid #F9F6F0; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3); font-weight: 800; }
+        .admin-tab.active { background: linear-gradient(135deg, #C5A059 0%, #997A38 100%); color: #ffffff; border-left: 4px solid #FDFBF7; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3); font-weight: 800; }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #EFECE6; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
         ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 4px; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen selection:bg-gold-500 selection:text-white">
 
     <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm border-b border-luxury-border sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-black/80 backdrop-blur-md shadow-lg border-b border-neutral-800 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 sm:h-24">
                 <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
                     <i class="fas fa-gem text-gold-500 text-2xl sm:text-3xl md:text-4xl mr-2 sm:mr-3 group-hover:rotate-12 transition-transform"></i>
                     <div>
-                        <h1 class="text-lg sm:text-2xl md:text-3xl font-serif font-bold tracking-widest uppercase text-luxury-text">Rani Jewellers</h1>
-                        <p class="text-[8px] sm:text-[10px] md:text-xs text-gold-600 tracking-widest mt-0.5 font-bold">LUXURY GOLD & SILVER BOUTIQUE</p>
+                        <h1 class="text-lg sm:text-2xl md:text-3xl font-serif font-bold tracking-widest uppercase text-white">Rani Jewellers</h1>
+                        <p class="text-[8px] sm:text-[10px] md:text-xs text-gold-400 tracking-widest mt-0.5 font-bold">LUXURY GOLD & SILVER BOUTIQUE</p>
                     </div>
                 </div>
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                    <a href="#" onclick="navigate('home')" class="text-xs text-luxury-text hover-gold font-bold uppercase tracking-widest">Home</a>
-                    <a href="#" onclick="navigate('shop')" class="text-xs text-luxury-text hover-gold font-bold uppercase tracking-widest">Collections</a>
-                    <a href="#" onclick="navigate('about')" class="text-xs text-luxury-text hover-gold font-bold uppercase tracking-widest">About Us</a>
-                    <a href="#" onclick="navigate('contact')" class="text-xs text-luxury-text hover-gold font-bold uppercase tracking-widest">Contact</a>
-                    <a href="#" onclick="navigate('admin-login')" class="px-5 py-2.5 bg-luxury-text text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm" id="nav-admin-btn">Admin Portal</a>
+                    <a href="#" onclick="navigate('home')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Home</a>
+                    <a href="#" onclick="navigate('shop')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Collections</a>
+                    <a href="#" onclick="navigate('about')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">About Us</a>
+                    <a href="#" onclick="navigate('contact')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Contact</a>
+                    <a href="#" onclick="navigate('admin-login')" class="px-5 py-2.5 bg-gold-600 text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm" id="nav-admin-btn">Admin Portal</a>
                 </div>
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-luxury-text p-2 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+                    <button id="mobile-menu-btn" class="text-white p-2 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
                 </div>
             </div>
         </div>
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t absolute w-full shadow-2xl z-40">
-            <a href="#" onclick="navigate('home')" class="block px-6 py-3.5 text-luxury-text font-bold uppercase tracking-widest text-xs border-b">Home</a>
-            <a href="#" onclick="navigate('shop')" class="block px-6 py-3.5 text-luxury-text font-bold uppercase tracking-widest text-xs border-b">Collections</a>
-            <a href="#" onclick="navigate('about')" class="block px-6 py-3.5 text-luxury-text font-bold uppercase tracking-widest text-xs border-b">About Us</a>
-            <a href="#" onclick="navigate('contact')" class="block px-6 py-3.5 text-luxury-text font-bold uppercase tracking-widest text-xs border-b">Contact</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-t border-neutral-800 absolute w-full shadow-2xl z-40">
+            <a href="#" onclick="navigate('home')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-neutral-800">Home</a>
+            <a href="#" onclick="navigate('shop')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-neutral-800">Collections</a>
+            <a href="#" onclick="navigate('about')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-neutral-800">About Us</a>
+            <a href="#" onclick="navigate('contact')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-neutral-800">Contact</a>
             <a href="#" onclick="navigate('admin-login')" class="block px-6 py-3.5 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs">Admin Portal</a>
         </div>
     </nav>
 
     <!-- LIVE MARKET RATES BANNER -->
-    <div class="bg-gold-500 text-luxury-text py-2.5 sm:py-3 px-4 border-b border-gold-600/20 shadow-sm">
+    <div class="bg-gold-600 text-white py-2.5 sm:py-3 px-4 border-b border-gold-500/30 shadow-md">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] sm:text-xs tracking-widest font-extrabold uppercase space-y-1 sm:space-y-0 text-center sm:text-left">
             <div class="flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
                 <span>Live Market Rates (Per 10g):</span>
             </div>
             <div class="flex space-x-6">
-                <div>Gold (18K Base): <span id="ticker-gold-rate" class="font-black">₹54,000</span></div>
-                <div>Silver: <span id="ticker-silver-rate" class="font-black">₹900</span></div>
+                <div>Gold (18K Base): <span id="ticker-gold-rate" class="font-black text-black">₹54,000</span></div>
+                <div>Silver: <span id="ticker-silver-rate" class="font-black text-black">₹900</span></div>
             </div>
         </div>
     </div>
 
     <main class="flex-grow">
         
-        <!-- HOME PAGE (3D LUXURY BACKGROUND WITH SHORT CLEAN TEXT) -->
+        <!-- HOME PAGE (3D ROTATING ASTROLOGY BACKGROUND + CUSTOM TEXT) -->
         <div id="home" class="page active">
-            <div class="relative text-luxury-text overflow-hidden h-[75vh] sm:h-[90vh] flex items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
-                <!-- Soft Overlay for readability -->
-                <div class="absolute inset-0 bg-gradient-to-r from-[#F9F6F0] via-[#F9F6F0]/90 to-[#F9F6F0]/40"></div>
+            <div class="relative text-white overflow-hidden h-[80vh] sm:h-[90vh] flex items-center bg-black">
+                <!-- 3D Moving Background Image -->
+                <div class="absolute inset-0 overflow-hidden opacity-40">
+                    <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?q=80&w=1920&auto=format&fit=crop" alt="3D Astrology Wheel" class="w-full h-full object-cover animate-3d-bg">
+                </div>
+                <!-- Dark Gradient Overlay for text clarity -->
+                <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
                 
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                    <span class="text-gold-600 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
-                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-luxury-text drop-shadow-sm leading-tight">Timeless <br><span class="text-transparent bg-clip-text gold-gradient">Elegance</span></h1>
-                    <p class="text-gray-700 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted for your special moments[cite: 2].</p>
-                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-white font-bold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-xl rounded-sm">Explore Collections</button>
+                    <span class="text-gold-400 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
+                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-lg leading-tight">Your Beauty, <br><span class="text-transparent bg-clip-text gold-gradient">Our Jewellery</span></h1>
+                    <p class="text-gray-300 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted with uncompromised brilliance for your precious moments.</p>
+                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-white font-bold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-2xl rounded-sm">Explore Collections</button>
                 </div>
             </div>
 
             <!-- Trust Badges -->
-            <div class="bg-white py-8 sm:py-12 border-b border-luxury-border shadow-sm relative z-10 -mt-8 sm:-mt-10 mx-4 md:mx-auto max-w-6xl rounded-xl">
+            <div class="bg-neutral-900 border border-neutral-800 py-8 sm:py-12 shadow-2xl relative z-10 -mt-8 sm:-mt-10 mx-4 md:mx-auto max-w-6xl rounded-xl">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center px-4">
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-certificate text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-luxury-text text-xs sm:text-sm uppercase tracking-wider">100% Certified</h4>
+                        <i class="fas fa-certificate text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">100% Certified</h4>
                         <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Hallmarked Purity</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-sync-alt text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-luxury-text text-xs sm:text-sm uppercase tracking-wider">Easy Returns</h4>
+                        <i class="fas fa-sync-alt text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Easy Returns</h4>
                         <p class="text-[10px] sm:text-xs text-gray-400 mt-1">14-Day Policy</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-luxury-text text-xs sm:text-sm uppercase tracking-wider">Secure Shipping</h4>
+                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Secure Shipping</h4>
                         <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Fully Insured</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-gem text-2xl sm:text-3xl text-gold-500 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-luxury-text text-xs sm:text-sm uppercase tracking-wider">Lifetime Service</h4>
+                        <i class="fas fa-gem text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Lifetime Service</h4>
                         <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Free Maintenance</p>
                     </div>
                 </div>
@@ -140,23 +156,23 @@
             <!-- Shop by Material / Category -->
             <div class="max-w-7xl mx-auto px-4 py-16 sm:py-24">
                 <div class="text-center mb-12 sm:mb-16">
-                    <span class="text-gold-600 text-xs font-bold tracking-widest uppercase">Collections</span>
-                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-luxury-text mt-2">Browse by Metal</h2>
+                    <span class="text-gold-400 text-xs font-bold tracking-widest uppercase">Collections</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Browse by Metal</h2>
                     <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
-                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl" onclick="filterByMetal('Gold')">
+                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-neutral-800" onclick="filterByMetal('Gold')">
                         <img id="home-gold-banner" src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
                             <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Pure 18K Gold (75% Purity)</span>
                             <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">Gold Collection</h3>
                             <span class="text-white text-xs uppercase tracking-widest font-bold flex items-center mt-3">View Gold <i class="fas fa-arrow-right ml-2 text-xs"></i></span>
                         </div>
                     </div>
-                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl" onclick="filterByMetal('Silver')">
+                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-neutral-800" onclick="filterByMetal('Silver')">
                         <img id="home-silver-banner" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
                             <span class="text-silver-400 text-xs font-bold uppercase tracking-widest">Sterling 925 Silver</span>
                             <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">Silver Collection</h3>
@@ -167,16 +183,16 @@
             </div>
 
             <!-- Featured Latest Designs -->
-            <div class="bg-white py-16 sm:py-24 border-t border-luxury-border">
+            <div class="bg-neutral-950 py-16 sm:py-24 border-t border-neutral-900">
                 <div class="max-w-7xl mx-auto px-4">
                     <div class="text-center mb-12 sm:mb-16">
-                        <span class="text-gold-600 text-xs font-bold tracking-widest uppercase">New Arrivals</span>
-                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-luxury-text mt-2">Latest Masterpieces</h2>
+                        <span class="text-gold-400 text-xs font-bold tracking-widest uppercase">New Arrivals</span>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Latest Masterpieces</h2>
                         <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
                     </div>
                     <div id="home-featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10"></div>
                     <div class="text-center mt-12 sm:mt-16">
-                        <button onclick="navigate('shop')" class="px-8 py-4 bg-luxury-text text-white font-bold uppercase tracking-widest text-xs hover:bg-gold-500 transition-all rounded-sm shadow-xl">View Full Catalog</button>
+                        <button onclick="navigate('shop')" class="px-8 py-4 bg-gold-600 text-white font-bold uppercase tracking-widest text-xs hover:bg-gold-500 transition-all rounded-sm shadow-xl">View Full Catalog</button>
                     </div>
                 </div>
             </div>
@@ -184,9 +200,9 @@
 
         <!-- ABOUT PAGE -->
         <div id="about" class="page">
-            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
+            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20 text-white">
                 <div class="text-center mb-12 sm:mb-16">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold text-luxury-text mb-4">About Rani Jewellers</h1>
+                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">About Rani Jewellers</h1>
                     <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
                 </div>
                 
@@ -198,12 +214,12 @@
                         </div>
                     </div>
                     <div class="w-full lg:w-1/2 space-y-6 sm:space-y-8">
-                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-luxury-text" id="dyn-about-title">Loading...</h2>
-                        <p class="text-gray-600 leading-relaxed text-base sm:text-lg" id="dyn-about-story">Loading...</p>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gold-400" id="dyn-about-title">Loading...</h2>
+                        <p class="text-gray-300 leading-relaxed text-base sm:text-lg" id="dyn-about-story">Loading...</p>
                         
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 sm:pt-8 border-t border-luxury-border">
-                            <div class="flex items-start"><i class="fas fa-gem text-2xl sm:text-3xl text-gold-500 mr-4"></i><div><h4 class="font-bold text-luxury-text">Pure Materials</h4><p class="text-xs sm:text-sm text-gray-500 mt-1">100% certified gold & silver.</p></div></div>
-                            <div class="flex items-start"><i class="fas fa-handshake text-2xl sm:text-3xl text-gold-500 mr-4"></i><div><h4 class="font-bold text-luxury-text">Trusted Legacy</h4><p class="text-xs sm:text-sm text-gray-500 mt-1">Built on generations of trust.</p></div></div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 sm:pt-8 border-t border-neutral-800">
+                            <div class="flex items-start"><i class="fas fa-gem text-2xl sm:text-3xl text-gold-400 mr-4"></i><div><h4 class="font-bold text-white">Pure Materials</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">100% certified gold & silver.</p></div></div>
+                            <div class="flex items-start"><i class="fas fa-handshake text-2xl sm:text-3xl text-gold-400 mr-4"></i><div><h4 class="font-bold text-white">Trusted Legacy</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">Built on generations of trust.</p></div></div>
                         </div>
                     </div>
                 </div>
@@ -212,7 +228,7 @@
 
         <!-- SHOP PAGE -->
         <div id="shop" class="page">
-            <div class="bg-luxury-text py-16 sm:py-20 text-white relative overflow-hidden">
+            <div class="bg-neutral-900 py-16 sm:py-20 text-white relative overflow-hidden border-b border-neutral-800">
                 <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
                     <h1 class="text-4xl sm:text-5xl font-serif font-bold">Gold & Silver Collections</h1>
                     <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
@@ -221,18 +237,18 @@
             
             <div class="max-w-7xl mx-auto px-4 py-10 sm:py-16 flex flex-col lg:flex-row gap-8 lg:gap-10">
                 <div class="w-full lg:w-1/4">
-                    <div class="bg-white p-6 rounded-xl shadow-lg border border-luxury-border lg:sticky lg:top-28">
+                    <div class="bg-neutral-900 p-6 rounded-xl shadow-lg border border-neutral-800 lg:sticky lg:top-28 text-white">
                         <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Search Catalog</h3>
                         <div class="relative mb-6 sm:mb-8">
-                            <input type="text" id="search-input" placeholder="Search product..." class="w-full pl-10 pr-4 py-3 border border-luxury-border rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold bg-luxury-light" onkeyup="renderShop()">
+                            <input type="text" id="search-input" placeholder="Search product..." class="w-full pl-10 pr-4 py-3 border border-neutral-700 rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold bg-neutral-800 text-white" onkeyup="renderShop()">
                             <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
                         </div>
                         
                         <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Metal Type</h3>
                         <div class="space-y-3 sm:space-y-4" id="metal-filters">
-                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="All" checked onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-luxury-text">All Metals</span></label>
-                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Gold" onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-luxury-text">Gold (18K - 75% Pure)</span></label>
-                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Silver" onchange="renderShop()" class="mr-3 accent-silver-600 w-4 h-4"><span class="text-sm font-bold text-luxury-text">Silver Collection</span></label>
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="All" checked onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">All Metals</span></label>
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Gold" onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">Gold (18K - 75% Pure)</span></label>
+                            <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Silver" onchange="renderShop()" class="mr-3 accent-silver-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">Silver Collection</span></label>
                         </div>
                     </div>
                 </div>
@@ -244,44 +260,44 @@
         </div>
 
         <!-- PRODUCT DETAILS PAGE -->
-        <div id="detail" class="page py-10 sm:py-16 max-w-7xl mx-auto px-4">
-            <button onclick="navigate('shop')" class="text-gray-500 hover:text-gold-600 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
-            <div id="product-detail-container" class="bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-luxury-border"></div>
+        <div id="detail" class="page py-10 sm:py-16 max-w-7xl mx-auto px-4 text-white">
+            <button onclick="navigate('shop')" class="text-gray-400 hover:text-gold-400 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
+            <div id="product-detail-container" class="bg-neutral-900 rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-neutral-800"></div>
         </div>
 
         <!-- CONTACT PAGE -->
-        <div id="contact" class="page">
+        <div id="contact" class="page text-white">
             <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
                 <div class="text-center mb-12 sm:mb-16">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold text-luxury-text mb-4">Contact Concierge</h1>
+                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">Contact Concierge</h1>
                     <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
                 </div>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-                    <div class="bg-luxury-text text-white p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden">
+                    <div class="bg-neutral-900 p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-neutral-800">
                         <h3 class="text-2xl sm:text-3xl font-serif mb-8 sm:mb-10 text-gold-400">Store Directory</h3>
                         <div class="space-y-8 sm:space-y-10 relative z-10">
                             <div class="flex items-start">
                                 <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-map-marker-alt text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-base sm:text-lg dynamic-address mt-1 font-light leading-relaxed">Loading...</p></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-base sm:text-lg dynamic-address mt-1 font-light leading-relaxed text-gray-300">Loading...</p></div>
                             </div>
                             <div class="flex items-start">
                                 <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-phone text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-lg sm:text-xl dynamic-phone mt-1 font-light">Loading...</p></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-lg sm:text-xl dynamic-phone mt-1 font-light text-gray-300">Loading...</p></div>
                             </div>
                             <div class="flex items-start">
                                 <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-envelope text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-base sm:text-lg dynamic-email mt-1 font-light">Loading...</p></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-base sm:text-lg dynamic-email mt-1 font-light text-gray-300">Loading...</p></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-xl border border-luxury-border">
-                        <h3 class="text-2xl font-serif mb-6 sm:mb-8 text-luxury-text">Send us a Message</h3>
+                    <div class="bg-neutral-900 p-8 sm:p-10 rounded-2xl shadow-xl border border-neutral-800">
+                        <h3 class="text-2xl font-serif mb-6 sm:mb-8 text-white">Send us a Message</h3>
                         <form onsubmit="handleGeneralContact(event)">
-                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-500 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none font-bold text-sm bg-luxury-light"></div>
-                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-500 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none font-bold text-sm bg-luxury-light"></div>
-                            <div class="mb-6 sm:mb-8"><label class="block text-xs font-bold text-gray-500 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3.5 sm:p-4 border rounded-lg outline-none text-sm bg-luxury-light"></textarea></div>
+                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3.5 sm:p-4 border border-neutral-700 rounded-lg outline-none font-bold text-sm bg-neutral-800 text-white"></div>
+                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3.5 sm:p-4 border border-neutral-700 rounded-lg outline-none font-bold text-sm bg-neutral-800 text-white"></div>
+                            <div class="mb-6 sm:mb-8"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3.5 sm:p-4 border border-neutral-700 rounded-lg outline-none text-sm bg-neutral-800 text-white"></textarea></div>
                             <button type="submit" class="w-full gold-gradient text-white py-3.5 sm:py-4 rounded-lg font-bold uppercase tracking-widest text-xs shadow-xl">Send Message</button>
                         </form>
                     </div>
@@ -291,26 +307,26 @@
 
         <!-- ADMIN LOGIN PAGE -->
         <div id="admin-login" class="page">
-            <div class="min-h-[80vh] flex items-center justify-center bg-luxury-light py-12 px-4">
-                <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-white p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-luxury-border">
+            <div class="min-h-[80vh] flex items-center justify-center bg-black py-12 px-4">
+                <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-neutral-900 p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-neutral-800">
                     <div class="text-center">
-                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-500 mb-3 sm:mb-4"></i>
-                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-luxury-text">Admin Portal</h2>
-                        <p class="mt-2 text-xs text-gray-500 font-bold uppercase tracking-widest">Authorized Access Only</p>
+                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-400 mb-3 sm:mb-4"></i>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Admin Portal</h2>
+                        <p class="mt-2 text-xs text-gray-400 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
                     
                     <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
                         <div class="space-y-4 sm:space-y-5">
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Username</label>
-                                <input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-luxury-light text-sm font-bold text-luxury-text">
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Username</label>
+                                <input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border border-neutral-700 rounded-lg outline-none bg-neutral-800 text-sm font-bold text-white">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Password</label>
-                                <input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border rounded-lg outline-none bg-luxury-light text-sm font-bold text-luxury-text">
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Password</label>
+                                <input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border border-neutral-700 rounded-lg outline-none bg-neutral-800 text-sm font-bold text-white">
                             </div>
                         </div>
-                        <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-sm rounded-lg text-white bg-luxury-text hover:bg-gold-500 transition-all shadow-lg">Authenticate</button>
+                        <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-bold uppercase tracking-widest text-sm rounded-lg text-white gold-gradient shadow-lg">Authenticate</button>
                     </form>
                 </div>
             </div>
@@ -335,7 +351,7 @@
                         <a href="#" onclick="switchAdminTab('dashboard')" id="tab-dashboard" class="admin-tab active flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all"><i class="fas fa-chart-pie w-6 text-base"></i> Overview</a>
                         <a href="#" onclick="switchAdminTab('daily-rates')" id="tab-daily-rates" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-rupee-sign w-6 text-base text-gold-400"></i> Set Daily Rates</a>
                         <a href="#" onclick="switchAdminTab('add-product')" id="tab-add-product" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-plus-circle w-6 text-base text-gold-400"></i> Add Product</a>
-                        <a href="#" onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-boxes w-6 text-base text-gold-400"></i> Inventory & Price Breakdown</a>
+                        <a href="#" onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all"><i class="fas fa-boxes w-6 text-base text-gold-400"></i> Inventory & Breakdown</a>
                         
                         <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
                         <a href="#" onclick="switchAdminTab('enquiries')" id="tab-enquiries" class="admin-tab flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-neutral-800/80 hover:text-white transition-all">
@@ -441,7 +457,7 @@
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Category apani marzi se kuch bhi type karein</p>
                         
-                        <form id="add-product-form" class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-luxury-border max-w-4xl" onsubmit="handleAddProduct(event)">
+                        <form id="add-product-form" class="bg-neutral-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-neutral-800 max-w-4xl" onsubmit="handleAddProduct(event)">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
                                 <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Name</label><input type="text" id="p-name" required class="w-full border border-neutral-700 p-3 rounded-xl outline-none bg-neutral-800 text-white text-sm font-bold"></div>
                                 <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Metal Type</label>
@@ -540,14 +556,14 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-luxury-text text-gray-300 pt-16 sm:pt-20 pb-10 border-t-[4px] border-gold-500">
+    <footer class="bg-neutral-950 text-gray-300 pt-16 sm:pt-20 pb-10 border-t-[4px] border-gold-500">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-16 mb-12 sm:mb-16">
             <div>
                 <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-4 sm:mb-6 uppercase tracking-widest">Rani Jewellers</h2>
                 <p class="text-gray-400 text-sm leading-relaxed mb-6 sm:mb-8 font-light" id="footer-about-story">Crafting elegance since 2026. Every piece tells a story of luxury.</p>
             </div>
             <div>
-                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-gray-800 pb-3">Quick Links</h3>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-neutral-800 pb-3">Quick Links</h3>
                 <ul class="space-y-3 sm:space-y-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
                     <li><a href="#" onclick="navigate('home')" class="hover:text-gold-400">Home</a></li>
                     <li><a href="#" onclick="navigate('shop')" class="hover:text-gold-400">Our Collections</a></li>
@@ -556,7 +572,7 @@
                 </ul>
             </div>
             <div>
-                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-gray-800 pb-3">Contact Boutique</h3>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-neutral-800 pb-3">Contact Boutique</h3>
                 <ul class="space-y-4 sm:space-y-5 text-sm text-gray-400 font-light">
                     <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-4 text-gold-400"></i><span class="dynamic-address">Loading...</span></li>
                     <li class="flex items-center"><i class="fas fa-phone mr-4 text-gold-400"></i><span class="dynamic-phone font-bold">Loading...</span></li>
@@ -564,7 +580,7 @@
                 </ul>
             </div>
         </div>
-        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-gray-800 pt-6 sm:pt-8 px-4">
+        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-neutral-800 pt-6 sm:pt-8 px-4">
             <p>Copyright © 2026 Rani Jewellers. All Rights Reserved.</p>
         </div>
     </footer>
@@ -573,29 +589,29 @@
     <a href="#" target="_blank" class="whatsapp-float" id="wa-btn"><i class="fab fa-whatsapp"></i></a>
 
     <!-- Enquiry Modal -->
-    <div id="enquiry-modal" class="fixed inset-0 bg-black/60 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-4">
-        <div class="bg-white p-6 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative border border-luxury-border">
+    <div id="enquiry-modal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-neutral-900 border border-neutral-800 text-white p-6 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative">
             <button onclick="closeEnquiryModal()" class="absolute top-5 right-5 sm:top-6 sm:right-6 text-gray-400 hover:text-red-500"><i class="fas fa-times text-2xl"></i></button>
-            <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-6 text-luxury-text">Reserve Request</h3>
+            <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-6 text-white">Reserve Request</h3>
             <form onsubmit="submitEnquiry(event)">
-                <div class="mb-6 sm:mb-8 bg-luxury-light p-4 sm:p-5 rounded-xl border border-luxury-border">
+                <div class="mb-6 sm:mb-8 bg-neutral-800 p-4 sm:p-5 rounded-xl border border-neutral-700">
                     <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-2">Selected Masterpiece</p>
-                    <p class="font-serif text-lg sm:text-xl font-bold text-luxury-text"><span id="enq-product-name"></span></p>
-                    <p class="text-gold-600 text-xs font-bold uppercase tracking-wider mt-1">REF: <span id="enq-product-id"></span></p>
+                    <p class="font-serif text-lg sm:text-xl font-bold text-white"><span id="enq-product-name"></span></p>
+                    <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mt-1">REF: <span id="enq-product-id"></span></p>
                 </div>
                 <input type="hidden" id="enq-pid"><input type="hidden" id="enq-pname">
                 <div class="space-y-5 sm:space-y-6 mb-6 sm:mb-8">
-                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm text-luxury-text"></div>
-                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm text-luxury-text"></div>
-                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 py-3 bg-transparent outline-none font-bold text-sm text-luxury-text"></div>
+                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 border-neutral-700 py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 border-neutral-700 py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 border-neutral-700 py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
                 </div>
-                <button type="submit" class="w-full bg-luxury-text text-white py-3.5 sm:py-4 rounded-lg font-bold uppercase text-xs hover:bg-gold-500 shadow-xl">Submit Request</button>
+                <button type="submit" class="w-full gold-gradient text-white py-3.5 sm:py-4 rounded-lg font-bold uppercase text-xs hover:opacity-95 shadow-xl">Submit Request</button>
             </form>
         </div>
     </div>
 
     <!-- WHATSAPP REPLY MODAL -->
-    <div id="reply-modal" class="fixed inset-0 bg-black/60 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
+    <div id="reply-modal" class="fixed inset-0 bg-black/80 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
         <div class="bg-neutral-900 border border-neutral-800 p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
             <button onclick="closeReplyModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
             <div class="flex items-center space-x-3 mb-3">
@@ -898,11 +914,11 @@
             container.innerHTML = latest.map(p => {
                 let livePrice = calculateProductPrice(p);
                 return `
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border border-luxury-border flex flex-col group" onclick="viewProductDetails('${p.id}')">
+                    <div class="bg-neutral-900 rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border border-neutral-800 flex flex-col group" onclick="viewProductDetails('${p.id}')">
                         <div class="h-72 sm:h-80 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
                         <div class="p-6 sm:p-8 text-center flex-grow flex flex-col justify-between">
-                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-lg sm:text-xl font-serif font-bold text-luxury-text">${p.name}</h3></div>
-                            <p class="text-base sm:text-lg font-bold text-gold-600 mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
+                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-lg sm:text-xl font-serif font-bold text-white">${p.name}</h3></div>
+                            <p class="text-base sm:text-lg font-bold text-gold-400 mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
                         </div>
                     </div>
                 `;
@@ -923,15 +939,15 @@
             container.innerHTML = filtered.map(p => {
                 let livePrice = calculateProductPrice(p);
                 return `
-                    <div class="bg-white rounded-xl shadow-sm border border-luxury-border overflow-hidden card-hover flex flex-col group">
+                    <div class="bg-neutral-900 rounded-xl shadow-sm border border-neutral-800 overflow-hidden card-hover flex flex-col group">
                         <div class="relative cursor-pointer h-64 sm:h-72 overflow-hidden" onclick="viewProductDetails('${p.id}')">
                             <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-gray-600'}">${p.metal}</span>
+                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
                         </div>
-                        <div class="p-5 sm:p-6 flex-grow flex flex-col bg-white">
+                        <div class="p-5 sm:p-6 flex-grow flex flex-col bg-neutral-900">
                             <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${p.category} • Wt: ${p.weight}g</span>
-                            <h3 class="text-lg sm:text-xl font-serif font-bold text-luxury-text line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
-                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-lg sm:text-xl font-bold text-gold-600">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-luxury-light flex items-center justify-center text-luxury-text group-hover:bg-luxury-text group-hover:text-white transition-all"><i class="fas fa-arrow-right"></i></button></div>
+                            <h3 class="text-lg sm:text-xl font-serif font-bold text-white line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
+                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-lg sm:text-xl font-bold text-gold-400">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white group-hover:bg-gold-600 transition-all"><i class="fas fa-arrow-right"></i></button></div>
                         </div>
                     </div>
                 `;
@@ -942,26 +958,26 @@
             const p = products.find(x => x.id === id); if(!p) return;
             let breakdown = calculateDetailedPrice(p);
             document.getElementById('product-detail-container').innerHTML = `
-                <div class="w-full lg:w-1/2 bg-luxury-light flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[400px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-white"></div>
-                <div class="w-full lg:w-1/2 p-6 sm:p-12 lg:p-16 flex flex-col justify-center bg-white">
+                <div class="w-full lg:w-1/2 bg-neutral-950 flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[400px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-neutral-800"></div>
+                <div class="w-full lg:w-1/2 p-6 sm:p-12 lg:p-16 flex flex-col justify-center bg-neutral-900">
                     <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-gray-600'}">${p.metal}</span>
-                        <span class="text-[10px] font-bold text-white bg-luxury-text px-3 py-1 rounded-full uppercase tracking-widest">${p.category}</span>
-                        <span class="text-[10px] font-bold text-luxury-text bg-luxury-light px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${p.weight}g</span>
+                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
+                        <span class="text-[10px] font-bold text-white bg-neutral-800 px-3 py-1 rounded-full uppercase tracking-widest">${p.category}</span>
+                        <span class="text-[10px] font-bold text-white bg-neutral-800 px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${p.weight}g</span>
                     </div>
-                    <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-3 sm:mb-4 text-luxury-text">${p.name}</h1>
-                    <p class="text-2xl sm:text-3xl font-bold text-gold-600 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-3 sm:mb-4 text-white">${p.name}</h1>
+                    <p class="text-2xl sm:text-3xl font-bold text-gold-400 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
                     
                     <!-- Customer Price Breakdown Box -->
-                    <div class="bg-luxury-light p-4 sm:p-5 rounded-xl border border-luxury-border mb-6 space-y-2 text-xs">
-                        <p class="font-bold uppercase tracking-wider text-luxury-text border-b border-luxury-border pb-2 mb-2"><i class="fas fa-calculator text-gold-500 mr-2"></i> Price Calculation Breakdown</p>
-                        <div class="flex justify-between text-gray-600"><span>Base Metal Value (${p.weight}g):</span> <span class="font-bold text-luxury-text">₹${breakdown.baseValue.toLocaleString('en-IN')}</span></div>
-                        <div class="flex justify-between text-gray-600"><span>Making Charges:</span> <span class="font-bold text-luxury-text">₹${breakdown.making.toLocaleString('en-IN')}</span></div>
-                        <div class="flex justify-between text-gray-600"><span>GST (3%):</span> <span class="font-bold text-luxury-text">₹${breakdown.gst.toLocaleString('en-IN')}</span></div>
+                    <div class="bg-black/50 p-4 sm:p-5 rounded-xl border border-neutral-800 mb-6 space-y-2 text-xs">
+                        <p class="font-bold uppercase tracking-wider text-white border-b border-neutral-800 pb-2 mb-2"><i class="fas fa-calculator text-gold-400 mr-2"></i> Price Calculation Breakdown</p>
+                        <div class="flex justify-between text-gray-300"><span>Base Metal Value (${p.weight}g):</span> <span class="font-bold text-white">₹${breakdown.baseValue.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>Making Charges:</span> <span class="font-bold text-white">₹${breakdown.making.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>GST (3%):</span> <span class="font-bold text-white">₹${breakdown.gst.toLocaleString('en-IN')}</span></div>
                     </div>
 
-                    <p class="text-gray-500 leading-relaxed mb-6 sm:mb-8 text-sm">${p.desc}</p>
-                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-4 sm:py-5 bg-luxury-text text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-xl hover:bg-gold-500 transition-colors">Reserve Masterpiece</button>` : `<button disabled class="w-full py-4 sm:py-5 bg-gray-100 text-gray-400 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
+                    <p class="text-gray-300 leading-relaxed mb-6 sm:mb-8 text-sm">${p.desc}</p>
+                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-4 sm:py-5 gold-gradient text-white text-xs font-bold uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors">Reserve Masterpiece</button>` : `<button disabled class="w-full py-4 sm:py-5 bg-neutral-800 text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
                 </div>
             `;
             navigate('detail');
