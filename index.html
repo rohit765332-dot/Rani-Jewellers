@@ -36,7 +36,7 @@
         .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25); transition: all 0.4s ease; }
         
-        #flower-canvas {
+        #real-flower-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -104,7 +104,7 @@
         
         <div id="home" class="page active">
             <div class="relative text-white overflow-hidden h-[85vh] sm:h-[92vh] flex items-center bg-[#030206]">
-                <canvas id="flower-canvas"></canvas>
+                <canvas id="real-flower-canvas"></canvas>
                 
                 <div class="absolute inset-0 bg-gradient-to-r from-[#030206] via-[#030206]/75 to-transparent pointer-events-none"></div>
                 
@@ -608,9 +608,8 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('flower-canvas');
+        const canvas = document.getElementById('real-flower-canvas');
         const ctx = canvas.getContext('2d');
-        let animationFrameId;
 
         function resizeCanvas() {
             canvas.width = canvas.parentElement.offsetWidth;
@@ -619,77 +618,46 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // 7 Luxury Flower Types sequence with unique colors and petals
-        const flowers = [
-            { name: 'Rose', color: '#E11D48', centerColor: '#FBBF24', petals: 12 },
-            { name: 'Sunflower', color: '#F59E0B', centerColor: '#78350F', petals: 18 },
-            { name: 'Lotus', color: '#F472B6', centerColor: '#FEF08A', petals: 14 },
-            { name: 'Tulip', color: '#8B5CF6', centerColor: '#C4B5FD', petals: 8 },
-            { name: 'Orchid', color: '#06B6D4', centerColor: '#FFFFFF', petals: 10 },
-            { name: 'Jasmine', color: '#FFFFFF', centerColor: '#FDE047', petals: 6 },
-            { name: 'Marigold', color: '#EA580C', centerColor: '#FEF08A', petals: 20 }
+        // Top 10 Real Luxury Flowers Image URLs (HD Unsplash Photos)
+        const realFlowerUrls = [
+            "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900", // Red Rose
+            "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=900", // Sunflower
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=900", // Pink Lotus
+            "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=900", // Purple Tulip
+            "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=900", // Blue Orchid
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=900", // Jasmine / White Bloom
+            "https://images.unsplash.com/photo-1559563458-527698bf5295?w=900", // Peony
+            "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=900", // Cherry Blossom
+            "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=900", // Spring Lily
+            "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900"  // Dahlia
         ];
 
-        let currentFlowerIndex = 0;
-        let morphProgress = 0;
-        let rotationAngle = 0;
+        let loadedImages = [];
+        let currentIdx = 0;
+        let nextIdx = 1;
+        let transitionAlpha = 0;
+        let lastTime = Date.now();
+
+        // Preload all 10 images
+        realFlowerUrls.forEach(url => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = url;
+            loadedImages.push(img);
+        });
 
         // Background sparkling particles
         const sparkles = [];
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 120; i++) {
             sparkles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 1.8,
+                radius: Math.random() * 2,
                 alpha: Math.random()
             });
         }
 
-        function drawDetailedFlower(centerX, centerY, flower, scale, rot) {
-            ctx.save();
-            ctx.translate(centerX, centerY);
-            ctx.rotate(rot);
-
-            const petalCount = flower.petals;
-            const radius = 120 * scale;
-
-            // Draw Petals
-            for (let i = 0; i < petalCount; i++) {
-                ctx.save();
-                ctx.rotate((Math.PI * 2 / petalCount) * i);
-                
-                ctx.beginPath();
-                ctx.ellipse(0, -radius * 0.5, radius * 0.28, radius * 0.55, 0, 0, Math.PI * 2);
-                
-                // Gradient petal shading for 3D look
-                const grad = ctx.createRadialGradient(0, -radius * 0.5, 5, 0, -radius * 0.5, radius * 0.5);
-                grad.addColorStop(0, '#FFFFFF');
-                grad.addColorStop(0.3, flower.color);
-                grad.addColorStop(1, '#000000');
-                
-                ctx.fillStyle = grad;
-                ctx.shadowBlur = 25;
-                ctx.shadowColor = flower.color;
-                ctx.fill();
-                ctx.restore();
-            }
-
-            // Draw Flower Center (Stamen/Core)
-            ctx.beginPath();
-            ctx.arc(0, 0, 35 * scale, 0, Math.PI * 2);
-            const centerGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 35 * scale);
-            centerGrad.addColorStop(0, '#FFFFFF');
-            centerGrad.addColorStop(0.5, flower.centerColor);
-            centerGrad.addColorStop(1, '#1E1B4B');
-            ctx.fillStyle = centerGrad;
-            ctx.shadowBlur = 30;
-            ctx.shadowColor = flower.centerColor;
-            ctx.fill();
-
-            ctx.restore();
-        }
-
-        function animateFlowerScene() {
+        function animateRealFlowers() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw Sparkling Background
@@ -700,29 +668,57 @@
                 ctx.fill();
             });
 
-            // Center coordinate shifted to the right side so text is clearly readable on the left
-            const centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
-            const centerY = canvas.height * 0.5;
+            let now = Date.now();
+            let elapsed = (now - lastTime) / 1000;
 
-            rotationAngle += 0.008;
-            morphProgress += 0.005;
-
-            // Change flower every 7 seconds smoothly
-            if (morphProgress >= Math.PI * 2) {
-                morphProgress = 0;
-                currentFlowerIndex = (currentFlowerIndex + 1) % flowers.length;
+            // Every 5 seconds transition to next flower
+            if (elapsed > 5) {
+                currentIdx = nextIdx;
+                nextIdx = (nextIdx + 1) % loadedImages.length;
+                transitionAlpha = 0;
+                lastTime = now;
+            } else if (elapsed > 4) {
+                // Fade in transition during the last 1 second
+                transitionAlpha = (elapsed - 4); 
             }
 
-            // Smooth scaling transition effect
-            let scale = 1 + Math.sin(morphProgress) * 0.15;
-            let currentFlower = flowers[currentFlowerIndex];
+            let currImg = loadedImages[currentIdx];
+            let nextImg = loadedImages[nextIdx];
 
-            drawDetailedFlower(centerX, centerY, currentFlower, scale, rotationAngle);
+            // Position flower on the right side for clean text visibility on the left
+            let imgSize = Math.min(canvas.width, canvas.height) * 0.55;
+            let centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
+            let centerY = canvas.height * 0.5;
 
-            animationFrameId = requestAnimationFrame(animateFlowerScene);
+            if (currImg && currImg.complete && currImg.naturalWidth !== 0) {
+                ctx.save();
+                ctx.globalAlpha = 1 - transitionAlpha;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, imgSize * 0.48, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(currImg, centerX - imgSize/2, centerY - imgSize/2, imgSize, imgSize);
+                ctx.restore();
+            }
+
+            if (nextImg && nextImg.complete && nextImg.naturalWidth !== 0 && transitionAlpha > 0) {
+                ctx.save();
+                ctx.globalAlpha = transitionAlpha;
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, imgSize * 0.48, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(nextImg, centerX - imgSize/2, centerY - imgSize/2, imgSize, imgSize);
+                ctx.restore();
+            }
+
+            requestAnimationFrame(animateRealFlowers);
         }
 
-        animateFlowerScene();
+        // Start animation loop once window loads
+        window.addEventListener('load', () => {
+            setTimeout(animateRealFlowers, 500);
+        });
     </script>
 
     <script>
