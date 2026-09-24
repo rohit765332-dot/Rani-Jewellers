@@ -27,7 +27,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #030408; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Lato', sans-serif; background-color: #030206; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.3s ease-out; }
@@ -36,12 +36,15 @@
         .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25); transition: all 0.4s ease; }
         
-        @keyframes divineGlow {
-            0% { transform: scale(1); filter: brightness(1) contrast(1.1); }
-            50% { transform: scale(1.06); filter: brightness(1.2) contrast(1.2); }
-            100% { transform: scale(1); filter: brightness(1) contrast(1.1); }
+        #flower-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
         }
-        .animate-divine-bg { animation: divineGlow 15s ease-in-out infinite; }
 
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 1000; transition: transform 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; }
@@ -53,7 +56,7 @@
 </head>
 <body class="flex flex-col min-h-screen selection:bg-gold-500 selection:text-black">
 
-    <nav class="bg-[#030408]/95 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-[#030206]/95 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 sm:h-24">
                 <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
@@ -100,19 +103,10 @@
     <main class="flex-grow">
         
         <div id="home" class="page active">
-            <div class="relative text-white overflow-hidden h-[85vh] sm:h-[92vh] flex items-center bg-[#030408]">
-                <div class="absolute inset-0 overflow-hidden opacity-70">
-                    <video id="bg-video-player" autoplay muted loop playsinline class="w-full h-full object-cover animate-divine-bg">
-                        <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-lights-41270-large.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="absolute top-6 right-6 z-20 hidden sm:flex space-x-2 bg-black/60 p-2 rounded-xl border border-[#2D2B32] backdrop-blur-md">
-                    <button onclick="changeBackgroundVideo(0)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-gold-600 text-black transition-all">Glow 1</button>
-                    <button onclick="changeBackgroundVideo(1)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-neutral-800 text-white hover:bg-gold-500 hover:text-black transition-all">Glow 2</button>
-                    <button onclick="changeBackgroundVideo(2)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-neutral-800 text-white hover:bg-gold-500 hover:text-black transition-all">Space HD</button>
-                </div>
-
-                <div class="absolute inset-0 bg-gradient-to-r from-[#030408] via-[#030408]/75 to-transparent pointer-events-none"></div>
+            <div class="relative text-white overflow-hidden h-[85vh] sm:h-[92vh] flex items-center bg-[#030206]">
+                <canvas id="flower-canvas"></canvas>
+                
+                <div class="absolute inset-0 bg-gradient-to-r from-[#030206] via-[#030206]/75 to-transparent pointer-events-none"></div>
                 
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                     <span class="text-gold-400 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
@@ -294,7 +288,7 @@
         </div>
 
         <div id="admin-login" class="page">
-            <div class="min-h-[80vh] flex items-center justify-center bg-[#030408] py-12 px-4">
+            <div class="min-h-[80vh] flex items-center justify-center bg-[#030206] py-12 px-4">
                 <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-[#121216] p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-[#2D2B32]">
                     <div class="text-center">
                         <i class="fas fa-lock text-3xl sm:text-4xl text-gold-400 mb-3 sm:mb-4"></i>
@@ -319,7 +313,7 @@
             </div>
         </div>
 
-        <div id="admin-dashboard" class="page bg-[#030408] min-h-screen text-gray-100">
+        <div id="admin-dashboard" class="page bg-[#030206] min-h-screen text-gray-100">
             <div class="flex flex-col lg:flex-row min-h-screen">
                 <div class="w-full lg:w-80 bg-[#121216] border-b lg:border-b-0 lg:border-r border-[#2D2B32] flex flex-col shadow-2xl z-10 shrink-0">
                     <div class="p-6 sm:p-8 border-b border-[#2D2B32] flex items-center bg-black/40">
@@ -361,7 +355,7 @@
                     </div>
                 </div>
 
-                <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-[#030408]">
+                <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-[#030206]">
                     <div id="admin-tab-dashboard" class="admin-content block">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif border-b border-[#2D2B32] pb-4">Business Overview</h2>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
@@ -428,4 +422,950 @@
                         <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveCredentials(event)">
                                 <div class="space-y-6">
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Username</label><input type="text" id="new-admin-user" required class="w-full p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Password</label><input type="password" id="new-admin-pass" required class="w-full p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Credentials</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-add-product" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Category apani marzi se kuch bhi type karein</p>
+                        
+                        <form id="add-product-form" class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl" onsubmit="handleAddProduct(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Name</label><input type="text" id="p-name" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Metal Type</label>
+                                    <select id="p-metal" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold">
+                                        <option value="Gold">Gold (18K - 75% Pure)</option>
+                                        <option value="Silver">Silver</option>
+                                    </select>
+                                </div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Category (Type your own)</label>
+                                    <input type="text" id="p-cat" placeholder="e.g. Necklace, Ring, Bangles..." required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold">
+                                </div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Weight (Grams)</label><input type="number" step="0.01" id="p-weight" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Making Charges (Total in ₹)</label><input type="number" id="p-making" placeholder="e.g. 2000" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold"></div>
+                                <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Availability</label>
+                                    <select id="p-avail" class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold"><option value="Available">Available</option><option value="Out of Stock">Out of Stock</option></select>
+                                </div>
+                                <div class="md:col-span-2"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Image (Upload from Device)</label>
+                                    <input type="file" id="p-image-file" accept="image/*" required class="w-full border border-[#2D2B32] p-2 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-black cursor-pointer" onchange="compressAndPreviewProduct(event)">
+                                    <img id="p-img-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-[#2D2B32] shadow-sm">
+                                </div>
+                            </div>
+                            <div class="mb-8"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Short Description</label><textarea id="p-desc" rows="3" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm"></textarea></div>
+                            <button type="submit" class="gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save to Database</button>
+                        </form>
+                    </div>
+
+                    <div id="admin-tab-manage-products" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Inventory & Price Breakdown</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Yahan aapko har product ka poora hisab dikhega (Gold Rate/10 x 0.75 x Weight + Making + 3% GST)</p>
+                        <div class="bg-[#121216] rounded-2xl shadow-xl border border-[#2D2B32] overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[800px]">
+                                <thead><tr class="bg-black/50 border-b border-[#2D2B32] text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Item</th><th class="p-4 sm:p-5">Metal & Wt</th><th class="p-4 sm:p-5">Base Value</th><th class="p-4 sm:p-5">Making</th><th class="p-4 sm:p-5">3% GST</th><th class="p-4 sm:p-5">Final Price</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-products-table" class="divide-y divide-[#2D2B32] text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-enquiries" class="admin-content hidden">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Product Enquiries</h2>
+                            <select id="enquiry-filter" class="border border-[#2D2B32] bg-[#1b1a21] text-white p-2.5 rounded-xl outline-none font-bold text-xs uppercase cursor-pointer" onchange="renderEnquiriesTable()">
+                                <option value="All">All Records</option><option value="Pending">Pending</option><option value="Contacted">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="bg-[#121216] rounded-2xl shadow-xl border border-[#2D2B32] overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead><tr class="bg-black/50 border-b border-[#2D2B32] text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Customer</th><th class="p-4 sm:p-5">Product Ref</th><th class="p-4 sm:p-5">Status & WhatsApp</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-enquiries-table" class="divide-y divide-[#2D2B32] text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-messages" class="admin-content hidden">
+                        <div class="flex justify-between items-center mb-6 sm:mb-8"><h2 class="text-2xl sm:text-3xl font-bold text-white font-serif">Customer Messages</h2></div>
+                        <div class="bg-[#121216] rounded-2xl shadow-xl border border-[#2D2B32] overflow-x-auto">
+                            <table class="w-full text-left border-collapse min-w-[700px]">
+                                <thead><tr class="bg-black/50 border-b border-[#2D2B32] text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Date</th><th class="p-4 sm:p-5">Sender Details</th><th class="p-4 sm:p-5">Message & WhatsApp</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
+                                <tbody id="admin-messages-table" class="divide-y divide-[#2D2B32] text-neutral-300"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Shop Contact Details</h2>
+                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                            <form onsubmit="saveShopSettings(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Phone Number</label><input type="text" id="set-phone" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Email Address</label><input type="email" id="set-email" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Store Address</label><textarea id="set-address" rows="3" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-about-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Edit "About Us" Page</h2>
+                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl">
+                            <form onsubmit="saveAboutSettings(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Main Heading</label><input type="text" id="set-about-title" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Shop Story</label><textarea id="set-about-story" rows="6" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Page</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-[#030206] text-gray-300 pt-16 sm:pt-20 pb-10 border-t-[4px] border-gold-500">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-16 mb-12 sm:mb-16">
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-4 sm:mb-6 uppercase tracking-widest">Rani Jewellers</h2>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6 sm:mb-8 font-light" id="footer-about-story">Crafting elegance since 2026. Every piece tells a story of luxury.</p>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Quick Links</h3>
+                <ul class="space-y-3 sm:space-y-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    <li><button onclick="navigate('home')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">Home</button></li>
+                    <li><button onclick="navigate('shop')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">Our Collections</button></li>
+                    <li><button onclick="navigate('about')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">About Us</button></li>
+                    <li><button onclick="navigate('contact')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">Contact</button></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Contact Boutique</h3>
+                <ul class="space-y-4 sm:space-y-5 text-sm text-gray-400 font-light">
+                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-4 text-gold-400"></i><span class="dynamic-address">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-phone mr-4 text-gold-400"></i><span class="dynamic-phone font-bold">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-envelope mr-4 text-gold-400"></i><span class="dynamic-email">Loading...</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-[#2D2B32] pt-6 sm:pt-8 px-4">
+            <p>Copyright © 2026 Rani Jewellers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <a href="#" target="_blank" class="whatsapp-float" id="wa-btn"><i class="fab fa-whatsapp"></i></a>
+
+    <div id="enquiry-modal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-[#121216] border border-[#2D2B32] text-white p-6 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative">
+            <button onclick="closeEnquiryModal()" class="absolute top-5 right-5 sm:top-6 sm:right-6 text-gray-400 hover:text-red-500 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
+            <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-6 text-white">Reserve Request</h3>
+            <form onsubmit="submitEnquiry(event)">
+                <div class="mb-6 sm:mb-8 bg-[#1b1a21] p-4 sm:p-5 rounded-xl border border-[#2D2B32]">
+                    <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-2">Selected Masterpiece</p>
+                    <p class="font-serif text-lg sm:text-xl font-bold text-white"><span id="enq-product-name"></span></p>
+                    <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mt-1">REF: <span id="enq-product-id"></span></p>
+                </div>
+                <input type="hidden" id="enq-pid"><input type="hidden" id="enq-pname">
+                <div class="space-y-5 sm:space-y-6 mb-6 sm:mb-8">
+                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                </div>
+                <button type="submit" class="w-full gold-gradient text-black font-extrabold py-3.5 sm:py-4 rounded-lg font-bold uppercase text-xs hover:opacity-95 shadow-xl cursor-pointer">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="reply-modal" class="fixed inset-0 bg-black/80 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-[#121216] border border-[#2D2B32] p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
+            <button onclick="closeReplyModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-lg"><i class="fab fa-whatsapp"></i></div>
+                <div>
+                    <h3 class="text-lg font-serif font-bold text-white">Reply via WhatsApp</h3>
+                    <p class="text-xs text-neutral-400">To: <span id="reply-cust-name" class="font-bold text-gold-400"></span> (<span id="reply-cust-phone" class="text-blue-400"></span>)</p>
+                </div>
+            </div>
+            
+            <div class="my-6">
+                <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Type Message:</label>
+                <textarea id="reply-msg-text" rows="4" class="w-full p-3.5 bg-[#1b1a21] border border-[#2D2B32] rounded-xl outline-none text-sm text-white focus:border-gold-500" placeholder="Type your response here..."></textarea>
+            </div>
+            
+            <div class="flex space-x-3">
+                <button onclick="closeReplyModal()" class="w-1/2 bg-[#1b1a21] hover:bg-neutral-800 text-neutral-300 font-bold py-3.5 rounded-xl uppercase text-xs tracking-wider transition-all cursor-pointer">Cancel</button>
+                <button onclick="sendWhatsAppReplyNow()" class="w-1/2 bg-green-600 hover:bg-green-500 text-white font-extrabold py-3.5 rounded-xl uppercase text-xs tracking-wider shadow-lg transition-all flex items-center justify-center cursor-pointer">
+                    <i class="fab fa-whatsapp mr-1.5 text-base"></i> Send Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('flower-canvas');
+        const ctx = canvas.getContext('2d');
+        let animationFrameId;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // 7 Luxury Flower Types sequence with unique colors and petals
+        const flowers = [
+            { name: 'Rose', color: '#E11D48', centerColor: '#FBBF24', petals: 12 },
+            { name: 'Sunflower', color: '#F59E0B', centerColor: '#78350F', petals: 18 },
+            { name: 'Lotus', color: '#F472B6', centerColor: '#FEF08A', petals: 14 },
+            { name: 'Tulip', color: '#8B5CF6', centerColor: '#C4B5FD', petals: 8 },
+            { name: 'Orchid', color: '#06B6D4', centerColor: '#FFFFFF', petals: 10 },
+            { name: 'Jasmine', color: '#FFFFFF', centerColor: '#FDE047', petals: 6 },
+            { name: 'Marigold', color: '#EA580C', centerColor: '#FEF08A', petals: 20 }
+        ];
+
+        let currentFlowerIndex = 0;
+        let morphProgress = 0;
+        let rotationAngle = 0;
+
+        // Background sparkling particles
+        const sparkles = [];
+        for (let i = 0; i < 150; i++) {
+            sparkles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.8,
+                alpha: Math.random()
+            });
+        }
+
+        function drawDetailedFlower(centerX, centerY, flower, scale, rot) {
+            ctx.save();
+            ctx.translate(centerX, centerY);
+            ctx.rotate(rot);
+
+            const petalCount = flower.petals;
+            const radius = 120 * scale;
+
+            // Draw Petals
+            for (let i = 0; i < petalCount; i++) {
+                ctx.save();
+                ctx.rotate((Math.PI * 2 / petalCount) * i);
+                
+                ctx.beginPath();
+                ctx.ellipse(0, -radius * 0.5, radius * 0.28, radius * 0.55, 0, 0, Math.PI * 2);
+                
+                // Gradient petal shading for 3D look
+                const grad = ctx.createRadialGradient(0, -radius * 0.5, 5, 0, -radius * 0.5, radius * 0.5);
+                grad.addColorStop(0, '#FFFFFF');
+                grad.addColorStop(0.3, flower.color);
+                grad.addColorStop(1, '#000000');
+                
+                ctx.fillStyle = grad;
+                ctx.shadowBlur = 25;
+                ctx.shadowColor = flower.color;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Draw Flower Center (Stamen/Core)
+            ctx.beginPath();
+            ctx.arc(0, 0, 35 * scale, 0, Math.PI * 2);
+            const centerGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 35 * scale);
+            centerGrad.addColorStop(0, '#FFFFFF');
+            centerGrad.addColorStop(0.5, flower.centerColor);
+            centerGrad.addColorStop(1, '#1E1B4B');
+            ctx.fillStyle = centerGrad;
+            ctx.shadowBlur = 30;
+            ctx.shadowColor = flower.centerColor;
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function animateFlowerScene() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Sparkling Background
+            sparkles.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 215, 0, ${Math.abs(Math.sin(Date.now() * 0.002 + s.alpha))})`;
+                ctx.fill();
+            });
+
+            // Center coordinate shifted to the right side so text is clearly readable on the left
+            const centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
+            const centerY = canvas.height * 0.5;
+
+            rotationAngle += 0.008;
+            morphProgress += 0.005;
+
+            // Change flower every 7 seconds smoothly
+            if (morphProgress >= Math.PI * 2) {
+                morphProgress = 0;
+                currentFlowerIndex = (currentFlowerIndex + 1) % flowers.length;
+            }
+
+            // Smooth scaling transition effect
+            let scale = 1 + Math.sin(morphProgress) * 0.15;
+            let currentFlower = flowers[currentFlowerIndex];
+
+            drawDetailedFlower(centerX, centerY, currentFlower, scale, rotationAngle);
+
+            animationFrameId = requestAnimationFrame(animateFlowerScene);
+        }
+
+        animateFlowerScene();
+    </script>
+
+    <script>
+        let marketRates = { gold: 54000, silver: 900 }; 
+        let collectionBanners = {
+            gold: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
+            silver: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800'
+        };
+
+        let products = [];
+        let enquiries = [];
+        let contactMessages = [];
+        let shopDetails = { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
+        let aboutDetails = { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery.' };
+        
+        let adminAuthEnc = { u: 'YWRtaW4=', p: 'UmFuaUAxMjM=' }; 
+        let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
+
+        async function initFirebaseApp() {
+            if (!window.db || !window.firebaseModules) {
+                setTimeout(initFirebaseApp, 300);
+                return;
+            }
+
+            try {
+                const { collection, getDocs } = window.firebaseModules;
+                
+                const settingsSnap = await getDocs(collection(window.db, "settings"));
+                settingsSnap.forEach(docSnap => {
+                    let data = docSnap.data();
+                    if(docSnap.id === 'rates') marketRates = data;
+                    if(docSnap.id === 'banners') collectionBanners = data;
+                    if(docSnap.id === 'shop') shopDetails = data;
+                    if(docSnap.id === 'about') aboutDetails = data;
+                    if(docSnap.id === 'authSecure') adminAuthEnc = data;
+                });
+
+                const prodSnap = await getDocs(collection(window.db, "products"));
+                products = [];
+                prodSnap.forEach(docSnap => { products.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+                
+                if(products.length === 0) {
+                    products = [
+                        { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 18k gold necklace' }
+                    ];
+                }
+
+                const enqSnap = await getDocs(collection(window.db, "enquiries"));
+                enquiries = [];
+                enqSnap.forEach(docSnap => { enquiries.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+
+                const msgSnap = await getDocs(collection(window.db, "messages"));
+                contactMessages = [];
+                msgSnap.forEach(docSnap => { contactMessages.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+
+                applyDynamicSettings();
+                renderHome();
+                console.log("Rani Jewellers Database Synced Successfully!");
+            } catch(err) {
+                console.log("Firebase Init Error:", err);
+            }
+        }
+
+        async function saveSettingToFirebase(docName, dataObj) {
+            try {
+                const { doc, setDoc } = window.firebaseModules;
+                await setDoc(doc(window.db, "settings", docName), dataObj);
+            } catch(e) { console.log(e); }
+        }
+
+        function calculateDetailedPrice(p) {
+            let baseValue = 0;
+            if(p.metal === 'Gold') {
+                let ratePerGram = marketRates.gold / 10;
+                let pureGoldRatePerGram = ratePerGram * 0.75; 
+                baseValue = p.weight * pureGoldRatePerGram;
+            } else {
+                let ratePerGram = marketRates.silver / 10;
+                baseValue = p.weight * ratePerGram;
+            }
+            let making = p.making || 0;
+            let subTotal = baseValue + making;
+            let gst = subTotal * 0.03;
+            let finalPrice = Math.round(subTotal + gst);
+
+            return {
+                baseValue: Math.round(baseValue),
+                making: making,
+                gst: Math.round(gst),
+                finalPrice: finalPrice
+            };
+        }
+
+        function calculateProductPrice(p) {
+            return calculateDetailedPrice(p).finalPrice;
+        }
+
+        async function saveDailyRates(e) {
+            e.preventDefault();
+            marketRates.gold = parseFloat(document.getElementById('admin-gold-rate').value) || 54000;
+            marketRates.silver = parseFloat(document.getElementById('admin-silver-rate').value) || 900;
+            await saveSettingToFirebase('rates', marketRates);
+            updateMarketTickers();
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Daily Rates Updated!', showConfirmButton: false, timer: 2000 });
+        }
+
+        function compressImage(file, maxWidth, maxHeight, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    let canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height *= maxWidth / width;
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width *= maxHeight / height;
+                            height = maxHeight;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        let tempProductImageBase64 = '';
+        function compressAndPreviewProduct(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            compressImage(file, 800, 800, 0.7, function(compressedDataUrl) {
+                tempProductImageBase64 = compressedDataUrl;
+                const prev = document.getElementById('p-img-preview');
+                prev.src = tempProductImageBase64;
+                prev.classList.remove('hidden');
+            });
+        }
+
+        let tempBannerGoldBase64 = '';
+        let tempBannerSilverBase64 = '';
+        function compressAndPreviewBanner(event, type) {
+            const file = event.target.files[0];
+            if(!file) return;
+            compressImage(file, 1000, 1000, 0.7, function(compressedDataUrl) {
+                if(type === 'gold') {
+                    tempBannerGoldBase64 = compressedDataUrl;
+                    document.getElementById('prev-gold-img').src = tempBannerGoldBase64;
+                } else {
+                    tempBannerSilverBase64 = compressedDataUrl;
+                    document.getElementById('prev-silver-img').src = tempBannerSilverBase64;
+                }
+            });
+        }
+
+        async function saveBanners(e) {
+            e.preventDefault();
+            if(tempBannerGoldBase64) collectionBanners.gold = tempBannerGoldBase64;
+            if(tempBannerSilverBase64) collectionBanners.silver = tempBannerSilverBase64;
+            await saveSettingToFirebase('banners', collectionBanners);
+            applyDynamicSettings();
+            Swal.fire({ title: 'Banners Updated Successfully!', icon: 'success', confirmButtonColor: '#D4AF37' });
+        }
+
+        function updateMarketTickers() {
+            document.getElementById('ticker-gold-rate').innerText = '₹' + marketRates.gold.toLocaleString('en-IN');
+            document.getElementById('ticker-silver-rate').innerText = '₹' + marketRates.silver.toLocaleString('en-IN');
+            if(document.getElementById('admin-gold-rate')) {
+                document.getElementById('admin-gold-rate').value = marketRates.gold;
+                document.getElementById('admin-silver-rate').value = marketRates.silver;
+            }
+        }
+
+        function filterByMetal(metalName) {
+            navigate('shop');
+            setTimeout(() => {
+                const radios = document.querySelectorAll('input[name="metal"]');
+                radios.forEach(r => { if(r.value === metalName) { r.checked = true; renderShop(); } });
+            }, 100);
+        }
+
+        function applyDynamicSettings() {
+            updateMarketTickers();
+            document.querySelectorAll('.dynamic-phone').forEach(el => el.innerText = shopDetails.phone);
+            document.querySelectorAll('.dynamic-email').forEach(el => el.innerText = shopDetails.email);
+            document.querySelectorAll('.dynamic-address').forEach(el => el.innerText = shopDetails.address);
+            document.getElementById('wa-btn').href = `https://wa.me/${shopDetails.phone.replace(/[^0-9]/g, '')}`;
+            if(document.getElementById('set-phone')) { document.getElementById('set-phone').value = shopDetails.phone; document.getElementById('set-email').value = shopDetails.email; document.getElementById('set-address').value = shopDetails.address; }
+
+            document.getElementById('dyn-about-title').innerText = aboutDetails.title;
+            document.getElementById('dyn-about-story').innerText = aboutDetails.story;
+            document.getElementById('footer-about-story').innerText = aboutDetails.story.substring(0, 100) + '...';
+            if(document.getElementById('set-about-title')) { document.getElementById('set-about-title').value = aboutDetails.title; document.getElementById('set-about-story').value = aboutDetails.story; }
+            if(document.getElementById('new-admin-user')) { 
+                document.getElementById('new-admin-user').value = atob(adminAuthEnc.u); 
+                document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p); 
+            }
+
+            document.getElementById('home-gold-banner').src = collectionBanners.gold;
+            document.getElementById('home-silver-banner').src = collectionBanners.silver;
+            if(document.getElementById('prev-gold-img')) {
+                document.getElementById('prev-gold-img').src = collectionBanners.gold;
+                document.getElementById('prev-silver-img').src = collectionBanners.silver;
+            }
+        }
+
+        async function saveShopSettings(e) { 
+            e.preventDefault(); 
+            shopDetails = { phone: document.getElementById('set-phone').value, email: document.getElementById('set-email').value, address: document.getElementById('set-address').value }; 
+            await saveSettingToFirebase('shop', shopDetails);
+            applyDynamicSettings(); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 }); 
+        }
+
+        async function saveAboutSettings(e) { 
+            e.preventDefault(); 
+            aboutDetails = { title: document.getElementById('set-about-title').value, story: document.getElementById('set-about-story').value }; 
+            await saveSettingToFirebase('about', aboutDetails);
+            applyDynamicSettings(); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 }); 
+        }
+        
+        async function saveCredentials(e) {
+            e.preventDefault();
+            let rawU = document.getElementById('new-admin-user').value;
+            let rawP = document.getElementById('new-admin-pass').value;
+            adminAuthEnc = { u: btoa(rawU), p: btoa(rawP) };
+            await saveSettingToFirebase('authSecure', adminAuthEnc);
+            Swal.fire({ title: 'Credentials Updated!', text: 'Admin credentials securely updated and encrypted.', icon: 'success', confirmButtonColor: '#D4AF37' });
+        }
+
+        async function handleGeneralContact(e) {
+            e.preventDefault();
+            let newMsg = { id: 'MSG-' + Math.floor(Math.random()*10000), name: document.getElementById('contact-name').value, phone: document.getElementById('contact-phone').value, message: document.getElementById('contact-msg').value, date: new Date().toLocaleDateString() };
+            
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "messages"), newMsg);
+                newMsg.firebaseId = docRef.id;
+            }
+            contactMessages.unshift(newMsg);
+
+            Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
+            e.target.reset();
+            if(isLoggedIn) updateDashboardStats();
+        }
+
+        function navigate(pageId) {
+            if (isLoggedIn && pageId !== 'admin-dashboard' && pageId !== 'admin-login') { isLoggedIn = false; localStorage.setItem('rani_admin_auth', 'false'); document.getElementById('nav-admin-btn').textContent = 'Admin Portal'; }
+            if(pageId === 'admin-dashboard' && !isLoggedIn) return navigate('admin-login');
+            if(pageId === 'admin-login' && isLoggedIn) return navigate('admin-dashboard');
+
+            document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            if(targetPage) targetPage.classList.add('active'); 
+            window.scrollTo(0,0);
+
+            if(pageId === 'home') renderHome();
+            if(pageId === 'shop') renderShop();
+            if(pageId === 'admin-dashboard') { updateDashboardStats(); renderAdminProductsTable(); renderEnquiriesTable(); renderMessagesTable(); applyDynamicSettings(); }
+            
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(mobileMenu) mobileMenu.classList.add('hidden');
+        }
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        }
+
+        function renderHome() {
+            const container = document.getElementById('home-featured-products');
+            if(!container) return;
+            const latest = [...products].sort((a,b) => b.date - a.date).slice(0, 3);
+            container.innerHTML = latest.map(p => {
+                let livePrice = calculateProductPrice(p);
+                return `
+                    <div class="bg-[#121216] rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border border-[#2D2B32] flex flex-col group" onclick="viewProductDetails('${p.id}')">
+                        <div class="h-72 sm:h-80 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="p-6 sm:p-8 text-center flex-grow flex flex-col justify-between">
+                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-lg sm:text-xl font-serif font-bold text-white">${p.name}</h3></div>
+                            <p class="text-base sm:text-lg font-bold text-gold-400 mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderShop() {
+            const container = document.getElementById('shop-products-grid');
+            if(!container) return;
+            const searchInput = document.getElementById('search-input');
+            const search = searchInput ? searchInput.value.toLowerCase() : '';
+            const metalRadio = document.querySelector('input[name="metal"]:checked');
+            const metalFilter = metalRadio ? metalRadio.value : 'All';
+            
+            let filtered = products.filter(p => {
+                let matchSearch = p.name.toLowerCase().includes(search) || p.id.toLowerCase().includes(search) || p.category.toLowerCase().includes(search);
+                let matchMetal = metalFilter === 'All' || p.metal === metalFilter;
+                return matchSearch && matchMetal;
+            });
+            
+            container.innerHTML = filtered.map(p => {
+                let livePrice = calculateProductPrice(p);
+                return `
+                    <div class="bg-[#121216] rounded-xl shadow-sm border border-[#2D2B32] overflow-hidden card-hover flex flex-col group">
+                        <div class="relative cursor-pointer h-64 sm:h-72 overflow-hidden" onclick="viewProductDetails('${p.id}')">
+                            <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
+                        </div>
+                        <div class="p-5 sm:p-6 flex-grow flex flex-col bg-[#121216]">
+                            <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${p.category} • Wt: ${p.weight}g</span>
+                            <h3 class="text-lg sm:text-xl font-serif font-bold text-white line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
+                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-lg sm:text-xl font-bold text-gold-400">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1b1a21] flex items-center justify-center text-white group-hover:bg-gold-600 group-hover:text-black transition-all cursor-pointer"><i class="fas fa-arrow-right"></i></button></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function viewProductDetails(id) {
+            const p = products.find(x => x.id === id); if(!p) return;
+            let breakdown = calculateDetailedPrice(p);
+            document.getElementById('product-detail-container').innerHTML = `
+                <div class="w-full lg:w-1/2 bg-[#030206] flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[400px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-[#2D2B32]"></div>
+                <div class="w-full lg:w-1/2 p-6 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#121216]">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
+                        <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">${p.category}</span>
+                        <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${p.weight}g</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-3 sm:mb-4 text-white">${p.name}</h1>
+                    <p class="text-2xl sm:text-3xl font-bold text-gold-400 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
+                    
+                    <div class="bg-black/50 p-4 sm:p-5 rounded-xl border border-[#2D2B32] mb-6 space-y-2 text-xs">
+                        <p class="font-bold uppercase tracking-wider text-white border-b border-[#2D2B32] pb-2 mb-2"><i class="fas fa-calculator text-gold-400 mr-2"></i> Price Calculation Breakdown</p>
+                        <div class="flex justify-between text-gray-300"><span>Base Metal Value (${p.weight}g):</span> <span class="font-bold text-white">₹${breakdown.baseValue.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>Making Charges:</span> <span class="font-bold text-white">₹${breakdown.making.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>GST (3%):</span> <span class="font-bold text-white">₹${breakdown.gst.toLocaleString('en-IN')}</span></div>
+                    </div>
+
+                    <p class="text-gray-300 leading-relaxed mb-6 sm:mb-8 text-sm">${p.desc}</p>
+                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-4 sm:py-5 gold-gradient text-black font-extrabold text-xs uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors cursor-pointer">Reserve Masterpiece</button>` : `<button disabled class="w-full py-4 sm:py-5 bg-[#1b1a21] text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
+                </div>
+            `;
+            navigate('detail');
+        }
+
+        function openEnquiryModal(id) {
+            const p = products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('enq-pid').value = p.id; document.getElementById('enq-pname').value = p.name;
+            document.getElementById('enq-product-id').innerText = p.id; document.getElementById('enq-product-name').innerText = p.name;
+            document.getElementById('enquiry-modal').classList.remove('hidden');
+        }
+        function closeEnquiryModal() { document.getElementById('enquiry-modal').classList.add('hidden'); }
+        
+        async function submitEnquiry(e) {
+            e.preventDefault();
+            let newEnq = { id: 'ENQ-' + Math.floor(Math.random()*10000), pid: document.getElementById('enq-pid').value, pname: document.getElementById('enq-pname').value, name: document.getElementById('enq-name').value, phone: document.getElementById('enq-phone').value, city: document.getElementById('enq-city').value, status: 'Pending', date: new Date().toLocaleDateString() };
+            
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "enquiries"), newEnq);
+                newEnq.firebaseId = docRef.id;
+            }
+            enquiries.unshift(newEnq);
+
+            closeEnquiryModal(); 
+            Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' }); 
+            e.target.reset();
+        }
+
+        function handleSimpleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('simple-user').value;
+            const p = document.getElementById('simple-pass').value;
+            
+            if(btoa(u) === adminAuthEnc.u && btoa(p) === adminAuthEnc.p) {
+                isLoggedIn = true; localStorage.setItem('rani_admin_auth', 'true');
+                document.getElementById('nav-admin-btn').textContent = 'Dashboard';
+                document.getElementById('simple-user').value = ''; document.getElementById('simple-pass').value = '';
+                Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Login Successful', showConfirmButton: false, timer: 1500 });
+                setTimeout(() => navigate('admin-dashboard'), 500);
+            } else {
+                Swal.fire('Error', 'Incorrect Username or Password', 'error');
+            }
+        }
+
+        function handleLogout(showMsg = false) { isLoggedIn = false; localStorage.setItem('rani_admin_auth', 'false'); document.getElementById('nav-admin-btn').textContent = 'Admin Portal'; navigate('home'); if(showMsg) Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: 'Logged Out', showConfirmButton: false, timer: 1500 }); }
+
+        function switchAdminTab(tab) {
+            document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden')); 
+            const targetTab = document.getElementById('admin-tab-' + tab);
+            if(targetTab) targetTab.classList.remove('hidden');
+
+            document.querySelectorAll('.admin-tab').forEach(el => { el.classList.remove('active'); el.classList.add('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white'); });
+            const activeTab = document.getElementById('tab-' + tab); 
+            if(activeTab) {
+                activeTab.classList.remove('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white'); 
+                activeTab.classList.add('active');
+            }
+        }
+
+        function updateDashboardStats() {
+            const pStat = document.getElementById('stat-products');
+            if(pStat) pStat.innerText = products.length;
+            const eStat = document.getElementById('stat-enquiries');
+            if(eStat) eStat.innerText = enquiries.length;
+            const mStat = document.getElementById('stat-messages');
+            if(mStat) mStat.innerText = contactMessages.length;
+            const pendingEnq = enquiries.filter(e => e.status === 'Pending').length;
+            const pendStat = document.getElementById('stat-pending');
+            if(pendStat) pendStat.innerText = pendingEnq;
+            
+            const badgeEnq = document.getElementById('badge-pending');
+            if(badgeEnq) {
+                if(pendingEnq > 0) { badgeEnq.innerText = pendingEnq; badgeEnq.classList.remove('hidden'); } else { badgeEnq.classList.add('hidden'); }
+            }
+            const badgeMsg = document.getElementById('badge-messages');
+            if(badgeMsg) {
+                if(contactMessages.length > 0) { badgeMsg.innerText = contactMessages.length; badgeMsg.classList.remove('hidden'); } else { badgeMsg.classList.add('hidden'); }
+            }
+        }
+
+        async function handleAddProduct(e) {
+            e.preventDefault();
+            if(!tempProductImageBase64) return Swal.fire('Error', 'Please select an image', 'error');
+
+            let newProd = {
+                id: 'RJ-' + (1000 + products.length + 1), 
+                name: document.getElementById('p-name').value, 
+                metal: document.getElementById('p-metal').value,
+                category: document.getElementById('p-cat').value, 
+                weight: parseFloat(document.getElementById('p-weight').value), 
+                making: parseFloat(document.getElementById('p-making').value) || 0,
+                desc: document.getElementById('p-desc').value, 
+                avail: document.getElementById('p-avail').value, 
+                image: tempProductImageBase64, 
+                date: Date.now() 
+            };
+
+            if(window.db && window.firebaseModules) {
+                const { collection, addDoc } = window.firebaseModules;
+                const docRef = await addDoc(collection(window.db, "products"), newProd);
+                newProd.firebaseId = docRef.id;
+            }
+            products.unshift(newProd);
+
+            e.target.reset();
+            document.getElementById('p-img-preview').classList.add('hidden');
+            tempProductImageBase64 = '';
+
+            Swal.fire({ title: 'Success!', text: 'Product saved to cloud database with full breakdown support!', icon: 'success', confirmButtonColor: '#D4AF37' }); 
+            updateDashboardStats(); renderAdminProductsTable(); switchAdminTab('manage-products');
+        }
+
+        function renderAdminProductsTable() {
+            const tableElem = document.getElementById('admin-products-table');
+            if(!tableElem) return;
+            tableElem.innerHTML = products.map(p => {
+                let bd = calculateDetailedPrice(p);
+                return `
+                    <tr class="hover:bg-[#1b1a21]/40 transition-colors">
+                        <td class="p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4"><img src="${p.image}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-[#2D2B32]"><div><p class="font-bold text-xs sm:text-sm text-white">${p.name}</p><p class="text-[10px] text-neutral-400 font-bold uppercase">${p.id}</p></div></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase text-white ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span><p class="text-xs text-neutral-300 mt-1">${p.weight}g (${p.category})</p></td>
+                        <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.baseValue.toLocaleString('en-IN')}</td>
+                        <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.making.toLocaleString('en-IN')}</td>
+                        <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.gst.toLocaleString('en-IN')}</td>
+                        <td class="p-4 sm:p-5 text-xs sm:font-black text-gold-400">₹${bd.finalPrice.toLocaleString('en-IN')}</td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase ${p.avail==='Available'?'bg-green-500/20 text-green-400 border border-green-500/30':'bg-red-500/20 text-red-400 border border-red-500/30'}">${p.avail}</span></td>
+                        <td class="p-4 sm:p-5 text-right"><button onclick="toggleAvailability('${p.firebaseId}')" class="text-blue-400 p-2 hover:text-white bg-transparent border-none cursor-pointer" title="Toggle Stock"><i class="fas fa-sync-alt"></i></button><button onclick="deleteProduct('${p.firebaseId}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer" title="Delete"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function toggleAvailability(firebaseId) { 
+            const p = products.find(x => x.firebaseId === firebaseId); 
+            if(p) { 
+                p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; 
+                if(window.db && window.firebaseModules) {
+                    const { doc, updateDoc } = window.firebaseModules;
+                    await updateDoc(doc(window.db, "products", firebaseId), { avail: p.avail });
+                }
+                renderAdminProductsTable(); 
+            } 
+        }
+
+        async function deleteProduct(firebaseId) { 
+            Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "products", firebaseId));
+                    }
+                    products = products.filter(p => p.firebaseId !== firebaseId); 
+                    renderAdminProductsTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
+
+        function renderEnquiriesTable() {
+            const filterElem = document.getElementById('enquiry-filter');
+            const filter = filterElem ? filterElem.value : 'All'; 
+            let filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
+            const enqTable = document.getElementById('admin-enquiries-table');
+            if(!enqTable) return;
+            enqTable.innerHTML = filtered.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Enquiries Found</td></tr>' : filtered.map(e => `
+                <tr class="hover:bg-[#1b1a21]/45 transition-colors">
+                    <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${e.date}</td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.name}</p><p class="text-[11px] text-blue-400 font-bold">${e.phone}</p></td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${e.pname}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${e.pid}</p></td>
+                    <td class="p-4 sm:p-5 flex items-center space-x-3">
+                        <button onclick="toggleEnquiryStatus('${e.firebaseId}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border cursor-pointer ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${e.status}</button>
+                        <button onclick="openReplyModal('${e.name}', '${e.phone}', 'Enquiry for ${e.pname}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
+                    </td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteEnquiry('${e.firebaseId}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+
+        async function toggleEnquiryStatus(firebaseId) { 
+            const enq = enquiries.find(e => e.firebaseId === firebaseId); 
+            if(enq) { 
+                enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; 
+                if(window.db && window.firebaseModules) {
+                    const { doc, updateDoc } = window.firebaseModules;
+                    await updateDoc(doc(window.db, "enquiries", firebaseId), { status: enq.status });
+                }
+                renderEnquiriesTable(); 
+                updateDashboardStats(); 
+            } 
+        }
+
+        async function deleteEnquiry(firebaseId) { 
+            Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "enquiries", firebaseId));
+                    }
+                    enquiries = enquiries.filter(e => e.firebaseId !== firebaseId); 
+                    renderEnquiriesTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
+
+        let activeReplyPhone = '';
+        let activeReplyName = '';
+
+        function renderMessagesTable() {
+            const msgTable = document.getElementById('admin-messages-table');
+            if(!msgTable) return;
+            msgTable.innerHTML = contactMessages.length === 0 ? '<tr><td colspan="4" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Messages Found</td></tr>' : contactMessages.map(m => `
+                <tr class="hover:bg-[#1b1a21]/40 transition-colors">
+                    <td class="p-4 sm:p-5 text-[10px] font-bold text-neutral-400 uppercase">${m.date}</td>
+                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${m.name}</p><p class="text-[11px] text-blue-400 font-bold">${m.phone}</p></td>
+                    <td class="p-4 sm:p-5 flex items-center justify-between space-x-4 bg-black/40 p-3 rounded-xl border border-[#2D2B32]">
+                        <p class="text-xs sm:text-sm text-neutral-300">${m.message}</p>
+                        <button onclick="openReplyModal('${m.name}', '${m.phone}', '${m.message}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all shrink-0 cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm"></i></button>
+                    </td>
+                    <td class="p-4 sm:p-5 text-right"><button onclick="deleteMessage('${m.firebaseId}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `).join('');
+        }
+
+        function openReplyModal(name, phone, contextText) {
+            activeReplyName = name;
+            activeReplyPhone = phone;
+            document.getElementById('reply-cust-name').innerText = name;
+            document.getElementById('reply-cust-phone').innerText = phone;
+            document.getElementById('reply-msg-text').value = `Hello ${name}, Thank you for contacting Rani Jewellers regarding "${contextText}". How can we assist you?`;
+            document.getElementById('reply-modal').classList.remove('hidden');
+        }
+
+        function closeReplyModal() { document.getElementById('reply-modal').classList.add('hidden'); }
+
+        function sendWhatsAppReplyNow() {
+            let msgText = document.getElementById('reply-msg-text').value;
+            let cleanPhone = activeReplyPhone.replace(/[^0-9]/g, '');
+            if(cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`, '_blank');
+            closeReplyModal();
+        }
+
+        async function deleteMessage(firebaseId) { 
+            Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
+                if (res.isConfirmed) { 
+                    if(window.db && window.firebaseModules) {
+                        const { doc, deleteDoc } = window.firebaseModules;
+                        await deleteDoc(doc(window.db, "messages", firebaseId));
+                    }
+                    contactMessages = contactMessages.filter(m => m.firebaseId !== firebaseId); 
+                    renderMessagesTable(); 
+                    updateDashboardStats(); 
+                } 
+            }); 
+        }
+
+        window.onload = () => { navigate('home'); };
+    </script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKfXyuq7-FMC4bEFuHBuK_CMP-G9B3BPQ",
+            authDomain: "rani-jewellers-5c921.firebaseapp.com",
+            projectId: "rani-jewellers-5c921",
+            storageBucket: "rani-jewellers-5c921.appspot.com",
+            messagingSenderId: "720584344566",
+            appId: "1:720584344566:web:2ad326d631e5508ed2bdd7",
+            measurementId: "G-N47DW71HTZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.firebaseModules = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc };
+
+        console.log("Firestore Database Connected Successfully!");
+
+        if (typeof initFirebaseApp === 'function') {
+            initFirebaseApp();
+        }
+    </script>
+</body>
+</html>
