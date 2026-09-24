@@ -17,7 +17,7 @@
                     colors: {
                         gold: { 400: '#E6C687', 500: '#C5A059', 600: '#997A38', 700: '#7A602B' },
                         silver: { 400: '#F0F0F0', 500: '#C0C0C0', 600: '#808080' },
-                        luxury: { light: '#FDFBF7', border: '#EFECE6', text: '#2C2A29' }
+                        luxury: { light: '#F9F6F0', border: '#EFECE6', text: '#2C2A29' }
                     },
                     fontFamily: {
                         serif: ['Playfair Display', 'serif'],
@@ -28,7 +28,7 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #FDFBF7; color: #2C2A29; scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Lato', sans-serif; background-color: #F9F6F0; color: #2C2A29; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.4s ease-out; }
@@ -38,7 +38,7 @@
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15); transition: all 0.4s ease; }
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 1000; transition: transform 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; }
-        .admin-tab.active { background: linear-gradient(135deg, #C5A059 0%, #997A38 100%); color: #ffffff; border-left: 4px solid #FDFBF7; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3); font-weight: 800; }
+        .admin-tab.active { background: linear-gradient(135deg, #C5A059 0%, #997A38 100%); color: #ffffff; border-left: 4px solid #F9F6F0; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3); font-weight: 800; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #EFECE6; }
         ::-webkit-scrollbar-thumb { background: #C5A059; border-radius: 4px; }
@@ -97,17 +97,16 @@
 
     <main class="flex-grow">
         
-        <!-- HOME PAGE (PREMIUM LIGHT THEME) -->
+        <!-- HOME PAGE (3D LUXURY BACKGROUND WITH SHORT CLEAN TEXT) -->
         <div id="home" class="page active">
-            <div class="relative bg-luxury-light text-luxury-text overflow-hidden h-[75vh] sm:h-[90vh] flex items-center">
-                <div class="absolute inset-0 z-0">
-                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Luxury Jewellery Showcase" class="w-full h-full object-cover opacity-20 scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-r from-luxury-light via-luxury-light/80 to-transparent"></div>
-                </div>
+            <div class="relative text-luxury-text overflow-hidden h-[75vh] sm:h-[90vh] flex items-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');">
+                <!-- Soft Overlay for readability -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#F9F6F0] via-[#F9F6F0]/90 to-[#F9F6F0]/40"></div>
+                
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                    <span class="text-gold-600 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Exquisite Gold & Silver Masterpieces</span>
-                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-luxury-text drop-shadow-sm leading-tight">Elegance in <br><span class="text-transparent bg-clip-text gold-gradient">Gold & Silver</span></h1>
-                    <p class="text-gray-600 max-w-xl sm:max-w-2xl text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-light px-0">Discover pure hallmarked gold and stunning silver artifacts crafted for your precious moments with uncompromised brilliance.</p>
+                    <span class="text-gold-600 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
+                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-luxury-text drop-shadow-sm leading-tight">Timeless <br><span class="text-transparent bg-clip-text gold-gradient">Elegance</span></h1>
+                    <p class="text-gray-700 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted for your special moments[cite: 2].</p>
                     <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-white font-bold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-xl rounded-sm">Explore Collections</button>
                 </div>
             </div>
@@ -623,7 +622,7 @@
 
     <!-- MAIN APP LOGIC SCRIPT -->
     <script>
-        let marketRates = { gold: 54000, silver: 900 }; // Gold 18K base per 10g
+        let marketRates = { gold: 54000, silver: 900 }; 
         let collectionBanners = {
             gold: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
             silver: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800'
@@ -635,8 +634,7 @@
         let shopDetails = { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
         let aboutDetails = { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery.' };
         
-        // Secured Admin Credentials (Encoded to prevent direct plain-text reading in code)
-        let adminAuthEnc = { u: 'YWRtaW4=', p: 'UmFuaUAxMjM=' }; // admin / Rani@123
+        let adminAuthEnc = { u: 'YWRtaW4=', p: 'UmFuaUAxMjM=' }; 
         let isLoggedIn = localStorage.getItem('rani_admin_auth') === 'true';
 
         async function initFirebaseApp() {
@@ -691,13 +689,11 @@
             } catch(e) { console.log(e); }
         }
 
-        // EXACT PRECISION CALCULATION ENGINE
-        // 18K Gold = 75% pure gold value (Rate / 10 * 0.75 * Weight) + Making + 3% GST
         function calculateDetailedPrice(p) {
             let baseValue = 0;
             if(p.metal === 'Gold') {
                 let ratePerGram = marketRates.gold / 10;
-                let pureGoldRatePerGram = ratePerGram * 0.75; // 75% Purity for 18K
+                let pureGoldRatePerGram = ratePerGram * 0.75; 
                 baseValue = p.weight * pureGoldRatePerGram;
             } else {
                 let ratePerGram = marketRates.silver / 10;
@@ -1064,7 +1060,6 @@
             updateDashboardStats(); renderAdminProductsTable(); switchAdminTab('manage-products');
         }
 
-        // ADMIN INVENTORY TABLE WITH FULL DETAILED BREAKDOWN
         function renderAdminProductsTable() {
             document.getElementById('admin-products-table').innerHTML = products.map(p => {
                 let bd = calculateDetailedPrice(p);
