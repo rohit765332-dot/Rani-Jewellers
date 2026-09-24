@@ -30,21 +30,18 @@
         body { font-family: 'Lato', sans-serif; background-color: #030408; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
         .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .page.active { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #FFF3B0 50%, #AA7C11 100%); }
         .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25); transition: all 0.4s ease; }
         
-        /* Divine Glowing Animation for Video Background */
         @keyframes divineGlow {
             0% { transform: scale(1); filter: brightness(1) contrast(1.1); }
-            50% { transform: scale(1.08); filter: brightness(1.2) contrast(1.2); }
+            50% { transform: scale(1.06); filter: brightness(1.2) contrast(1.2); }
             100% { transform: scale(1); filter: brightness(1) contrast(1.1); }
         }
-        .animate-divine-bg {
-            animation: divineGlow 12s ease-in-out infinite;
-        }
+        .animate-divine-bg { animation: divineGlow 15s ease-in-out infinite; }
 
         .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 1000; transition: transform 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; }
@@ -56,7 +53,7 @@
 </head>
 <body class="flex flex-col min-h-screen selection:bg-gold-500 selection:text-black">
 
-    <nav class="bg-[#030408]/90 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-[#030408]/95 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 sm:h-24">
                 <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
@@ -67,23 +64,23 @@
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-                    <a href="#" onclick="navigate('home')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Home</a>
-                    <a href="#" onclick="navigate('shop')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Collections</a>
-                    <a href="#" onclick="navigate('about')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">About Us</a>
-                    <a href="#" onclick="navigate('contact')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest">Contact</a>
-                    <a href="#" onclick="navigate('admin-login')" class="px-5 py-2.5 bg-gold-600 text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm" id="nav-admin-btn">Admin Portal</a>
+                    <button onclick="navigate('home')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Home</button>
+                    <button onclick="navigate('shop')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Collections</button>
+                    <button onclick="navigate('about')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">About Us</button>
+                    <button onclick="navigate('contact')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Contact</button>
+                    <button onclick="navigate('admin-login')" class="px-5 py-2.5 bg-gold-600 text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm cursor-pointer" id="nav-admin-btn">Admin Portal</button>
                 </div>
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-white p-2 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+                    <button id="mobile-menu-btn" class="text-white p-2 focus:outline-none cursor-pointer"><i class="fas fa-bars text-2xl"></i></button>
                 </div>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden bg-[#121216] border-t border-[#2D2B32] absolute w-full shadow-2xl z-40">
-            <a href="#" onclick="navigate('home')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32]">Home</a>
-            <a href="#" onclick="navigate('shop')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32]">Collections</a>
-            <a href="#" onclick="navigate('about')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32]">About Us</a>
-            <a href="#" onclick="navigate('contact')" class="block px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32]">Contact</a>
-            <a href="#" onclick="navigate('admin-login')" class="block px-6 py-3.5 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs">Admin Portal</a>
+            <button onclick="navigate('home')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Home</button>
+            <button onclick="navigate('shop')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Collections</button>
+            <button onclick="navigate('about')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">About Us</button>
+            <button onclick="navigate('contact')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Contact</button>
+            <button onclick="navigate('admin-login')" class="block w-full text-left px-6 py-3.5 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs bg-transparent">Admin Portal</button>
         </div>
     </nav>
 
@@ -104,18 +101,24 @@
         
         <div id="home" class="page active">
             <div class="relative text-white overflow-hidden h-[85vh] sm:h-[92vh] flex items-center bg-[#030408]">
-                <div class="absolute inset-0 overflow-hidden opacity-65">
-                    <video autoplay muted loop playsinline class="w-full h-full object-cover animate-divine-bg">
+                <div class="absolute inset-0 overflow-hidden opacity-70">
+                    <video id="bg-video-player" autoplay muted loop playsinline class="w-full h-full object-cover animate-divine-bg">
                         <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-lights-41270-large.mp4" type="video/mp4">
                     </video>
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-r from-[#030408] via-[#030408]/80 to-transparent"></div>
+                <div class="absolute top-6 right-6 z-20 hidden sm:flex space-x-2 bg-black/60 p-2 rounded-xl border border-[#2D2B32] backdrop-blur-md">
+                    <button onclick="changeBackgroundVideo(0)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-gold-600 text-black transition-all">Glow 1</button>
+                    <button onclick="changeBackgroundVideo(1)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-neutral-800 text-white hover:bg-gold-500 hover:text-black transition-all">Glow 2</button>
+                    <button onclick="changeBackgroundVideo(2)" class="px-3 py-1.5 text-[10px] font-bold uppercase rounded bg-neutral-800 text-white hover:bg-gold-500 hover:text-black transition-all">Space HD</button>
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-r from-[#030408] via-[#030408]/75 to-transparent pointer-events-none"></div>
                 
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                     <span class="text-gold-400 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
                     <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl leading-tight">Your Beauty, <br><span class="text-transparent bg-clip-text gold-gradient">Our Jewellery</span></h1>
                     <p class="text-gray-200 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted with uncompromised brilliance for your precious moments.</p>
-                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-black font-extrabold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-2xl rounded-sm">Explore Collections</button>
+                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-black font-extrabold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-2xl rounded-sm cursor-pointer">Explore Collections</button>
                 </div>
             </div>
 
@@ -181,7 +184,7 @@
                     </div>
                     <div id="home-featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10"></div>
                     <div class="text-center mt-12 sm:mt-16">
-                        <button onclick="navigate('shop')" class="px-8 py-4 gold-gradient text-black font-extrabold uppercase tracking-widest text-xs hover:opacity-95 transition-all rounded-sm shadow-xl">View Full Catalog</button>
+                        <button onclick="navigate('shop')" class="px-8 py-4 gold-gradient text-black font-extrabold uppercase tracking-widest text-xs hover:opacity-95 transition-all rounded-sm shadow-xl cursor-pointer">View Full Catalog</button>
                     </div>
                 </div>
             </div>
@@ -247,11 +250,182 @@
         </div>
 
         <div id="detail" class="page py-10 sm:py-16 max-w-7xl mx-auto px-4 text-white">
-            <button onclick="navigate('shop')" class="text-gray-400 hover:text-gold-400 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
+            <button onclick="navigate('shop')" class="text-gray-400 hover:text-gold-400 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest bg-transparent border-none cursor-pointer"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
             <div id="product-detail-container" class="bg-[#121216] rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-[#2D2B32]"></div>
         </div>
 
         <div id="contact" class="page text-white">
             <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
                 <div class="text-center mb-12 sm:mb-16">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">
+                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">Contact Concierge</h1>
+                    <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+                    <div class="bg-[#121216] p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-[#2D2B32]">
+                        <h3 class="text-2xl sm:text-3xl font-serif mb-8 sm:mb-10 text-gold-400">Store Directory</h3>
+                        <div class="space-y-8 sm:space-y-10 relative z-10">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-map-marker-alt text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-base sm:text-lg dynamic-address mt-1 font-light leading-relaxed text-gray-300">Loading...</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-phone text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-lg sm:text-xl dynamic-phone mt-1 font-light text-gray-300">Loading...</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-envelope text-white text-lg sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-base sm:text-lg dynamic-email mt-1 font-light text-gray-300">Loading...</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-[#121216] p-8 sm:p-10 rounded-2xl shadow-xl border border-[#2D2B32]">
+                        <h3 class="text-2xl font-serif mb-6 sm:mb-8 text-white">Send us a Message</h3>
+                        <form onsubmit="handleGeneralContact(event)">
+                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                            <div class="mb-6 sm:mb-8"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none text-sm bg-[#1b1a21] text-white"></textarea></div>
+                            <button type="submit" class="w-full gold-gradient text-black font-extrabold py-3.5 sm:py-4 rounded-lg uppercase tracking-widest text-xs shadow-xl cursor-pointer">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-login" class="page">
+            <div class="min-h-[80vh] flex items-center justify-center bg-[#030408] py-12 px-4">
+                <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-[#121216] p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-[#2D2B32]">
+                    <div class="text-center">
+                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-400 mb-3 sm:mb-4"></i>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Admin Portal</h2>
+                        <p class="mt-2 text-xs text-gray-400 font-bold uppercase tracking-widest">Authorized Access Only</p>
+                    </div>
+                    
+                    <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
+                        <div class="space-y-4 sm:space-y-5">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Username</label>
+                                <input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Password</label>
+                                <input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-extrabold uppercase tracking-widest text-sm rounded-lg text-black gold-gradient shadow-lg cursor-pointer">Authenticate</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-dashboard" class="page bg-[#030408] min-h-screen text-gray-100">
+            <div class="flex flex-col lg:flex-row min-h-screen">
+                <div class="w-full lg:w-80 bg-[#121216] border-b lg:border-b-0 lg:border-r border-[#2D2B32] flex flex-col shadow-2xl z-10 shrink-0">
+                    <div class="p-6 sm:p-8 border-b border-[#2D2B32] flex items-center bg-black/40">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gold-gradient flex items-center justify-center text-black text-lg sm:text-xl font-extrabold mr-3 sm:mr-4 shadow-lg shadow-gold-500/20">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-base sm:text-lg font-serif font-bold text-white tracking-wide">Rani Workspace</h2>
+                            <p class="text-[9px] sm:text-[10px] text-gold-400 uppercase tracking-widest font-extrabold mt-0.5">Super Admin Control</p>
+                        </div>
+                    </div>
+
+                    <nav class="flex-1 px-3 sm:px-4 py-4 sm:py-6 space-y-1.5 overflow-y-auto">
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mb-2">Main Menu</p>
+                        <button onclick="switchAdminTab('dashboard')" id="tab-dashboard" class="admin-tab active w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-chart-pie w-6 text-base"></i> Overview</button>
+                        <button onclick="switchAdminTab('daily-rates')" id="tab-daily-rates" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-rupee-sign w-6 text-base text-gold-400"></i> Set Daily Rates</button>
+                        <button onclick="switchAdminTab('add-product')" id="tab-add-product" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-plus-circle w-6 text-base text-gold-400"></i> Add Product</button>
+                        <button onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-boxes w-6 text-base text-gold-400"></i> Inventory & Breakdown</button>
+                        
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
+                        <button onclick="switchAdminTab('enquiries')" id="tab-enquiries" class="admin-tab w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left">
+                            <span class="flex items-center"><i class="fas fa-shopping-bag w-6 text-base text-gold-400"></i> Enquiries</span>
+                            <span id="badge-pending" class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
+                        </button>
+                        <button onclick="switchAdminTab('messages')" id="tab-messages" class="admin-tab w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left">
+                            <span class="flex items-center"><i class="fas fa-envelope-open-text w-6 text-base text-gold-400"></i> Messages</span>
+                            <span id="badge-messages" class="bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
+                        </button>
+
+                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customization</p>
+                        <button onclick="switchAdminTab('banners')" id="tab-banners" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-image w-6 text-base text-gold-400"></i> Home Banners</button>
+                        <button onclick="switchAdminTab('settings')" id="tab-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-cog w-6 text-base text-gold-400"></i> Contacts</button>
+                        <button onclick="switchAdminTab('about-settings')" id="tab-about-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-pen-nib w-6 text-base text-gold-400"></i> About Page</button>
+                        <button onclick="switchAdminTab('auth-settings')" id="tab-auth-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-key w-6 text-base text-gold-400"></i> Credentials</button>
+                    </nav>
+
+                    <div class="p-4 border-t border-[#2D2B32] bg-black/40">
+                        <button onclick="handleLogout(true)" class="w-full flex items-center justify-center px-4 py-3 bg-red-500/10 text-red-400 font-bold rounded-xl hover:bg-red-500 hover:text-white transition-all text-xs uppercase tracking-widest border border-red-500/25 shadow-lg cursor-pointer"><i class="fas fa-power-off mr-2"></i> Terminate Session</button>
+                    </div>
+                </div>
+
+                <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-[#030408]">
+                    <div id="admin-tab-dashboard" class="admin-content block">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif border-b border-[#2D2B32] pb-4">Business Overview</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Total Inventory</h3><p class="text-3xl font-bold text-white" id="stat-products">0</p></div>
+                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Product Enquiries</h3><p class="text-3xl font-bold text-gold-400" id="stat-enquiries">0</p></div>
+                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">New Messages</h3><p class="text-3xl font-bold text-amber-400" id="stat-messages">0</p></div>
+                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Pending Actions</h3><p class="text-3xl font-bold text-red-400" id="stat-pending">0</p></div>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-daily-rates" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Set Daily Gold & Silver Rates</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Gold rate 18K (Per 10g) standard set hoga (Calculation mein automatically 75% purity factor lagega)</p>
+                        
+                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-2xl">
+                            <form onsubmit="saveDailyRates(event)">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Gold Rate (18K - Per 10 Grams in ₹)</label>
+                                        <input type="number" id="admin-gold-rate" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Silver Rate (Per 10 Grams in ₹)</label>
+                                        <input type="number" id="admin-silver-rate" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Live Rates</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-banners" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Manage Home Collection Banners</h2>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke banners set karein</p>
+                        
+                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                            <form onsubmit="saveBanners(event)">
+                                <div class="space-y-8">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image</label>
+                                        <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-[#2D2B32] p-3 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-black cursor-pointer" onchange="compressAndPreviewBanner(event, 'gold')">
+                                        <div class="mt-3 flex items-center space-x-4">
+                                            <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
+                                            <img id="prev-gold-img" class="h-24 w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
+                                        </div>
+                                    </div>
+
+                                    <div class="border-t border-[#2D2B32] pt-6">
+                                        <label class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image</label>
+                                        <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-[#2D2B32] p-3 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-black cursor-pointer" onchange="compressAndPreviewBanner(event, 'silver')">
+                                        <div class="mt-3 flex items-center space-x-4">
+                                            <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
+                                            <img id="prev-silver-img" class="h-24 w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Collection Banners</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="admin-tab-auth-settings" class="admin-content hidden">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Change Admin Username & Password</h2>
+                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                            <form onsubmit="saveCredentials(event)">
+                                <div class="space-y-6">
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2
