@@ -27,16 +27,16 @@
         }
     </script>
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #030206; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Lato', sans-serif; background-color: #030206; color: #FFFFFF; scroll-behavior: smooth; overflow-x: hidden; width: 100%; position: relative; }
         h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
-        .page { display: none; }
+        .page { display: none; width: 100%; box-sizing: border-box; }
         .page.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #FFF3B0 50%, #AA7C11 100%); }
         .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25); transition: all 0.4s ease; }
         
-        #solar-canvas {
+        #real-flower-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -46,165 +46,174 @@
             pointer-events: none;
         }
 
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; border-radius: 50%; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 1000; transition: transform 0.3s; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 1000; transition: transform 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; }
         .admin-tab.active { background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); color: #ffffff; border-left: 4px solid #FFFFFF; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-weight: 800; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #121216; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.25rem !important; line-height: 1.2 !important; }
+            .hero-section { height: auto !important; min-height: 75vh !important; padding-top: 3rem; padding-bottom: 3rem; }
+            #real-flower-canvas { opacity: 0.4; }
+        }
+        @media (max-width: 480px) {
+            .hero-title { font-size: 1.85rem !important; }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen selection:bg-gold-500 selection:text-black">
 
-    <nav class="bg-[#030206]/95 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 sm:h-24">
-                <div class="flex items-center cursor-pointer group" onclick="navigate('home')">
-                    <i class="fas fa-gem text-gold-500 text-2xl sm:text-3xl md:text-4xl mr-2 sm:mr-3 group-hover:rotate-12 transition-transform"></i>
-                    <div>
-                        <h1 class="text-lg sm:text-2xl md:text-3xl font-serif font-bold tracking-widest uppercase text-white">Rani Jewellers</h1>
-                        <p class="text-[8px] sm:text-[10px] md:text-xs text-gold-400 tracking-widest mt-0.5 font-bold">LUXURY GOLD & SILVER BOUTIQUE</p>
+    <nav class="bg-[#030206]/95 backdrop-blur-md shadow-xl border-b border-[#2D2B32] sticky top-0 z-50 transition-all duration-300 w-full">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-24">
+                <div class="flex items-center cursor-pointer group truncate mr-2" onclick="navigate('home')">
+                    <i class="fas fa-gem text-gold-500 text-xl sm:text-3xl md:text-4xl mr-2 group-hover:rotate-12 transition-transform shrink-0"></i>
+                    <div class="truncate">
+                        <h1 class="text-sm sm:text-2xl md:text-3xl font-serif font-bold tracking-widest uppercase text-white truncate">Rani Jewellers</h1>
+                        <p class="text-[7px] sm:text-[10px] md:text-xs text-gold-400 tracking-widest mt-0.5 font-bold uppercase truncate">LUXURY GOLD & SILVER BOUTIQUE</p>
                     </div>
                 </div>
-                <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
+                <div class="hidden md:flex items-center space-x-6 lg:space-x-8 shrink-0">
                     <button onclick="navigate('home')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Home</button>
                     <button onclick="navigate('shop')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Collections</button>
                     <button onclick="navigate('about')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">About Us</button>
                     <button onclick="navigate('contact')" class="text-xs text-gray-200 hover-gold font-bold uppercase tracking-widest bg-transparent border-none cursor-pointer">Contact</button>
                     <button onclick="navigate('admin-login')" class="px-5 py-2.5 bg-gold-600 text-white rounded-sm hover:bg-gold-500 transition-all font-bold uppercase tracking-widest text-xs shadow-sm cursor-pointer" id="nav-admin-btn">Admin Portal</button>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-white p-2 focus:outline-none cursor-pointer"><i class="fas fa-bars text-2xl"></i></button>
+                <div class="md:hidden flex items-center shrink-0">
+                    <button id="mobile-menu-btn" class="text-white p-2 focus:outline-none cursor-pointer"><i class="fas fa-bars text-xl sm:text-2xl"></i></button>
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-[#121216] border-t border-[#2D2B32] absolute w-full shadow-2xl z-40">
-            <button onclick="navigate('home')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Home</button>
-            <button onclick="navigate('shop')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Collections</button>
-            <button onclick="navigate('about')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">About Us</button>
-            <button onclick="navigate('contact')" class="block w-full text-left px-6 py-3.5 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Contact</button>
-            <button onclick="navigate('admin-login')" class="block w-full text-left px-6 py-3.5 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs bg-transparent">Admin Portal</button>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#121216] border-t border-[#2D2B32] absolute w-full shadow-2xl z-40 left-0">
+            <button onclick="navigate('home')" class="block w-full text-left px-5 py-3 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Home</button>
+            <button onclick="navigate('shop')" class="block w-full text-left px-5 py-3 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Collections</button>
+            <button onclick="navigate('about')" class="block w-full text-left px-5 py-3 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">About Us</button>
+            <button onclick="navigate('contact')" class="block w-full text-left px-5 py-3 text-gray-200 font-bold uppercase tracking-widest text-xs border-b border-[#2D2B32] bg-transparent">Contact</button>
+            <button onclick="navigate('admin-login')" class="block w-full text-left px-5 py-3 text-white bg-gold-600 font-bold uppercase tracking-widest text-xs bg-transparent">Admin Portal</button>
         </div>
     </nav>
 
-    <div class="bg-gold-600 text-black py-2.5 sm:py-3 px-4 border-b border-gold-500/30 shadow-md">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] sm:text-xs tracking-widest font-extrabold uppercase space-y-1 sm:space-y-0 text-center sm:text-left">
+    <div class="bg-gold-600 text-black py-2 px-3 sm:px-4 border-b border-gold-500/30 shadow-md w-full">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[9px] sm:text-xs tracking-widest font-extrabold uppercase space-y-1 sm:space-y-0 text-center sm:text-left">
             <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 bg-white rounded-full animate-pulse"></span>
+                <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full animate-pulse shrink-0"></span>
                 <span>Live Market Rates (Per 10g):</span>
             </div>
-            <div class="flex space-x-6">
+            <div class="flex space-x-4 sm:space-x-6 flex-wrap justify-center">
                 <div>Gold (18K Base): <span id="ticker-gold-rate" class="font-black">₹54,000</span></div>
                 <div>Silver: <span id="ticker-silver-rate" class="font-black">₹900</span></div>
             </div>
         </div>
     </div>
 
-    <main class="flex-grow">
+    <main class="flex-grow w-full overflow-hidden">
         
         <div id="home" class="page active">
-            <div class="relative text-white overflow-hidden h-[85vh] sm:h-[92vh] flex items-center bg-[#030206]">
-                <canvas id="solar-canvas"></canvas>
+            <div class="relative text-white overflow-hidden hero-section h-[75vh] sm:h-[85vh] md:h-[92vh] flex items-center bg-[#030206] w-full">
+                <canvas id="real-flower-canvas"></canvas>
                 
-                <div class="absolute inset-0 bg-gradient-to-r from-[#030206] via-[#030206]/75 to-transparent pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-[#030206] via-[#030206]/85 sm:via-[#030206]/75 to-transparent pointer-events-none"></div>
                 
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                    <span class="text-gold-400 tracking-[0.3em] sm:tracking-[0.4em] uppercase text-[10px] sm:text-xs font-extrabold mb-4 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
-                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl leading-tight">Your Beauty, <br><span class="text-transparent bg-clip-text gold-gradient">Our Jewellery</span></h1>
-                    <p class="text-gray-200 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-8 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted with uncompromised brilliance for your precious moments.</p>
-                    <button onclick="navigate('shop')" class="px-8 sm:px-10 py-3.5 sm:py-4 gold-gradient text-black font-extrabold tracking-widest uppercase text-xs hover:opacity-95 transition-all duration-300 shadow-2xl rounded-sm cursor-pointer">Explore Collections</button>
+                    <span class="text-gold-400 tracking-[0.2em] sm:tracking-[0.4em] uppercase text-[9px] sm:text-xs font-extrabold mb-3 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
+                    <h1 class="hero-title text-3xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl leading-tight">Your Beauty, <br><span class="text-transparent bg-clip-text gold-gradient">Our Jewellery</span></h1>
+                    <p class="text-gray-200 max-w-lg text-xs sm:text-sm md:text-base tracking-wider mb-6 sm:mb-10 font-medium">Discover exquisite gold and silver masterpieces crafted with uncompromised brilliance for your precious moments.</p>
+                    <button onclick="navigate('shop')" class="px-6 sm:px-10 py-3 sm:py-4 gold-gradient text-black font-extrabold tracking-widest uppercase text-[11px] sm:text-xs hover:opacity-95 transition-all duration-300 shadow-2xl rounded-sm cursor-pointer">Explore Collections</button>
                 </div>
             </div>
 
-            <div class="bg-[#121216] border border-[#2D2B32] py-8 sm:py-12 shadow-2xl relative z-10 -mt-8 sm:-mt-10 mx-4 md:mx-auto max-w-6xl rounded-xl">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center px-4">
+            <div class="bg-[#121216] border border-[#2D2B32] py-6 sm:py-12 shadow-2xl relative z-10 -mt-6 sm:-mt-10 mx-3 sm:mx-4 md:mx-auto max-w-6xl rounded-xl">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center px-2 sm:px-4">
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-certificate text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">100% Certified</h4>
-                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Hallmarked Purity</p>
+                        <i class="fas fa-certificate text-xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-[11px] sm:text-sm uppercase tracking-wider">100% Certified</h4>
+                        <p class="text-[9px] sm:text-xs text-gray-400 mt-1">Hallmarked Purity</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-sync-alt text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Easy Returns</h4>
-                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">14-Day Policy</p>
+                        <i class="fas fa-sync-alt text-xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-[11px] sm:text-sm uppercase tracking-wider">Easy Returns</h4>
+                        <p class="text-[9px] sm:text-xs text-gray-400 mt-1">14-Day Policy</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-shield-alt text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Secure Shipping</h4>
-                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Fully Insured</p>
+                        <i class="fas fa-shield-alt text-xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-[11px] sm:text-sm uppercase tracking-wider">Secure Shipping</h4>
+                        <p class="text-[9px] sm:text-xs text-gray-400 mt-1">Fully Insured</p>
                     </div>
                     <div class="flex flex-col items-center p-2 sm:p-4">
-                        <i class="fas fa-gem text-2xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
-                        <h4 class="font-bold text-white text-xs sm:text-sm uppercase tracking-wider">Lifetime Service</h4>
-                        <p class="text-[10px] sm:text-xs text-gray-400 mt-1">Free Maintenance</p>
+                        <i class="fas fa-gem text-xl sm:text-3xl text-gold-400 mb-2 sm:mb-3"></i>
+                        <h4 class="font-bold text-white text-[11px] sm:text-sm uppercase tracking-wider">Lifetime Service</h4>
+                        <p class="text-[9px] sm:text-xs text-gray-400 mt-1">Free Maintenance</p>
                     </div>
                 </div>
             </div>
 
-            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-24">
-                <div class="text-center mb-12 sm:mb-16">
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-24">
+                <div class="text-center mb-8 sm:mb-16">
                     <span class="text-gold-400 text-xs font-bold tracking-widest uppercase">Collections</span>
-                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Browse by Metal</h2>
-                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                    <h2 class="text-2xl sm:text-4xl font-serif font-bold text-white mt-2">Browse by Metal</h2>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6"></div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
-                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-[#2D2B32]" onclick="filterByMetal('Gold')">
+                    <div class="relative h-[280px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-[#2D2B32]" onclick="filterByMetal('Gold')">
                         <img id="home-gold-banner" src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
-                            <span class="text-gold-400 text-xs font-bold uppercase tracking-widest">Pure 18K Gold (75% Purity)</span>
-                            <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">Gold Collection</h3>
-                            <span class="text-white text-xs uppercase tracking-widest font-bold flex items-center mt-3">View Gold <i class="fas fa-arrow-right ml-2 text-xs"></i></span>
+                        <div class="absolute bottom-5 left-5 sm:bottom-10 sm:left-10">
+                            <span class="text-gold-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Pure 18K Gold (75% Purity)</span>
+                            <h3 class="text-xl sm:text-3xl font-serif font-bold text-white mb-1 sm:mb-2">Gold Collection</h3>
+                            <span class="text-white text-[10px] sm:text-xs uppercase tracking-widest font-bold flex items-center mt-2 sm:mt-3">View Gold <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
                         </div>
                     </div>
-                    <div class="relative h-[320px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-[#2D2B32]" onclick="filterByMetal('Silver')">
+                    <div class="relative h-[280px] sm:h-[450px] overflow-hidden group cursor-pointer rounded-2xl shadow-xl border border-[#2D2B32]" onclick="filterByMetal('Silver')">
                         <img id="home-silver-banner" src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 sm:bottom-10 sm:left-10">
-                            <span class="text-silver-400 text-xs font-bold uppercase tracking-widest">Sterling 925 Silver</span>
-                            <h3 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-2">Silver Collection</h3>
-                            <span class="text-white text-xs uppercase tracking-widest font-bold flex items-center mt-3">View Silver <i class="fas fa-arrow-right ml-2 text-xs"></i></span>
+                        <div class="absolute bottom-5 left-5 sm:bottom-10 sm:left-10">
+                            <span class="text-silver-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">Sterling 925 Silver</span>
+                            <h3 class="text-xl sm:text-3xl font-serif font-bold text-white mb-1 sm:mb-2">Silver Collection</h3>
+                            <span class="text-white text-[10px] sm:text-xs uppercase tracking-widest font-bold flex items-center mt-2 sm:mt-3">View Silver <i class="fas fa-arrow-right ml-2 text-[10px]"></i></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-[#121216] py-16 sm:py-24 border-t border-[#2D2B32]">
+            <div class="bg-[#121216] py-12 sm:py-24 border-t border-[#2D2B32]">
                 <div class="max-w-7xl mx-auto px-4">
-                    <div class="text-center mb-12 sm:mb-16">
+                    <div class="text-center mb-8 sm:mb-16">
                         <span class="text-gold-400 text-xs font-bold tracking-widest uppercase">New Arrivals</span>
-                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-white mt-2">Latest Masterpieces</h2>
-                        <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                        <h2 class="text-2xl sm:text-4xl font-serif font-bold text-white mt-2">Latest Masterpieces</h2>
+                        <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6"></div>
                     </div>
                     <div id="home-featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10"></div>
-                    <div class="text-center mt-12 sm:mt-16">
-                        <button onclick="navigate('shop')" class="px-8 py-4 gold-gradient text-black font-extrabold uppercase tracking-widest text-xs hover:opacity-95 transition-all rounded-sm shadow-xl cursor-pointer">View Full Catalog</button>
+                    <div class="text-center mt-10 sm:mt-16">
+                        <button onclick="navigate('shop')" class="px-6 sm:px-8 py-3.5 sm:py-4 gold-gradient text-black font-extrabold uppercase tracking-widest text-xs hover:opacity-95 transition-all rounded-sm shadow-xl cursor-pointer">View Full Catalog</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="about" class="page">
-            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20 text-white">
-                <div class="text-center mb-12 sm:mb-16">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">About Rani Jewellers</h1>
-                    <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20 text-white">
+                <div class="text-center mb-8 sm:mb-16">
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold mb-3">About Rani Jewellers</h1>
+                    <div class="w-16 sm:w-24 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6"></div>
                 </div>
                 
-                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
                     <div class="w-full lg:w-1/2">
                         <div class="relative">
-                            <div class="absolute inset-0 bg-gold-500 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-xl -z-10"></div>
-                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?lib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-2xl w-full h-[350px] sm:h-[500px] object-cover" alt="About Rani Jewellers">
+                            <div class="absolute inset-0 bg-gold-500 translate-x-2 translate-y-2 sm:translate-x-4 sm:translate-y-4 rounded-xl -z-10"></div>
+                            <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?lib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="rounded-xl shadow-2xl w-full h-[280px] sm:h-[500px] object-cover" alt="About Rani Jewellers">
                         </div>
                     </div>
-                    <div class="w-full lg:w-1/2 space-y-6 sm:space-y-8">
-                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gold-400" id="dyn-about-title">Loading...</h2>
-                        <p class="text-gray-300 leading-relaxed text-base sm:text-lg" id="dyn-about-story">Loading...</p>
+                    <div class="w-full lg:w-1/2 space-y-5 sm:space-y-8">
+                        <h2 class="text-2xl sm:text-4xl font-serif font-bold text-gold-400" id="dyn-about-title">Loading...</h2>
+                        <p class="text-gray-300 leading-relaxed text-sm sm:text-lg" id="dyn-about-story">Loading...</p>
                         
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6 sm:pt-8 border-t border-[#2D2B32]">
-                            <div class="flex items-start"><i class="fas fa-gem text-2xl sm:text-3xl text-gold-400 mr-4"></i><div><h4 class="font-bold text-white">Pure Materials</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">100% certified gold & silver.</p></div></div>
-                            <div class="flex items-start"><i class="fas fa-handshake text-2xl sm:text-3xl text-gold-400 mr-4"></i><div><h4 class="font-bold text-white">Trusted Legacy</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">Built on generations of trust.</p></div></div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-5 sm:pt-8 border-t border-[#2D2B32]">
+                            <div class="flex items-start"><i class="fas fa-gem text-xl sm:text-3xl text-gold-400 mr-3 sm:mr-4 shrink-0"></i><div><h4 class="font-bold text-white text-sm">Pure Materials</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">100% certified gold & silver.</p></div></div>
+                            <div class="flex items-start"><i class="fas fa-handshake text-xl sm:text-3xl text-gold-400 mr-3 sm:mr-4 shrink-0"></i><div><h4 class="font-bold text-white text-sm">Trusted Legacy</h4><p class="text-xs sm:text-sm text-gray-400 mt-1">Built on generations of trust.</p></div></div>
                         </div>
                     </div>
                 </div>
@@ -212,24 +221,24 @@
         </div>
 
         <div id="shop" class="page">
-            <div class="bg-[#121216] py-16 sm:py-20 text-white relative overflow-hidden border-b border-[#2D2B32]">
+            <div class="bg-[#121216] py-12 sm:py-20 text-white relative overflow-hidden border-b border-[#2D2B32]">
                 <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold">Gold & Silver Collections</h1>
-                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold">Gold & Silver Collections</h1>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6"></div>
                 </div>
             </div>
             
-            <div class="max-w-7xl mx-auto px-4 py-10 sm:py-16 flex flex-col lg:flex-row gap-8 lg:gap-10">
+            <div class="max-w-7xl mx-auto px-4 py-8 sm:py-16 flex flex-col lg:flex-row gap-6 lg:gap-10">
                 <div class="w-full lg:w-1/4">
-                    <div class="bg-[#121216] p-6 rounded-xl shadow-lg border border-[#2D2B32] lg:sticky lg:top-28 text-white">
-                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Search Catalog</h3>
-                        <div class="relative mb-6 sm:mb-8">
-                            <input type="text" id="search-input" placeholder="Search product..." class="w-full pl-10 pr-4 py-3 border border-[#2D2B32] rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold bg-[#1b1a21] text-white" onkeyup="renderShop()">
+                    <div class="bg-[#121216] p-5 sm:p-6 rounded-xl shadow-lg border border-[#2D2B32] lg:sticky lg:top-28 text-white">
+                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-2 sm:mb-4">Search Catalog</h3>
+                        <div class="relative mb-5 sm:mb-8">
+                            <input type="text" id="search-input" placeholder="Search product..." class="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-[#2D2B32] rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold bg-[#1b1a21] text-white" onkeyup="renderShop()">
                             <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
                         </div>
                         
-                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-3 sm:mb-4">Metal Type</h3>
-                        <div class="space-y-3 sm:space-y-4" id="metal-filters">
+                        <h3 class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-2 sm:mb-4">Metal Type</h3>
+                        <div class="space-y-2 sm:space-y-4" id="metal-filters">
                             <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="All" checked onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">All Metals</span></label>
                             <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Gold" onchange="renderShop()" class="mr-3 accent-gold-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">Gold (18K - 75% Pure)</span></label>
                             <label class="flex items-center cursor-pointer group"><input type="radio" name="metal" value="Silver" onchange="renderShop()" class="mr-3 accent-silver-500 w-4 h-4"><span class="text-sm font-bold text-gray-200">Silver Collection</span></label>
@@ -243,43 +252,43 @@
             </div>
         </div>
 
-        <div id="detail" class="page py-10 sm:py-16 max-w-7xl mx-auto px-4 text-white">
-            <button onclick="navigate('shop')" class="text-gray-400 hover:text-gold-400 mb-6 sm:mb-8 font-bold text-xs uppercase tracking-widest bg-transparent border-none cursor-pointer"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
+        <div id="detail" class="page py-8 sm:py-16 max-w-7xl mx-auto px-4 text-white">
+            <button onclick="navigate('shop')" class="text-gray-400 hover:text-gold-400 mb-4 sm:mb-8 font-bold text-xs uppercase tracking-widest bg-transparent border-none cursor-pointer"><i class="fas fa-arrow-left mr-2"></i>Back to Catalog</button>
             <div id="product-detail-container" class="bg-[#121216] rounded-2xl shadow-2xl overflow-hidden flex flex-col lg:flex-row border border-[#2D2B32]"></div>
         </div>
 
         <div id="contact" class="page text-white">
-            <div class="max-w-7xl mx-auto px-4 py-16 sm:py-20">
-                <div class="text-center mb-12 sm:mb-16">
-                    <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-4">Contact Concierge</h1>
-                    <div class="w-20 sm:w-24 h-1 bg-gold-500 mx-auto mt-4 sm:mt-6"></div>
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:py-20">
+                <div class="text-center mb-10 sm:mb-16">
+                    <h1 class="text-3xl sm:text-5xl font-serif font-bold mb-3">Contact Concierge</h1>
+                    <div class="w-16 sm:w-24 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6"></div>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-                    <div class="bg-[#121216] p-8 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-[#2D2B32]">
-                        <h3 class="text-2xl sm:text-3xl font-serif mb-8 sm:mb-10 text-gold-400">Store Directory</h3>
-                        <div class="space-y-8 sm:space-y-10 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                    <div class="bg-[#121216] p-6 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-[#2D2B32]">
+                        <h3 class="text-xl sm:text-3xl font-serif mb-6 sm:mb-10 text-gold-400">Store Directory</h3>
+                        <div class="space-y-6 sm:space-y-10 relative z-10">
                             <div class="flex items-start">
-                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-map-marker-alt text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-base sm:text-lg dynamic-address mt-1 font-light leading-relaxed text-gray-300">Loading...</p></div>
+                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-3 sm:mr-6 shrink-0"><i class="fas fa-map-marker-alt text-white text-base sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Visit Boutique</h4><p class="text-sm sm:text-lg dynamic-address mt-1 font-light leading-relaxed text-gray-300">Loading...</p></div>
                             </div>
                             <div class="flex items-start">
-                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-phone text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-lg sm:text-xl dynamic-phone mt-1 font-light text-gray-300">Loading...</p></div>
+                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-3 sm:mr-6 shrink-0"><i class="fas fa-phone text-white text-base sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Direct Line</h4><p class="text-base sm:text-xl dynamic-phone mt-1 font-light text-gray-300">Loading...</p></div>
                             </div>
                             <div class="flex items-start">
-                                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-4 sm:mr-6 shrink-0"><i class="fas fa-envelope text-white text-lg sm:text-xl"></i></div>
-                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-base sm:text-lg dynamic-email mt-1 font-light text-gray-300">Loading...</p></div>
+                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/10 rounded-full flex items-center justify-center mr-3 sm:mr-6 shrink-0"><i class="fas fa-envelope text-white text-base sm:text-xl"></i></div>
+                                <div><h4 class="text-gold-400 text-xs font-bold uppercase tracking-widest mb-1">Email Support</h4><p class="text-sm sm:text-lg dynamic-email mt-1 font-light text-gray-300">Loading...</p></div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-[#121216] p-8 sm:p-10 rounded-2xl shadow-xl border border-[#2D2B32]">
-                        <h3 class="text-2xl font-serif mb-6 sm:mb-8 text-white">Send us a Message</h3>
+                    <div class="bg-[#121216] p-6 sm:p-10 rounded-2xl shadow-xl border border-[#2D2B32]">
+                        <h3 class="text-xl sm:text-2xl font-serif mb-5 sm:mb-8 text-white">Send us a Message</h3>
                         <form onsubmit="handleGeneralContact(event)">
-                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
-                            <div class="mb-5 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
-                            <div class="mb-6 sm:mb-8"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3.5 sm:p-4 border border-[#2D2B32] rounded-lg outline-none text-sm bg-[#1b1a21] text-white"></textarea></div>
+                            <div class="mb-4 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Full Name</label><input type="text" id="contact-name" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                            <div class="mb-4 sm:mb-6"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Mobile Number</label><input type="tel" id="contact-phone" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-lg outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                            <div class="mb-5 sm:mb-8"><label class="block text-xs font-bold text-gray-400 uppercase mb-2">Your Message</label><textarea id="contact-msg" rows="4" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-lg outline-none text-sm bg-[#1b1a21] text-white"></textarea></div>
                             <button type="submit" class="w-full gold-gradient text-black font-extrabold py-3.5 sm:py-4 rounded-lg uppercase tracking-widest text-xs shadow-xl cursor-pointer">Send Message</button>
                         </form>
                     </div>
@@ -288,23 +297,23 @@
         </div>
 
         <div id="admin-login" class="page">
-            <div class="min-h-[80vh] flex items-center justify-center bg-[#030206] py-12 px-4">
-                <div class="max-w-md w-full space-y-6 sm:space-y-8 bg-[#121216] p-8 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-[#2D2B32]">
+            <div class="min-h-[80vh] flex items-center justify-center bg-[#030206] py-10 px-4">
+                <div class="max-w-md w-full space-y-6 bg-[#121216] p-6 sm:p-12 rounded-2xl shadow-2xl relative z-10 border border-[#2D2B32]">
                     <div class="text-center">
-                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-400 mb-3 sm:mb-4"></i>
+                        <i class="fas fa-lock text-3xl sm:text-4xl text-gold-400 mb-3"></i>
                         <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">Admin Portal</h2>
                         <p class="mt-2 text-xs text-gray-400 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
                     
-                    <form class="mt-8 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
-                        <div class="space-y-4 sm:space-y-5">
+                    <form class="mt-6 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
+                        <div class="space-y-4">
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Username</label>
-                                <input id="simple-user" type="text" required class="w-full px-4 py-3.5 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
+                                <input id="simple-user" type="text" required class="w-full px-4 py-3 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Password</label>
-                                <input id="simple-pass" type="password" required class="w-full px-4 py-3.5 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
+                                <input id="simple-pass" type="password" required class="w-full px-4 py-3 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white">
                             </div>
                         </div>
                         <button type="submit" class="w-full flex justify-center py-3.5 sm:py-4 font-extrabold uppercase tracking-widest text-sm rounded-lg text-black gold-gradient shadow-lg cursor-pointer">Authenticate</button>
@@ -316,24 +325,24 @@
         <div id="admin-dashboard" class="page bg-[#030206] min-h-screen text-gray-100">
             <div class="flex flex-col lg:flex-row min-h-screen">
                 <div class="w-full lg:w-80 bg-[#121216] border-b lg:border-b-0 lg:border-r border-[#2D2B32] flex flex-col shadow-2xl z-10 shrink-0">
-                    <div class="p-6 sm:p-8 border-b border-[#2D2B32] flex items-center bg-black/40">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gold-gradient flex items-center justify-center text-black text-lg sm:text-xl font-extrabold mr-3 sm:mr-4 shadow-lg shadow-gold-500/20">
+                    <div class="p-5 sm:p-8 border-b border-[#2D2B32] flex items-center bg-black/40">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gold-gradient flex items-center justify-center text-black text-lg sm:text-xl font-extrabold mr-3 sm:mr-4 shadow-lg shadow-gold-500/20 shrink-0">
                             <i class="fas fa-crown"></i>
                         </div>
-                        <div>
-                            <h2 class="text-base sm:text-lg font-serif font-bold text-white tracking-wide">Rani Workspace</h2>
+                        <div class="truncate">
+                            <h2 class="text-base sm:text-lg font-serif font-bold text-white tracking-wide truncate">Rani Workspace</h2>
                             <p class="text-[9px] sm:text-[10px] text-gold-400 uppercase tracking-widest font-extrabold mt-0.5">Super Admin Control</p>
                         </div>
                     </div>
 
-                    <nav class="flex-1 px-3 sm:px-4 py-4 sm:py-6 space-y-1.5 overflow-y-auto">
-                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mb-2">Main Menu</p>
+                    <nav class="flex-1 px-3 sm:px-4 py-4 space-y-1.5 overflow-y-auto">
+                        <p class="px-3 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mb-2">Main Menu</p>
                         <button onclick="switchAdminTab('dashboard')" id="tab-dashboard" class="admin-tab active w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-chart-pie w-6 text-base"></i> Overview</button>
                         <button onclick="switchAdminTab('daily-rates')" id="tab-daily-rates" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-rupee-sign w-6 text-base text-gold-400"></i> Set Daily Rates</button>
                         <button onclick="switchAdminTab('add-product')" id="tab-add-product" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-plus-circle w-6 text-base text-gold-400"></i> Add Product</button>
                         <button onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-boxes w-6 text-base text-gold-400"></i> Inventory & Breakdown</button>
                         
-                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
+                        <p class="px-3 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
                         <button onclick="switchAdminTab('enquiries')" id="tab-enquiries" class="admin-tab w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left">
                             <span class="flex items-center"><i class="fas fa-shopping-bag w-6 text-base text-gold-400"></i> Enquiries</span>
                             <span id="badge-pending" class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
@@ -343,7 +352,7 @@
                             <span id="badge-messages" class="bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold hidden">0</span>
                         </button>
 
-                        <p class="px-3 sm:px-4 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customization</p>
+                        <p class="px-3 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customization</p>
                         <button onclick="switchAdminTab('banners')" id="tab-banners" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-image w-6 text-base text-gold-400"></i> Home Banners</button>
                         <button onclick="switchAdminTab('settings')" id="tab-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-cog w-6 text-base text-gold-400"></i> Contacts</button>
                         <button onclick="switchAdminTab('about-settings')" id="tab-about-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left"><i class="fas fa-pen-nib w-6 text-base text-gold-400"></i> About Page</button>
@@ -355,14 +364,14 @@
                     </div>
                 </div>
 
-                <div class="flex-1 p-6 sm:p-8 lg:p-12 overflow-y-auto bg-[#030206]">
+                <div class="flex-1 p-4 sm:p-8 lg:p-12 overflow-y-auto bg-[#030206] w-full">
                     <div id="admin-tab-dashboard" class="admin-content block">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif border-b border-[#2D2B32] pb-4">Business Overview</h2>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
-                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Total Inventory</h3><p class="text-3xl font-bold text-white" id="stat-products">0</p></div>
-                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Product Enquiries</h3><p class="text-3xl font-bold text-gold-400" id="stat-enquiries">0</p></div>
-                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">New Messages</h3><p class="text-3xl font-bold text-amber-400" id="stat-messages">0</p></div>
-                            <div class="bg-[#121216] p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Pending Actions</h3><p class="text-3xl font-bold text-red-400" id="stat-pending">0</p></div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 font-serif border-b border-[#2D2B32] pb-4">Business Overview</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                            <div class="bg-[#121216] p-5 sm:p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Total Inventory</h3><p class="text-3xl font-bold text-white" id="stat-products">0</p></div>
+                            <div class="bg-[#121216] p-5 sm:p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Product Enquiries</h3><p class="text-3xl font-bold text-gold-400" id="stat-enquiries">0</p></div>
+                            <div class="bg-[#121216] p-5 sm:p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">New Messages</h3><p class="text-3xl font-bold text-amber-400" id="stat-messages">0</p></div>
+                            <div class="bg-[#121216] p-5 sm:p-6 rounded-2xl shadow-xl border border-[#2D2B32]"><h3 class="text-neutral-400 font-bold uppercase text-[10px] tracking-widest mb-2">Pending Actions</h3><p class="text-3xl font-bold text-red-400" id="stat-pending">0</p></div>
                         </div>
                     </div>
 
@@ -370,19 +379,19 @@
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Set Daily Gold & Silver Rates</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Gold rate 18K (Per 10g) standard set hoga (Calculation mein automatically 75% purity factor lagega)</p>
                         
-                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-2xl">
+                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-2xl">
                             <form onsubmit="saveDailyRates(event)">
                                 <div class="space-y-6">
                                     <div>
                                         <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Gold Rate (18K - Per 10 Grams in ₹)</label>
-                                        <input type="number" id="admin-gold-rate" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                        <input type="number" id="admin-gold-rate" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Today's Silver Rate (Per 10 Grams in ₹)</label>
-                                        <input type="number" id="admin-silver-rate" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
+                                        <input type="number" id="admin-silver-rate" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white font-bold text-sm focus:border-gold-500 outline-none">
                                     </div>
                                 </div>
-                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Live Rates</button>
+                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Live Rates</button>
                             </form>
                         </div>
                     </div>
@@ -391,15 +400,15 @@
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Manage Home Collection Banners</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke banners set karein</p>
                         
-                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveBanners(event)">
-                                <div class="space-y-8">
+                                <div class="space-y-6 sm:space-y-8">
                                     <div>
                                         <label class="block text-[10px] font-bold text-gold-400 uppercase tracking-wider mb-2">Gold Collection Image</label>
                                         <input type="file" id="banner-gold-file" accept="image/*" class="w-full border border-[#2D2B32] p-3 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-black cursor-pointer" onchange="compressAndPreviewBanner(event, 'gold')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
-                                            <img id="prev-gold-img" class="h-24 w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
+                                            <img id="prev-gold-img" class="h-20 sm:h-24 w-32 sm:w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
                                         </div>
                                     </div>
 
@@ -408,24 +417,24 @@
                                         <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-[#2D2B32] p-3 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-black cursor-pointer" onchange="compressAndPreviewBanner(event, 'silver')">
                                         <div class="mt-3 flex items-center space-x-4">
                                             <span class="text-[10px] text-neutral-400 uppercase">Preview:</span>
-                                            <img id="prev-silver-img" class="h-24 w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
+                                            <img id="prev-silver-img" class="h-20 sm:h-24 w-32 sm:w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Collection Banners</button>
+                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Collection Banners</button>
                             </form>
                         </div>
                     </div>
 
                     <div id="admin-tab-auth-settings" class="admin-content hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Change Admin Username & Password</h2>
-                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif">Change Admin Username & Password</h2>
+                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveCredentials(event)">
                                 <div class="space-y-6">
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Username</label><input type="text" id="new-admin-user" required class="w-full p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Password</label><input type="password" id="new-admin-pass" required class="w-full p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Username</label><input type="text" id="new-admin-user" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Password</label><input type="password" id="new-admin-pass" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white"></div>
                                 </div>
-                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Credentials</button>
+                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Credentials</button>
                             </form>
                         </div>
                     </div>
@@ -434,8 +443,8 @@
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Category apani marzi se kuch bhi type karein</p>
                         
-                        <form id="add-product-form" class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl" onsubmit="handleAddProduct(event)">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-6">
+                        <form id="add-product-form" class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl" onsubmit="handleAddProduct(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mb-6">
                                 <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Name</label><input type="text" id="p-name" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold"></div>
                                 <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Metal Type</label>
                                     <select id="p-metal" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold">
@@ -453,17 +462,17 @@
                                 </div>
                                 <div class="md:col-span-2"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Image (Upload from Device)</label>
                                     <input type="file" id="p-image-file" accept="image/*" required class="w-full border border-[#2D2B32] p-2 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold-500 file:text-black cursor-pointer" onchange="compressAndPreviewProduct(event)">
-                                    <img id="p-img-preview" class="mt-3 h-24 object-cover hidden rounded-xl border border-[#2D2B32] shadow-sm">
+                                    <img id="p-img-preview" class="mt-3 h-20 sm:h-24 object-cover hidden rounded-xl border border-[#2D2B32] shadow-sm">
                                 </div>
                             </div>
-                            <div class="mb-8"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Short Description</label><textarea id="p-desc" rows="3" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm"></textarea></div>
-                            <button type="submit" class="gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save to Database</button>
+                            <div class="mb-6 sm:mb-8"><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Short Description</label><textarea id="p-desc" rows="3" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm"></textarea></div>
+                            <button type="submit" class="gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save to Database</button>
                         </form>
                     </div>
 
                     <div id="admin-tab-manage-products" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Inventory & Price Breakdown</h2>
-                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Yahan aapko har product ka poora hisab dikhega (Gold Rate/10 x 0.75 x Weight + Making + 3% GST)</p>
+                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-6 sm:mb-8">Yahan aapko har product ka poora hisab dikhega (Gold Rate/10 x 0.75 x Weight + Making + 3% GST)</p>
                         <div class="bg-[#121216] rounded-2xl shadow-xl border border-[#2D2B32] overflow-x-auto">
                             <table class="w-full text-left border-collapse min-w-[800px]">
                                 <thead><tr class="bg-black/50 border-b border-[#2D2B32] text-[10px] uppercase text-neutral-400"><th class="p-4 sm:p-5">Item</th><th class="p-4 sm:p-5">Metal & Wt</th><th class="p-4 sm:p-5">Base Value</th><th class="p-4 sm:p-5">Making</th><th class="p-4 sm:p-5">3% GST</th><th class="p-4 sm:p-5">Final Price</th><th class="p-4 sm:p-5">Status</th><th class="p-4 sm:p-5 text-right">Actions</th></tr></thead>
@@ -498,28 +507,28 @@
                     </div>
 
                     <div id="admin-tab-settings" class="admin-content hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Shop Contact Details</h2>
-                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif">Shop Contact Details</h2>
+                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveShopSettings(event)">
                                 <div class="space-y-6">
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Phone Number</label><input type="text" id="set-phone" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Email Address</label><input type="email" id="set-email" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Store Address</label><textarea id="set-address" rows="3" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Phone Number</label><input type="text" id="set-phone" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Email Address</label><input type="email" id="set-email" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Store Address</label><textarea id="set-address" rows="3" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
                                 </div>
-                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Changes</button>
+                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Save Changes</button>
                             </form>
                         </div>
                     </div>
 
                     <div id="admin-tab-about-settings" class="admin-content hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-8 font-serif">Edit "About Us" Page</h2>
-                        <div class="bg-[#121216] p-6 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6 sm:mb-8 font-serif">Edit "About Us" Page</h2>
+                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl">
                             <form onsubmit="saveAboutSettings(event)">
                                 <div class="space-y-6">
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Main Heading</label><input type="text" id="set-about-title" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
-                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Shop Story</label><textarea id="set-about-story" rows="6" required class="w-full p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Main Heading</label><input type="text" id="set-about-title" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></div>
+                                    <div><label class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Shop Story</label><textarea id="set-about-story" rows="6" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl bg-[#1b1a21] text-white"></textarea></div>
                                 </div>
-                                <button type="submit" class="mt-8 gold-gradient text-black font-extrabold px-8 py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Page</button>
+                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer">Update Page</button>
                             </form>
                         </div>
                     </div>
@@ -530,15 +539,15 @@
 
     </main>
 
-    <footer class="bg-[#030206] text-gray-300 pt-16 sm:pt-20 pb-10 border-t-[4px] border-gold-500">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 sm:gap-16 mb-12 sm:mb-16">
+    <footer class="bg-[#030206] text-gray-300 pt-12 sm:pt-20 pb-10 border-t-[4px] border-gold-500 w-full">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-16 mb-10 sm:mb-16">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white mb-4 sm:mb-6 uppercase tracking-widest">Rani Jewellers</h2>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6 sm:mb-8 font-light" id="footer-about-story">Crafting elegance since 2026. Every piece tells a story of luxury.</p>
+                <h2 class="text-xl sm:text-3xl font-serif font-bold text-white mb-3 sm:mb-6 uppercase tracking-widest">Rani Jewellers</h2>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4 sm:mb-8 font-light" id="footer-about-story">Crafting elegance since 2026. Every piece tells a story of luxury.</p>
             </div>
             <div>
-                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Quick Links</h3>
-                <ul class="space-y-3 sm:space-y-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                <h3 class="text-xs font-bold mb-4 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Quick Links</h3>
+                <ul class="space-y-2 sm:space-y-4 text-xs font-bold text-gray-400 uppercase tracking-wider">
                     <li><button onclick="navigate('home')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">Home</button></li>
                     <li><button onclick="navigate('shop')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">Our Collections</button></li>
                     <li><button onclick="navigate('about')" class="hover:text-gold-400 bg-transparent border-none cursor-pointer">About Us</button></li>
@@ -546,61 +555,61 @@
                 </ul>
             </div>
             <div>
-                <h3 class="text-xs font-bold mb-6 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Contact Boutique</h3>
-                <ul class="space-y-4 sm:space-y-5 text-sm text-gray-400 font-light">
-                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-4 text-gold-400"></i><span class="dynamic-address">Loading...</span></li>
-                    <li class="flex items-center"><i class="fas fa-phone mr-4 text-gold-400"></i><span class="dynamic-phone font-bold">Loading...</span></li>
-                    <li class="flex items-center"><i class="fas fa-envelope mr-4 text-gold-400"></i><span class="dynamic-email">Loading...</span></li>
+                <h3 class="text-xs font-bold mb-4 sm:mb-8 text-gold-400 uppercase tracking-widest border-b border-[#2D2B32] pb-3">Contact Boutique</h3>
+                <ul class="space-y-3 sm:space-y-5 text-sm text-gray-400 font-light">
+                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 sm:mr-4 text-gold-400 shrink-0"></i><span class="dynamic-address">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-phone mr-3 sm:mr-4 text-gold-400 shrink-0"></i><span class="dynamic-phone font-bold">Loading...</span></li>
+                    <li class="flex items-center"><i class="fas fa-envelope mr-3 sm:mr-4 text-gold-400 shrink-0"></i><span class="dynamic-email">Loading...</span></li>
                 </ul>
             </div>
         </div>
-        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-[#2D2B32] pt-6 sm:pt-8 px-4">
+        <div class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest border-t border-[#2D2B32] pt-6 px-4">
             <p>Copyright © 2026 Rani Jewellers. All Rights Reserved.</p>
         </div>
     </footer>
 
     <a href="#" target="_blank" class="whatsapp-float" id="wa-btn"><i class="fab fa-whatsapp"></i></a>
 
-    <div id="enquiry-modal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-4">
-        <div class="bg-[#121216] border border-[#2D2B32] text-white p-6 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative">
-            <button onclick="closeEnquiryModal()" class="absolute top-5 right-5 sm:top-6 sm:right-6 text-gray-400 hover:text-red-500 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-2xl"></i></button>
-            <h3 class="text-2xl sm:text-3xl font-serif font-bold mb-6 text-white">Reserve Request</h3>
+    <div id="enquiry-modal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center backdrop-blur-sm p-3 sm:p-4">
+        <div class="bg-[#121216] border border-[#2D2B32] text-white p-5 sm:p-10 rounded-2xl shadow-2xl w-full max-w-lg relative">
+            <button onclick="closeEnquiryModal()" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-400 hover:text-red-500 bg-transparent border-none cursor-pointer"><i class="fas fa-times text-xl sm:text-2xl"></i></button>
+            <h3 class="text-xl sm:text-3xl font-serif font-bold mb-4 sm:mb-6 text-white">Reserve Request</h3>
             <form onsubmit="submitEnquiry(event)">
-                <div class="mb-6 sm:mb-8 bg-[#1b1a21] p-4 sm:p-5 rounded-xl border border-[#2D2B32]">
-                    <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-2">Selected Masterpiece</p>
-                    <p class="font-serif text-lg sm:text-xl font-bold text-white"><span id="enq-product-name"></span></p>
+                <div class="mb-4 sm:mb-8 bg-[#1b1a21] p-3 sm:p-5 rounded-xl border border-[#2D2B32]">
+                    <p class="text-gray-400 text-[10px] uppercase font-bold tracking-widest mb-1 sm:mb-2">Selected Masterpiece</p>
+                    <p class="font-serif text-base sm:text-xl font-bold text-white"><span id="enq-product-name"></span></p>
                     <p class="text-gold-400 text-xs font-bold uppercase tracking-wider mt-1">REF: <span id="enq-product-id"></span></p>
                 </div>
                 <input type="hidden" id="enq-pid"><input type="hidden" id="enq-pname">
-                <div class="space-y-5 sm:space-y-6 mb-6 sm:mb-8">
-                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
-                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
-                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 border-[#2D2B32] py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                <div class="space-y-4 sm:space-y-6 mb-5 sm:mb-8">
+                    <div><input type="text" id="enq-name" placeholder="Full Name" required class="w-full border-b-2 border-[#2D2B32] py-2.5 sm:py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="tel" id="enq-phone" placeholder="Mobile Number" required class="w-full border-b-2 border-[#2D2B32] py-2.5 sm:py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
+                    <div><input type="text" id="enq-city" placeholder="City / Location" required class="w-full border-b-2 border-[#2D2B32] py-2.5 sm:py-3 bg-transparent outline-none font-bold text-sm text-white focus:border-gold-500"></div>
                 </div>
                 <button type="submit" class="w-full gold-gradient text-black font-extrabold py-3.5 sm:py-4 rounded-lg font-bold uppercase text-xs hover:opacity-95 shadow-xl cursor-pointer">Submit Request</button>
             </form>
         </div>
     </div>
 
-    <div id="reply-modal" class="fixed inset-0 bg-black/80 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-4">
-        <div class="bg-[#121216] border border-[#2D2B32] p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
-            <button onclick="closeReplyModal()" class="absolute top-5 right-5 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-times text-xl"></i></button>
+    <div id="reply-modal" class="fixed inset-0 bg-black/80 hidden z-[110] flex items-center justify-center backdrop-blur-sm p-3 sm:p-4">
+        <div class="bg-[#121216] border border-[#2D2B32] p-5 sm:p-8 rounded-2xl shadow-2xl w-full max-w-md relative text-white">
+            <button onclick="closeReplyModal()" class="absolute top-4 right-4 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-times text-xl"></i></button>
             <div class="flex items-center space-x-3 mb-3">
-                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-lg"><i class="fab fa-whatsapp"></i></div>
-                <div>
-                    <h3 class="text-lg font-serif font-bold text-white">Reply via WhatsApp</h3>
-                    <p class="text-xs text-neutral-400">To: <span id="reply-cust-name" class="font-bold text-gold-400"></span> (<span id="reply-cust-phone" class="text-blue-400"></span>)</p>
+                <div class="w-10 h-10 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center text-lg shrink-0"><i class="fab fa-whatsapp"></i></div>
+                <div class="truncate">
+                    <h3 class="text-base sm:text-lg font-serif font-bold text-white truncate">Reply via WhatsApp</h3>
+                    <p class="text-[11px] sm:text-xs text-neutral-400 truncate">To: <span id="reply-cust-name" class="font-bold text-gold-400"></span> (<span id="reply-cust-phone" class="text-blue-400"></span>)</p>
                 </div>
             </div>
             
-            <div class="my-6">
+            <div class="my-5">
                 <label class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Type Message:</label>
-                <textarea id="reply-msg-text" rows="4" class="w-full p-3.5 bg-[#1b1a21] border border-[#2D2B32] rounded-xl outline-none text-sm text-white focus:border-gold-500" placeholder="Type your response here..."></textarea>
+                <textarea id="reply-msg-text" rows="4" class="w-full p-3 bg-[#1b1a21] border border-[#2D2B32] rounded-xl outline-none text-sm text-white focus:border-gold-500" placeholder="Type your response here..."></textarea>
             </div>
             
             <div class="flex space-x-3">
-                <button onclick="closeReplyModal()" class="w-1/2 bg-[#1b1a21] hover:bg-neutral-800 text-neutral-300 font-bold py-3.5 rounded-xl uppercase text-xs tracking-wider transition-all cursor-pointer">Cancel</button>
-                <button onclick="sendWhatsAppReplyNow()" class="w-1/2 bg-green-600 hover:bg-green-500 text-white font-extrabold py-3.5 rounded-xl uppercase text-xs tracking-wider shadow-lg transition-all flex items-center justify-center cursor-pointer">
+                <button onclick="closeReplyModal()" class="w-1/2 bg-[#1b1a21] hover:bg-neutral-800 text-neutral-300 font-bold py-3 rounded-xl uppercase text-xs tracking-wider transition-all cursor-pointer">Cancel</button>
+                <button onclick="sendWhatsAppReplyNow()" class="w-1/2 bg-green-600 hover:bg-green-500 text-white font-extrabold py-3 rounded-xl uppercase text-xs tracking-wider shadow-lg transition-all flex items-center justify-center cursor-pointer">
                     <i class="fab fa-whatsapp mr-1.5 text-base"></i> Send Now
                 </button>
             </div>
@@ -608,9 +617,8 @@
     </div>
 
     <script>
-        const canvas = document.getElementById('solar-canvas');
+        const canvas = document.getElementById('real-flower-canvas');
         const ctx = canvas.getContext('2d');
-        let animationFrameId;
 
         function resizeCanvas() {
             canvas.width = canvas.parentElement.offsetWidth;
@@ -619,97 +627,99 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Starfield particles background
-        const stars = [];
-        for(let i=0; i<200; i++) {
-            stars.push({
+        const realFlowerUrls = [
+            "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=900",
+            "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=900",
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=900",
+            "https://images.unsplash.com/photo-1520763185298-1b434c919102?w=900",
+            "https://images.unsplash.com/photo-1526047932273-341f2a7631f9?w=900",
+            "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=900",
+            "https://images.unsplash.com/photo-1559563458-527698bf5295?w=900",
+            "https://images.unsplash.com/photo-1522383225653-ed111181a951?w=900",
+            "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=900",
+            "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900"
+        ];
+
+        let loadedImages = [];
+        let currentIdx = 0;
+        let nextIdx = 1;
+        let transitionAlpha = 0;
+        let lastTime = Date.now();
+
+        realFlowerUrls.forEach(url => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = url;
+            loadedImages.push(img);
+        });
+
+        const sparkles = [];
+        for (let i = 0; i < 80; i++) {
+            sparkles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 1.5,
+                radius: Math.random() * 2,
                 alpha: Math.random()
             });
         }
 
-        // Planets data (Distance, size, speed, color) without names
-        const planets = [
-            { distance: 75, radius: 5, speed: 0.04, color: '#A3A3A3', angle: Math.random() * Math.PI },
-            { distance: 110, radius: 8, speed: 0.03, color: '#EAB308', angle: Math.random() * Math.PI },
-            { distance: 155, radius: 9, speed: 0.025, color: '#3B82F6', angle: Math.random() * Math.PI },
-            { distance: 200, radius: 7, speed: 0.02, color: '#EF4444', angle: Math.random() * Math.PI },
-            { distance: 265, radius: 14, speed: 0.015, color: '#D97706', angle: Math.random() * Math.PI },
-            { distance: 330, radius: 12, speed: 0.01, color: '#FCD34D', angle: Math.random() * Math.PI }
-        ];
-
-        function animateSolarSystem() {
+        function animateRealFlowers() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw glowing background stars
-            stars.forEach(s => {
+            sparkles.forEach(s => {
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(Math.sin(Date.now() * 0.001 + s.alpha))})`;
+                ctx.fillStyle = `rgba(255, 215, 0, ${Math.abs(Math.sin(Date.now() * 0.002 + s.alpha))})`;
                 ctx.fill();
             });
 
-            // Center positioning towards the right side for clear text on the left
-            const centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
-            const centerY = canvas.height * 0.5;
+            let now = Date.now();
+            let elapsed = (now - lastTime) / 1000;
 
-            // Draw Central Glowing Sun (3D Luxury Sun)
-            const sunRadius = 45;
-            const sunGrad = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, sunRadius);
-            sunGrad.addColorStop(0, '#FFFFFF');
-            sunGrad.addColorStop(0.3, '#FBBF24');
-            sunGrad.addColorStop(0.7, '#D4AF37');
-            sunGrad.addColorStop(1, 'rgba(217, 119, 6, 0)');
+            if (elapsed > 5) {
+                currentIdx = nextIdx;
+                nextIdx = (nextIdx + 1) % loadedImages.length;
+                transitionAlpha = 0;
+                lastTime = now;
+            } else if (elapsed > 4) {
+                transitionAlpha = (elapsed - 4); 
+            }
 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, sunRadius * 1.5, 0, Math.PI * 2);
-            ctx.fillStyle = sunGrad;
-            ctx.fill();
+            let currImg = loadedImages[currentIdx];
+            let nextImg = loadedImages[nextIdx];
 
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, sunRadius, 0, Math.PI * 2);
-            ctx.fillStyle = '#F59E0B';
-            ctx.shadowBlur = 45;
-            ctx.shadowColor = '#D4AF37';
-            ctx.fill();
-            ctx.shadowBlur = 0; // reset shadow
+            let imgSize = Math.min(canvas.width, canvas.height) * (canvas.width < 768 ? 0.75 : 0.55);
+            let centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
+            let centerY = canvas.height * 0.5;
 
-            // Draw Orbit Rings and Planets (Without Any Names)
-            planets.forEach(p => {
-                // Orbit path
+            if (currImg && currImg.complete && currImg.naturalWidth !== 0) {
+                ctx.save();
+                ctx.globalAlpha = (canvas.width < 768 ? 0.3 : 1) * (1 - transitionAlpha);
                 ctx.beginPath();
-                ctx.arc(centerX, centerY, p.distance, 0, Math.PI * 2);
-                ctx.strokeStyle = 'rgba(212, 175, 55, 0.15)';
-                ctx.lineWidth = 1;
-                ctx.stroke();
+                ctx.arc(centerX, centerY, imgSize * 0.48, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(currImg, centerX - imgSize/2, centerY - imgSize/2, imgSize, imgSize);
+                ctx.restore();
+            }
 
-                // Update angle for motion
-                p.angle += p.speed;
-
-                // Planet position coordinates
-                let px = centerX + Math.cos(p.angle) * p.distance;
-                let py = centerY + Math.sin(p.angle) * p.distance;
-
-                // Draw Planet Body with 3D gradient shading
+            if (nextImg && nextImg.complete && nextImg.naturalWidth !== 0 && transitionAlpha > 0) {
+                ctx.save();
+                ctx.globalAlpha = (canvas.width < 768 ? 0.3 : 1) * transitionAlpha;
                 ctx.beginPath();
-                ctx.arc(px, py, p.radius, 0, Math.PI * 2);
-                const pGrad = ctx.createRadialGradient(px - 2, py - 2, 1, px, py, p.radius);
-                pGrad.addColorStop(0, '#FFFFFF');
-                pGrad.addColorStop(0.4, p.color);
-                pGrad.addColorStop(1, '#000000');
-                ctx.fillStyle = pGrad;
-                ctx.shadowBlur = 12;
-                ctx.shadowColor = p.color;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            });
+                ctx.arc(centerX, centerY, imgSize * 0.48, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.clip();
+                ctx.drawImage(nextImg, centerX - imgSize/2, centerY - imgSize/2, imgSize, imgSize);
+                ctx.restore();
+            }
 
-            animationFrameId = requestAnimationFrame(animateSolarSystem);
+            requestAnimationFrame(animateRealFlowers);
         }
 
-        animateSolarSystem();
+        window.addEventListener('load', () => {
+            setTimeout(animateRealFlowers, 500);
+        });
     </script>
 
     <script>
@@ -915,8 +925,13 @@
             document.getElementById('footer-about-story').innerText = aboutDetails.story.substring(0, 100) + '...';
             if(document.getElementById('set-about-title')) { document.getElementById('set-about-title').value = aboutDetails.title; document.getElementById('set-about-story').value = aboutDetails.story; }
             if(document.getElementById('new-admin-user')) { 
-                document.getElementById('new-admin-user').value = atob(adminAuthEnc.u); 
-                document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p); 
+                try {
+                    document.getElementById('new-admin-user').value = atob(adminAuthEnc.u); 
+                    document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p); 
+                } catch(err) {
+                    document.getElementById('new-admin-user').value = adminAuthEnc.u;
+                    document.getElementById('new-admin-pass').value = adminAuthEnc.p;
+                }
             }
 
             document.getElementById('home-gold-banner').src = collectionBanners.gold;
@@ -949,7 +964,7 @@
             let rawP = document.getElementById('new-admin-pass').value;
             adminAuthEnc = { u: btoa(rawU), p: btoa(rawP) };
             await saveSettingToFirebase('authSecure', adminAuthEnc);
-            Swal.fire({ title: 'Credentials Updated!', text: 'Admin credentials securely updated and encrypted.', icon: 'success', confirmButtonColor: '#D4AF37' });
+            Swal.fire({ title: 'Credentials Updated!', text: 'Admin credentials securely updated in Cloud Database for all browsers!', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
         async function handleGeneralContact(e) {
@@ -1001,10 +1016,10 @@
                 let livePrice = calculateProductPrice(p);
                 return `
                     <div class="bg-[#121216] rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border border-[#2D2B32] flex flex-col group" onclick="viewProductDetails('${p.id}')">
-                        <div class="h-72 sm:h-80 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
-                        <div class="p-6 sm:p-8 text-center flex-grow flex flex-col justify-between">
-                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-lg sm:text-xl font-serif font-bold text-white">${p.name}</h3></div>
-                            <p class="text-base sm:text-lg font-bold text-gold-400 mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
+                        <div class="h-64 sm:h-80 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
+                        <div class="p-5 sm:p-8 text-center flex-grow flex flex-col justify-between">
+                            <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${p.metal} • ${p.category} (${p.weight}g)</span><h3 class="text-base sm:text-xl font-serif font-bold text-white">${p.name}</h3></div>
+                            <p class="text-base sm:text-lg font-bold text-gold-400 mt-3 sm:mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
                         </div>
                     </div>
                 `;
@@ -1029,14 +1044,14 @@
                 let livePrice = calculateProductPrice(p);
                 return `
                     <div class="bg-[#121216] rounded-xl shadow-sm border border-[#2D2B32] overflow-hidden card-hover flex flex-col group">
-                        <div class="relative cursor-pointer h-64 sm:h-72 overflow-hidden" onclick="viewProductDetails('${p.id}')">
+                        <div class="relative cursor-pointer h-60 sm:h-72 overflow-hidden" onclick="viewProductDetails('${p.id}')">
                             <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
                         </div>
-                        <div class="p-5 sm:p-6 flex-grow flex flex-col bg-[#121216]">
+                        <div class="p-4 sm:p-6 flex-grow flex flex-col bg-[#121216]">
                             <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${p.category} • Wt: ${p.weight}g</span>
-                            <h3 class="text-lg sm:text-xl font-serif font-bold text-white line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
-                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-lg sm:text-xl font-bold text-gold-400">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1b1a21] flex items-center justify-center text-white group-hover:bg-gold-600 group-hover:text-black transition-all cursor-pointer"><i class="fas fa-arrow-right"></i></button></div>
+                            <h3 class="text-base sm:text-xl font-serif font-bold text-white line-clamp-1 cursor-pointer" onclick="viewProductDetails('${p.id}')">${p.name}</h3>
+                            <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-base sm:text-xl font-bold text-gold-400">₹${livePrice.toLocaleString('en-IN')}</span><button onclick="viewProductDetails('${p.id}')" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1b1a21] flex items-center justify-center text-white group-hover:bg-gold-600 group-hover:text-black transition-all cursor-pointer"><i class="fas fa-arrow-right"></i></button></div>
                         </div>
                     </div>
                 `;
@@ -1047,25 +1062,25 @@
             const p = products.find(x => x.id === id); if(!p) return;
             let breakdown = calculateDetailedPrice(p);
             document.getElementById('product-detail-container').innerHTML = `
-                <div class="w-full lg:w-1/2 bg-[#030206] flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[400px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-[#2D2B32]"></div>
-                <div class="w-full lg:w-1/2 p-6 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#121216]">
-                    <div class="flex flex-wrap gap-2 mb-4">
+                <div class="w-full lg:w-1/2 bg-[#030206] flex items-center justify-center p-4 sm:p-6"><img src="${p.image}" class="max-h-[300px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-[#2D2B32]"></div>
+                <div class="w-full lg:w-1/2 p-5 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#121216]">
+                    <div class="flex flex-wrap gap-2 mb-3 sm:mb-4">
                         <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${p.metal}</span>
                         <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">${p.category}</span>
                         <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${p.weight}g</span>
                     </div>
-                    <h1 class="text-3xl sm:text-4xl font-serif font-bold mb-3 sm:mb-4 text-white">${p.name}</h1>
-                    <p class="text-2xl sm:text-3xl font-bold text-gold-400 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
+                    <h1 class="text-2xl sm:text-4xl font-serif font-bold mb-2 sm:mb-4 text-white">${p.name}</h1>
+                    <p class="text-xl sm:text-3xl font-bold text-gold-400 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
                     
-                    <div class="bg-black/50 p-4 sm:p-5 rounded-xl border border-[#2D2B32] mb-6 space-y-2 text-xs">
+                    <div class="bg-black/50 p-3 sm:p-5 rounded-xl border border-[#2D2B32] mb-5 sm:mb-6 space-y-2 text-xs">
                         <p class="font-bold uppercase tracking-wider text-white border-b border-[#2D2B32] pb-2 mb-2"><i class="fas fa-calculator text-gold-400 mr-2"></i> Price Calculation Breakdown</p>
                         <div class="flex justify-between text-gray-300"><span>Base Metal Value (${p.weight}g):</span> <span class="font-bold text-white">₹${breakdown.baseValue.toLocaleString('en-IN')}</span></div>
                         <div class="flex justify-between text-gray-300"><span>Making Charges:</span> <span class="font-bold text-white">₹${breakdown.making.toLocaleString('en-IN')}</span></div>
                         <div class="flex justify-between text-gray-300"><span>GST (3%):</span> <span class="font-bold text-white">₹${breakdown.gst.toLocaleString('en-IN')}</span></div>
                     </div>
 
-                    <p class="text-gray-300 leading-relaxed mb-6 sm:mb-8 text-sm">${p.desc}</p>
-                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-4 sm:py-5 gold-gradient text-black font-extrabold text-xs uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors cursor-pointer">Reserve Masterpiece</button>` : `<button disabled class="w-full py-4 sm:py-5 bg-[#1b1a21] text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
+                    <p class="text-gray-300 leading-relaxed mb-5 sm:mb-8 text-sm">${p.desc}</p>
+                    ${p.avail === 'Available' ? `<button onclick="openEnquiryModal('${p.id}')" class="w-full py-3.5 sm:py-5 gold-gradient text-black font-extrabold text-xs uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors cursor-pointer">Reserve Masterpiece</button>` : `<button disabled class="w-full py-3.5 sm:py-5 bg-[#1b1a21] text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed">Currently Unavailable</button>`}
                 </div>
             `;
             navigate('detail');
@@ -1101,7 +1116,17 @@
             const u = document.getElementById('simple-user').value;
             const p = document.getElementById('simple-pass').value;
             
-            if(btoa(u) === adminAuthEnc.u && btoa(p) === adminAuthEnc.p) {
+            let actualUser = '';
+            let actualPass = '';
+            try {
+                actualUser = atob(adminAuthEnc.u);
+                actualPass = atob(adminAuthEnc.p);
+            } catch(err) {
+                actualUser = adminAuthEnc.u;
+                actualPass = adminAuthEnc.p;
+            }
+
+            if(u === actualUser && p === actualPass) {
                 isLoggedIn = true; localStorage.setItem('rani_admin_auth', 'true');
                 document.getElementById('nav-admin-btn').textContent = 'Dashboard';
                 document.getElementById('simple-user').value = ''; document.getElementById('simple-pass').value = '';
