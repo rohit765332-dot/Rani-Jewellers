@@ -6,14 +6,12 @@
     <meta name="description" content="Rani Jewellers - Luxury Gold & Silver Boutique. Discover hallmarked 18K gold and 925 sterling silver fine jewellery with live market pricing and bespoke craftsmanship.">
     <meta name="theme-color" content="#030206">
 
-    <!-- Security & Protection Headers -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
     <title>Rani Jewellers | Luxury Gold & Silver Boutique</title>
 
-    <!-- Resource Preconnects for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -40,9 +38,7 @@
                         serif: ['Playfair Display', 'serif'],
                         sans: ['Lato', 'sans-serif'],
                     },
-                    screens: {
-                        'xs': '375px',
-                    }
+                    screens: { 'xs': '375px' }
                 }
             }
         }
@@ -56,26 +52,17 @@
         .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #FFF3B0 50%, #AA7C11 100%); }
         .hover-gold:hover { color: #D4AF37; transition: 0.3s; }
         .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25); transition: all 0.4s ease; }
-        
-        #solar-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
+
+        #solar-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
         .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; border-radius: 50%; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 20px rgba(0,0,0,0.5); z-index: 1000; transition: transform 0.3s, background-color 0.3s; }
         .whatsapp-float:hover { transform: scale(1.1); color: white; background-color: #1eb954; }
         .admin-tab.active { background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%); color: #ffffff; border-left: 4px solid #FFFFFF; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); font-weight: 800; }
-        
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #121216; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
 
-        /* Focus outline accessibility */
         a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
             outline: 2px solid #D4AF37 !important;
             outline-offset: 2px !important;
@@ -140,13 +127,11 @@
     </aside>
 
     <main class="flex-grow w-full overflow-hidden" id="main-content">
-        
+
         <section id="home" class="page active" aria-label="Home Section">
             <div class="relative text-white overflow-hidden hero-section h-[75vh] sm:h-[85vh] md:h-[92vh] flex items-center bg-[#030206] w-full">
                 <canvas id="solar-canvas" aria-hidden="true"></canvas>
-                
                 <div class="absolute inset-0 bg-gradient-to-r from-[#030206] via-[#030206]/85 sm:via-[#030206]/75 to-transparent pointer-events-none"></div>
-                
                 <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                     <span class="text-gold-400 tracking-[0.2em] sm:tracking-[0.4em] uppercase text-[9px] sm:text-xs font-extrabold mb-3 sm:mb-6 block border-b-2 border-gold-500 pb-2 w-max">Pure & Certified Jewellery</span>
                     <h1 class="hero-title text-3xl sm:text-6xl md:text-8xl font-serif font-bold mb-4 sm:mb-6 text-white drop-shadow-2xl leading-tight">Your Beauty, <br><span class="text-transparent bg-clip-text gold-gradient">Our Jewellery</span></h1>
@@ -229,7 +214,6 @@
                     <h1 class="text-3xl sm:text-5xl font-serif font-bold mb-3">About Rani Jewellers</h1>
                     <div class="w-16 sm:w-24 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6" aria-hidden="true"></div>
                 </div>
-                
                 <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
                     <div class="w-full lg:w-1/2">
                         <div class="relative">
@@ -240,7 +224,6 @@
                     <div class="w-full lg:w-1/2 space-y-5 sm:space-y-8">
                         <h2 class="text-2xl sm:text-4xl font-serif font-bold text-gold-400" id="dyn-about-title">Loading...</h2>
                         <p class="text-gray-300 leading-relaxed text-sm sm:text-lg" id="dyn-about-story">Loading...</p>
-                        
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-5 sm:pt-8 border-t border-[#2D2B32]">
                             <div class="flex items-start"><i class="fas fa-gem text-xl sm:text-3xl text-gold-400 mr-3 sm:mr-4 shrink-0" aria-hidden="true"></i><div><h3 class="font-bold text-white text-sm">Pure Materials</h3><p class="text-xs sm:text-sm text-gray-400 mt-1">100% certified gold & silver.</p></div></div>
                             <div class="flex items-start"><i class="fas fa-handshake text-xl sm:text-3xl text-gold-400 mr-3 sm:mr-4 shrink-0" aria-hidden="true"></i><div><h3 class="font-bold text-white text-sm">Trusted Legacy</h3><p class="text-xs sm:text-sm text-gray-400 mt-1">Built on generations of trust.</p></div></div>
@@ -257,7 +240,7 @@
                     <div class="w-16 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6" aria-hidden="true"></div>
                 </div>
             </div>
-            
+
             <div class="max-w-7xl mx-auto px-4 py-8 sm:py-16 flex flex-col lg:flex-row gap-6 lg:gap-10">
                 <div class="w-full lg:w-1/4">
                     <div class="bg-[#121216] p-5 sm:p-6 rounded-xl shadow-lg border border-[#2D2B32] lg:sticky lg:top-28 text-white">
@@ -266,7 +249,6 @@
                             <input type="text" id="search-input" placeholder="Search product by name or category..." class="w-full pl-10 pr-4 py-3 border border-[#2D2B32] rounded-lg focus:outline-none focus:border-gold-500 text-sm font-bold bg-[#1b1a21] text-white" onkeyup="renderShop()">
                             <i class="fas fa-search absolute left-3 top-3.5 text-gray-400" aria-hidden="true"></i>
                         </div>
-                        
                         <fieldset>
                             <legend class="font-bold text-xs tracking-widest uppercase text-gray-400 mb-2 sm:mb-4">Filter by Metal Type</legend>
                             <div class="space-y-3" id="metal-filters">
@@ -295,7 +277,7 @@
                     <h1 class="text-3xl sm:text-5xl font-serif font-bold mb-3">Contact Concierge</h1>
                     <div class="w-16 sm:w-24 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6" aria-hidden="true"></div>
                 </div>
-                
+
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                     <div class="bg-[#121216] p-6 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-[#2D2B32]">
                         <h2 class="text-xl sm:text-3xl font-serif mb-6 sm:mb-10 text-gold-400">Store Directory</h2>
@@ -314,7 +296,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="bg-[#121216] p-6 sm:p-10 rounded-2xl shadow-xl border border-[#2D2B32]">
                         <h2 class="text-xl sm:text-2xl font-serif mb-5 sm:mb-8 text-white">Send us a Message</h2>
                         <form onsubmit="handleGeneralContact(event)" novalidate>
@@ -345,7 +327,6 @@
                         <h1 class="text-2xl sm:text-3xl font-serif font-bold text-white">Admin Portal</h1>
                         <p class="mt-2 text-xs text-gray-400 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
-                    
                     <form class="mt-6 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
                         <div class="space-y-4">
                             <div>
@@ -382,7 +363,7 @@
                         <button type="button" onclick="switchAdminTab('daily-rates')" id="tab-daily-rates" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-rupee-sign w-6 text-base text-gold-400" aria-hidden="true"></i> Set Daily Rates</button>
                         <button type="button" onclick="switchAdminTab('add-product')" id="tab-add-product" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-plus-circle w-6 text-base text-gold-400" aria-hidden="true"></i> Add Product</button>
                         <button type="button" onclick="switchAdminTab('manage-products')" id="tab-manage-products" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-boxes w-6 text-base text-gold-400" aria-hidden="true"></i> Inventory & Breakdown</button>
-                        
+
                         <p class="px-3 text-[9px] font-extrabold text-neutral-500 uppercase tracking-widest mt-6 mb-2">Customer Activity</p>
                         <button type="button" onclick="switchAdminTab('enquiries')" id="tab-enquiries" class="admin-tab w-full flex items-center justify-between px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]">
                             <span class="flex items-center"><i class="fas fa-shopping-bag w-6 text-base text-gold-400" aria-hidden="true"></i> Enquiries</span>
@@ -419,7 +400,6 @@
                     <div id="admin-tab-daily-rates" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Set Daily Gold & Silver Rates</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Gold rate 18K (Per 10g) standard set hoga (Calculation mein automatically 75% purity factor lagega)</p>
-                        
                         <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-2xl">
                             <form onsubmit="saveDailyRates(event)">
                                 <div class="space-y-6">
@@ -440,7 +420,6 @@
                     <div id="admin-tab-banners" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Manage Home Collection Banners</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Apne phone ya gallery se direct photo select karke Home page ke banners set karein</p>
-                        
                         <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveBanners(event)">
                                 <div class="space-y-6 sm:space-y-8">
@@ -452,7 +431,6 @@
                                             <img id="prev-gold-img" alt="Gold Banner Preview" class="h-20 sm:h-24 w-32 sm:w-36 object-cover rounded-xl border border-[#2D2B32] shadow-md">
                                         </div>
                                     </div>
-
                                     <div class="border-t border-[#2D2B32] pt-6">
                                         <label for="banner-silver-file" class="block text-[10px] font-bold text-silver-400 uppercase tracking-wider mb-2">Silver Collection Image</label>
                                         <input type="file" id="banner-silver-file" accept="image/*" class="w-full border border-[#2D2B32] p-3 rounded-xl bg-[#1b1a21] text-xs text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-silver-400 file:text-black cursor-pointer min-h-[44px]" onchange="compressAndPreviewBanner(event, 'silver')">
@@ -470,7 +448,6 @@
                     <div id="admin-tab-auth-settings" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Change Admin Username & Password</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-6">Update credentials for local session authentication</p>
-                        
                         <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
                             <form onsubmit="saveCredentials(event)">
                                 <div class="space-y-6">
@@ -485,7 +462,6 @@
                     <div id="admin-tab-add-product" class="admin-content hidden">
                         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Add New Masterpiece</h2>
                         <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-8">Category apani marzi se kuch bhi type karein</p>
-                        
                         <form id="add-product-form" class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-4xl" onsubmit="handleAddProduct(event)">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mb-6">
                                 <div><label for="p-name" class="block text-[10px] font-bold text-neutral-400 uppercase mb-2">Product Name</label><input type="text" id="p-name" required class="w-full border border-[#2D2B32] p-3 rounded-xl outline-none bg-[#1b1a21] text-white text-sm font-bold focus:border-gold-500 min-h-[44px]"></div>
@@ -654,12 +630,10 @@
                     <p class="text-[11px] sm:text-xs text-neutral-400 truncate">To: <span id="reply-cust-name" class="font-bold text-gold-400"></span> (<span id="reply-cust-phone" class="text-blue-400"></span>)</p>
                 </div>
             </div>
-            
             <div class="my-5">
                 <label for="reply-msg-text" class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Type Message:</label>
                 <textarea id="reply-msg-text" rows="4" class="w-full p-3 bg-[#1b1a21] border border-[#2D2B32] rounded-xl outline-none text-sm text-white focus:border-gold-500" placeholder="Type your response here..."></textarea>
             </div>
-            
             <div class="flex space-x-3">
                 <button type="button" onclick="closeReplyModal()" class="w-1/2 bg-[#1b1a21] hover:bg-neutral-800 text-neutral-300 font-bold py-3 rounded-xl uppercase text-xs tracking-wider transition-all cursor-pointer min-h-[44px]">Cancel</button>
                 <button type="button" onclick="sendWhatsAppReplyNow()" class="w-1/2 bg-green-600 hover:bg-green-500 text-white font-extrabold py-3 rounded-xl uppercase text-xs tracking-wider shadow-lg transition-all flex items-center justify-center cursor-pointer min-h-[44px]">
@@ -694,12 +668,7 @@
 
         const stars = [];
         for (let i = 0; i < 150; i++) {
-            stars.push({
-                x: Math.random() * (canvas.width || 800),
-                y: Math.random() * (canvas.height || 600),
-                radius: Math.random() * 1.5,
-                alpha: Math.random()
-            });
+            stars.push({ x: Math.random() * (canvas.width || 800), y: Math.random() * (canvas.height || 600), radius: Math.random() * 1.5, alpha: Math.random() });
         }
 
         function animateSolarSystem() {
@@ -753,13 +722,11 @@
             animId = requestAnimationFrame(animateSolarSystem);
         }
 
-        window.addEventListener('load', () => {
-            setTimeout(animateSolarSystem, 300);
-        });
+        window.addEventListener('load', () => { setTimeout(animateSolarSystem, 300); });
     </script>
 
     <script>
-        /* Security Sanitization & Helper Utilities */
+        /* ---------- Helpers ---------- */
         function escapeHTML(str) {
             if (str === null || str === undefined) return '';
             return String(str)
@@ -770,113 +737,103 @@
                 .replace(/'/g, '&#039;');
         }
 
+        // Save ke waqt sirf trim; HTML escape render ke waqt hota hai (double-encoding fix)
         function sanitizeInput(str) {
-            return escapeHTML(String(str || '').trim());
+            return String(str || '').trim();
         }
 
         function validatePhone(phone) {
             return /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(String(phone).trim());
         }
 
-        let marketRates = { gold: 54000, silver: 900 }; 
+        /* ---------- State ---------- */
+        let marketRates = { gold: 54000, silver: 900 };
         let collectionBanners = {
             gold: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800',
             silver: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800'
         };
-
         let products = [];
         let enquiries = [];
         let contactMessages = [];
         let shopDetails = { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
         let aboutDetails = { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery.' };
-        
         let adminAuthEnc = { u: 'YWRtaW4=', p: 'UmFuaUAxMjM=' };
-        
-        // Session security check with expiration limit
+        let currentDetailId = null;
+        let tempProductImageBase64 = '';
+        let tempBannerGoldBase64 = '';
+        let tempBannerSilverBase64 = '';
+        let activeReplyPhone = '';
+        let activeReplyName = '';
+
+        /* ---------- Session ---------- */
         function checkAdminSession() {
             const authTime = parseInt(localStorage.getItem('rani_admin_time') || '0', 10);
             const now = Date.now();
-            if (localStorage.getItem('rani_admin_auth') === 'true' && (now - authTime < 86400000)) {
-                return true;
-            }
-            return false;
+            return localStorage.getItem('rani_admin_auth') === 'true' && (now - authTime < 86400000);
         }
-
         let isLoggedIn = checkAdminSession();
 
-        async function initFirebaseApp() {
-            if (!window.db || !window.firebaseModules) {
-                setTimeout(initFirebaseApp, 300);
-                return;
-            }
+        /* ---------- REAL-TIME HANDLERS (module script se call hote hain) ---------- */
+        function applyRemoteSettings(map) {
+            if (map.rates)      marketRates = { ...marketRates, ...map.rates };
+            if (map.banners)    collectionBanners = { ...collectionBanners, ...map.banners };
+            if (map.shop)       shopDetails = { ...shopDetails, ...map.shop };
+            if (map.about)      aboutDetails = { ...aboutDetails, ...map.about };
+            if (map.authSecure) adminAuthEnc = map.authSecure;
+            refreshAllViews();
+        }
 
-            try {
-                const { collection, getDocs } = window.firebaseModules;
-                
-                const settingsSnap = await getDocs(collection(window.db, "settings"));
-                settingsSnap.forEach(docSnap => {
-                    let data = docSnap.data();
-                    if(docSnap.id === 'rates') marketRates = data;
-                    if(docSnap.id === 'banners') collectionBanners = data;
-                    if(docSnap.id === 'shop') shopDetails = data;
-                    if(docSnap.id === 'about') aboutDetails = data;
-                    if(docSnap.id === 'authSecure') adminAuthEnc = data;
-                });
+        function applyRemoteProducts(list) {
+            products = list.sort((a, b) => (b.date || 0) - (a.date || 0));
+            refreshAllViews();
+        }
 
-                const prodSnap = await getDocs(collection(window.db, "products"));
-                products = [];
-                prodSnap.forEach(docSnap => { products.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
-                
-                if(products.length === 0) {
-                    products = [
-                        { id: 'RJ-101', name: 'Bridal Gold Necklace', metal: 'Gold', category: 'Necklace', weight: 45.5, making: 12000, desc: 'Exquisite 18k gold necklace', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800', avail: 'Available', date: Date.now() }
-                    ];
-                }
+        function applyRemoteEnquiries(list) {
+            enquiries = list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            refreshAllViews();
+        }
 
-                const enqSnap = await getDocs(collection(window.db, "enquiries"));
-                enquiries = [];
-                enqSnap.forEach(docSnap => { enquiries.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+        function applyRemoteMessages(list) {
+            contactMessages = list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            refreshAllViews();
+        }
 
-                const msgSnap = await getDocs(collection(window.db, "messages"));
-                contactMessages = [];
-                msgSnap.forEach(docSnap => { contactMessages.push({ firebaseId: docSnap.id, ...docSnap.data() }); });
+        function isActivePage(id) {
+            const el = document.getElementById(id);
+            return el && el.classList.contains('active');
+        }
 
-                applyDynamicSettings();
-                renderHome();
-                console.log("Rani Jewellers Database Synced Successfully!");
-            } catch(err) {
-                console.log("Firebase Init Error:", err);
+        function refreshAllViews() {
+            applyDynamicSettings();
+            renderHome();
+            if (isActivePage('shop')) renderShop();
+            if (isActivePage('detail') && currentDetailId) viewProductDetails(currentDetailId, true);
+            if (isLoggedIn) {
+                updateDashboardStats();
+                renderAdminProductsTable();
+                renderEnquiriesTable();
+                renderMessagesTable();
             }
         }
 
-        async function saveSettingToFirebase(docName, dataObj) {
-            try {
-                if (!window.db || !window.firebaseModules) return;
-                const { doc, setDoc } = window.firebaseModules;
-                await setDoc(doc(window.db, "settings", docName), dataObj);
-            } catch(e) { console.log(e); }
-        }
-
+        /* ---------- Pricing ---------- */
         function calculateDetailedPrice(p) {
             let baseValue = 0;
-            if(p.metal === 'Gold') {
-                let ratePerGram = (marketRates.gold || 54000) / 10;
-                let pureGoldRatePerGram = ratePerGram * 0.75; 
-                baseValue = (p.weight || 0) * pureGoldRatePerGram;
+            if (p.metal === 'Gold') {
+                const perGram = (marketRates.gold || 54000) / 10;
+                baseValue = (p.weight || 0) * perGram * 0.75;
             } else {
-                let ratePerGram = (marketRates.silver || 900) / 10;
-                baseValue = (p.weight || 0) * ratePerGram;
+                const perGram = (marketRates.silver || 900) / 10;
+                baseValue = (p.weight || 0) * perGram;
             }
-            let making = p.making || 0;
-            let subTotal = baseValue + making;
-            let gst = subTotal * 0.03;
-            let finalPrice = Math.round(subTotal + gst);
-
+            const making = p.making || 0;
+            const subTotal = baseValue + making;
+            const gst = subTotal * 0.03;
             return {
                 baseValue: Math.round(baseValue),
                 making: making,
                 gst: Math.round(gst),
-                finalPrice: finalPrice
+                finalPrice: Math.round(subTotal + gst)
             };
         }
 
@@ -884,19 +841,27 @@
             return calculateDetailedPrice(p).finalPrice;
         }
 
+        /* ---------- Settings / Rates ---------- */
+        async function saveSettingToFirebase(docName, dataObj) {
+            try {
+                if (!window.db || !window.firebaseModules) return;
+                const { doc, setDoc } = window.firebaseModules;
+                await setDoc(doc(window.db, 'settings', docName), dataObj);
+            } catch (e) {
+                console.error(e);
+                Swal.fire('Error', 'Save nahi ho paya: ' + e.message, 'error');
+            }
+        }
+
         async function saveDailyRates(e) {
             e.preventDefault();
             const goldInput = parseFloat(document.getElementById('admin-gold-rate').value);
             const silverInput = parseFloat(document.getElementById('admin-silver-rate').value);
-
             if (isNaN(goldInput) || goldInput <= 0 || isNaN(silverInput) || silverInput <= 0) {
                 return Swal.fire('Invalid Input', 'Please enter valid positive numbers for rates.', 'error');
             }
-
-            marketRates.gold = goldInput;
-            marketRates.silver = silverInput;
+            marketRates = { gold: goldInput, silver: silverInput };
             await saveSettingToFirebase('rates', marketRates);
-            updateMarketTickers();
             Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Daily Rates Updated!', showConfirmButton: false, timer: 2000 });
         }
 
@@ -908,26 +873,17 @@
             reader.onload = function (e) {
                 const img = new Image();
                 img.onload = function () {
-                    let canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-
                     if (width > height) {
-                        if (width > maxWidth) {
-                            height *= maxWidth / width;
-                            width = maxWidth;
-                        }
+                        if (width > maxWidth) { height *= maxWidth / width; width = maxWidth; }
                     } else {
-                        if (height > maxHeight) {
-                            width *= maxHeight / height;
-                            height = maxHeight;
-                        }
+                        if (height > maxHeight) { width *= maxHeight / height; height = maxHeight; }
                     }
-
+                    const canvas = document.createElement('canvas');
                     canvas.width = width;
                     canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
+                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
                     callback(canvas.toDataURL('image/jpeg', quality));
                 };
                 img.src = e.target.result;
@@ -935,58 +891,58 @@
             reader.readAsDataURL(file);
         }
 
-        let tempProductImageBase64 = '';
         function compressAndPreviewProduct(event) {
             const file = event.target.files[0];
-            if(!file) return;
-            compressImage(file, 800, 800, 0.7, function(compressedDataUrl) {
-                tempProductImageBase64 = compressedDataUrl;
+            if (!file) return;
+            compressImage(file, 800, 800, 0.7, function (dataUrl) {
+                tempProductImageBase64 = dataUrl;
                 const prev = document.getElementById('p-img-preview');
-                prev.src = tempProductImageBase64;
+                prev.src = dataUrl;
                 prev.classList.remove('hidden');
             });
         }
 
-        let tempBannerGoldBase64 = '';
-        let tempBannerSilverBase64 = '';
         function compressAndPreviewBanner(event, type) {
             const file = event.target.files[0];
-            if(!file) return;
-            compressImage(file, 1000, 1000, 0.7, function(compressedDataUrl) {
-                if(type === 'gold') {
-                    tempBannerGoldBase64 = compressedDataUrl;
-                    document.getElementById('prev-gold-img').src = tempBannerGoldBase64;
+            if (!file) return;
+            compressImage(file, 1000, 1000, 0.7, function (dataUrl) {
+                if (type === 'gold') {
+                    tempBannerGoldBase64 = dataUrl;
+                    document.getElementById('prev-gold-img').src = dataUrl;
                 } else {
-                    tempBannerSilverBase64 = compressedDataUrl;
-                    document.getElementById('prev-silver-img').src = tempBannerSilverBase64;
+                    tempBannerSilverBase64 = dataUrl;
+                    document.getElementById('prev-silver-img').src = dataUrl;
                 }
             });
         }
 
         async function saveBanners(e) {
             e.preventDefault();
-            if(tempBannerGoldBase64) collectionBanners.gold = tempBannerGoldBase64;
-            if(tempBannerSilverBase64) collectionBanners.silver = tempBannerSilverBase64;
-            await saveSettingToFirebase('banners', collectionBanners);
-            applyDynamicSettings();
+            const updated = { ...collectionBanners };
+            if (tempBannerGoldBase64) updated.gold = tempBannerGoldBase64;
+            if (tempBannerSilverBase64) updated.silver = tempBannerSilverBase64;
+            await saveSettingToFirebase('banners', updated);
+            tempBannerGoldBase64 = '';
+            tempBannerSilverBase64 = '';
+            document.getElementById('banner-gold-file').value = '';
+            document.getElementById('banner-silver-file').value = '';
             Swal.fire({ title: 'Banners Updated Successfully!', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
         function updateMarketTickers() {
             document.getElementById('ticker-gold-rate').innerText = '₹' + (marketRates.gold || 54000).toLocaleString('en-IN');
             document.getElementById('ticker-silver-rate').innerText = '₹' + (marketRates.silver || 900).toLocaleString('en-IN');
-            if(document.getElementById('admin-gold-rate')) {
-                document.getElementById('admin-gold-rate').value = marketRates.gold;
-                document.getElementById('admin-silver-rate').value = marketRates.silver;
-            }
+            const g = document.getElementById('admin-gold-rate');
+            const s = document.getElementById('admin-silver-rate');
+            // Admin jab type kar raha ho to uska input overwrite na ho
+            if (g && document.activeElement !== g) g.value = marketRates.gold;
+            if (s && document.activeElement !== s) s.value = marketRates.silver;
         }
 
-        function filterByMetal(metalName) {
-            navigate('shop');
-            setTimeout(() => {
-                const radios = document.querySelectorAll('input[name="metal"]');
-                radios.forEach(r => { if(r.value === metalName) { r.checked = true; renderShop(); } });
-            }, 100);
+        // Admin form fields ko tabhi update karo jab wo focus mein na hon
+        function setIfNotFocused(id, value) {
+            const el = document.getElementById(id);
+            if (el && document.activeElement !== el) el.value = value;
         }
 
         function applyDynamicSettings() {
@@ -994,136 +950,120 @@
             document.querySelectorAll('.dynamic-phone').forEach(el => el.innerText = shopDetails.phone || '');
             document.querySelectorAll('.dynamic-email').forEach(el => el.innerText = shopDetails.email || '');
             document.querySelectorAll('.dynamic-address').forEach(el => el.innerText = shopDetails.address || '');
-            
+
             const cleanPhone = (shopDetails.phone || '').replace(/[^0-9]/g, '');
             document.getElementById('wa-btn').href = `https://wa.me/${cleanPhone}`;
-            
-            if(document.getElementById('set-phone')) { document.getElementById('set-phone').value = shopDetails.phone || ''; document.getElementById('set-email').value = shopDetails.email || ''; document.getElementById('set-address').value = shopDetails.address || ''; }
+
+            setIfNotFocused('set-phone', shopDetails.phone || '');
+            setIfNotFocused('set-email', shopDetails.email || '');
+            setIfNotFocused('set-address', shopDetails.address || '');
 
             document.getElementById('dyn-about-title').innerText = aboutDetails.title || '';
             document.getElementById('dyn-about-story').innerText = aboutDetails.story || '';
             document.getElementById('footer-about-story').innerText = (aboutDetails.story || '').substring(0, 100) + '...';
-            if(document.getElementById('set-about-title')) { document.getElementById('set-about-title').value = aboutDetails.title || ''; document.getElementById('set-about-story').value = aboutDetails.story || ''; }
-            if(document.getElementById('new-admin-user')) { 
+            setIfNotFocused('set-about-title', aboutDetails.title || '');
+            setIfNotFocused('set-about-story', aboutDetails.story || '');
+
+            const cu = document.getElementById('new-admin-user');
+            if (cu && document.activeElement !== cu) {
                 try {
-                    document.getElementById('new-admin-user').value = atob(adminAuthEnc.u); 
-                    document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p); 
-                } catch(err) {
-                    document.getElementById('new-admin-user').value = adminAuthEnc.u || 'admin';
+                    cu.value = atob(adminAuthEnc.u);
+                    document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p);
+                } catch (err) {
+                    cu.value = adminAuthEnc.u || 'admin';
                     document.getElementById('new-admin-pass').value = adminAuthEnc.p || '';
                 }
             }
 
             document.getElementById('home-gold-banner').src = collectionBanners.gold;
             document.getElementById('home-silver-banner').src = collectionBanners.silver;
-            if(document.getElementById('prev-gold-img')) {
-                document.getElementById('prev-gold-img').src = collectionBanners.gold;
-                document.getElementById('prev-silver-img').src = collectionBanners.silver;
-            }
+            document.getElementById('prev-gold-img').src = collectionBanners.gold;
+            document.getElementById('prev-silver-img').src = collectionBanners.silver;
         }
 
-        async function saveShopSettings(e) { 
-            e.preventDefault(); 
-            shopDetails = { 
-                phone: sanitizeInput(document.getElementById('set-phone').value), 
-                email: sanitizeInput(document.getElementById('set-email').value), 
-                address: sanitizeInput(document.getElementById('set-address').value) 
-            }; 
+        async function saveShopSettings(e) {
+            e.preventDefault();
+            shopDetails = {
+                phone: sanitizeInput(document.getElementById('set-phone').value),
+                email: sanitizeInput(document.getElementById('set-email').value),
+                address: sanitizeInput(document.getElementById('set-address').value)
+            };
             await saveSettingToFirebase('shop', shopDetails);
-            applyDynamicSettings(); 
-            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 }); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contacts Updated', showConfirmButton: false, timer: 1500 });
         }
 
-        async function saveAboutSettings(e) { 
-            e.preventDefault(); 
-            aboutDetails = { 
-                title: sanitizeInput(document.getElementById('set-about-title').value), 
-                story: sanitizeInput(document.getElementById('set-about-story').value) 
-            }; 
+        async function saveAboutSettings(e) {
+            e.preventDefault();
+            aboutDetails = {
+                title: sanitizeInput(document.getElementById('set-about-title').value),
+                story: sanitizeInput(document.getElementById('set-about-story').value)
+            };
             await saveSettingToFirebase('about', aboutDetails);
-            applyDynamicSettings(); 
-            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 }); 
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 });
         }
-        
+
         async function saveCredentials(e) {
             e.preventDefault();
-            let rawU = document.getElementById('new-admin-user').value.trim();
-            let rawP = document.getElementById('new-admin-pass').value.trim();
-
-            if (!rawU || !rawP) {
-                return Swal.fire('Error', 'Username and Password cannot be empty.', 'error');
-            }
-
+            const rawU = document.getElementById('new-admin-user').value.trim();
+            const rawP = document.getElementById('new-admin-pass').value.trim();
+            if (!rawU || !rawP) return Swal.fire('Error', 'Username and Password cannot be empty.', 'error');
             adminAuthEnc = { u: btoa(rawU), p: btoa(rawP) };
             await saveSettingToFirebase('authSecure', adminAuthEnc);
             Swal.fire({ title: 'Credentials Updated!', text: 'Admin credentials updated securely in database!', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
-        async function handleGeneralContact(e) {
-            e.preventDefault();
-            const nameVal = sanitizeInput(document.getElementById('contact-name').value);
-            const phoneVal = sanitizeInput(document.getElementById('contact-phone').value);
-            const msgVal = sanitizeInput(document.getElementById('contact-msg').value);
-
-            if (!nameVal || !phoneVal || !msgVal) {
-                return Swal.fire('Error', 'Please fill in all required fields.', 'error');
-            }
-            if (!validatePhone(phoneVal)) {
-                return Swal.fire('Invalid Phone', 'Please enter a valid mobile number.', 'error');
-            }
-
-            let newMsg = { id: 'MSG-' + Math.floor(Math.random()*10000), name: nameVal, phone: phoneVal, message: msgVal, date: new Date().toLocaleDateString() };
-            
-            if(window.db && window.firebaseModules) {
-                const { collection, addDoc } = window.firebaseModules;
-                const docRef = await addDoc(collection(window.db, "messages"), newMsg);
-                newMsg.firebaseId = docRef.id;
-            }
-            contactMessages.unshift(newMsg);
-
-            Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
-            e.target.reset();
-            if(isLoggedIn) updateDashboardStats();
-        }
-
+        /* ---------- Navigation ---------- */
         function navigate(pageId) {
-            if (isLoggedIn && pageId !== 'admin-dashboard' && pageId !== 'admin-login') {
-                // Keep session open unless terminated explicitly
-            }
-            if(pageId === 'admin-dashboard' && !isLoggedIn) return navigate('admin-login');
-            if(pageId === 'admin-login' && isLoggedIn) return navigate('admin-dashboard');
+            if (pageId === 'admin-dashboard' && !isLoggedIn) return navigate('admin-login');
+            if (pageId === 'admin-login' && isLoggedIn) return navigate('admin-dashboard');
 
             document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
             const targetPage = document.getElementById(pageId);
-            if(targetPage) targetPage.classList.add('active'); 
-            window.scrollTo(0,0);
+            if (targetPage) targetPage.classList.add('active');
+            window.scrollTo(0, 0);
 
-            if(pageId === 'home') renderHome();
-            if(pageId === 'shop') renderShop();
-            if(pageId === 'admin-dashboard') { updateDashboardStats(); renderAdminProductsTable(); renderEnquiriesTable(); renderMessagesTable(); applyDynamicSettings(); }
-            
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            if(mobileMenu) mobileMenu.classList.add('hidden');
-            if(mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+            if (pageId === 'home') renderHome();
+            if (pageId === 'shop') renderShop();
+            if (pageId === 'admin-dashboard') {
+                updateDashboardStats();
+                renderAdminProductsTable();
+                renderEnquiriesTable();
+                renderMessagesTable();
+                applyDynamicSettings();
+            }
+
+            document.getElementById('mobile-menu').classList.add('hidden');
+            document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'false');
         }
 
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        if(mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => {
-                const menu = document.getElementById('mobile-menu');
-                const isExpanded = menu.classList.contains('hidden');
-                menu.classList.toggle('hidden');
-                mobileMenuBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-            });
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden');
+            btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+        });
+
+        function filterByMetal(metalName) {
+            navigate('shop');
+            setTimeout(() => {
+                document.querySelectorAll('input[name="metal"]').forEach(r => {
+                    if (r.value === metalName) { r.checked = true; renderShop(); }
+                });
+            }, 100);
         }
 
+        /* ---------- Rendering ---------- */
         function renderHome() {
             const container = document.getElementById('home-featured-products');
-            if(!container) return;
-            const latest = [...products].sort((a,b) => (b.date || 0) - (a.date || 0)).slice(0, 3);
+            if (!container) return;
+            const latest = [...products].slice(0, 3);
+            if (latest.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-8 text-center text-gray-400 font-bold uppercase tracking-widest text-xs">Abhi koi product nahi hai</div>`;
+                return;
+            }
             container.innerHTML = latest.map(p => {
-                let livePrice = calculateProductPrice(p);
+                const livePrice = calculateProductPrice(p);
                 return `
                     <div class="bg-[#121216] rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer border border-[#2D2B32] flex flex-col group" onclick="viewProductDetails('${escapeHTML(p.id)}')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') viewProductDetails('${escapeHTML(p.id)}')">
                         <div class="h-64 sm:h-80 overflow-hidden relative"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"></div>
@@ -1131,87 +1071,89 @@
                             <div><span class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.2em] block mb-2">${escapeHTML(p.metal)} • ${escapeHTML(p.category)} (${escapeHTML(p.weight)}g)</span><h3 class="text-base sm:text-xl font-serif font-bold text-white">${escapeHTML(p.name)}</h3></div>
                             <p class="text-base sm:text-lg font-bold text-gold-400 mt-3 sm:mt-4">₹${livePrice.toLocaleString('en-IN')}</p>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
         }
 
         function renderShop() {
             const container = document.getElementById('shop-products-grid');
-            if(!container) return;
-            const searchInput = document.getElementById('search-input');
-            const search = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            if (!container) return;
+            const search = document.getElementById('search-input').value.toLowerCase().trim();
             const metalRadio = document.querySelector('input[name="metal"]:checked');
             const metalFilter = metalRadio ? metalRadio.value : 'All';
-            
-            let filtered = products.filter(p => {
-                let matchSearch = (p.name || '').toLowerCase().includes(search) || (p.id || '').toLowerCase().includes(search) || (p.category || '').toLowerCase().includes(search);
-                let matchMetal = metalFilter === 'All' || p.metal === metalFilter;
+
+            const filtered = products.filter(p => {
+                const matchSearch = (p.name || '').toLowerCase().includes(search) || (p.id || '').toLowerCase().includes(search) || (p.category || '').toLowerCase().includes(search);
+                const matchMetal = metalFilter === 'All' || p.metal === metalFilter;
                 return matchSearch && matchMetal;
             });
-            
+
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="col-span-full py-12 text-center text-gray-400 font-bold uppercase tracking-widest text-xs">No masterpieces match your criteria.</div>`;
                 return;
             }
 
             container.innerHTML = filtered.map(p => {
-                let livePrice = calculateProductPrice(p);
+                const livePrice = calculateProductPrice(p);
                 return `
                     <div class="bg-[#121216] rounded-xl shadow-sm border border-[#2D2B32] overflow-hidden card-hover flex flex-col group">
                         <div class="relative cursor-pointer h-60 sm:h-72 overflow-hidden" onclick="viewProductDetails('${escapeHTML(p.id)}')" role="button" tabindex="0" onkeypress="if(event.key==='Enter') viewProductDetails('${escapeHTML(p.id)}')">
                             <img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${escapeHTML(p.metal)}</span>
+                            <span class="absolute top-3 left-3 text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal === 'Gold' ? 'bg-gold-600' : 'bg-neutral-700'}">${escapeHTML(p.metal)}</span>
                         </div>
                         <div class="p-4 sm:p-6 flex-grow flex flex-col bg-[#121216]">
                             <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">${escapeHTML(p.category)} • Wt: ${escapeHTML(p.weight)}g</span>
                             <h3 class="text-base sm:text-xl font-serif font-bold text-white line-clamp-1 cursor-pointer" onclick="viewProductDetails('${escapeHTML(p.id)}')">${escapeHTML(p.name)}</h3>
                             <div class="mt-auto pt-4 sm:pt-6 flex justify-between items-center"><span class="text-base sm:text-xl font-bold text-gold-400">₹${livePrice.toLocaleString('en-IN')}</span><button type="button" aria-label="View ${escapeHTML(p.name)} details" onclick="viewProductDetails('${escapeHTML(p.id)}')" class="w-10 h-10 rounded-full bg-[#1b1a21] flex items-center justify-center text-white group-hover:bg-gold-600 group-hover:text-black transition-all cursor-pointer"><i class="fas fa-arrow-right" aria-hidden="true"></i></button></div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             }).join('');
         }
 
-        function viewProductDetails(id) {
-            const p = products.find(x => x.id === id); if(!p) return;
-            let breakdown = calculateDetailedPrice(p);
+        function viewProductDetails(id, silent = false) {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            currentDetailId = id;
+            const b = calculateDetailedPrice(p);
             document.getElementById('product-detail-container').innerHTML = `
                 <div class="w-full lg:w-1/2 bg-[#030206] flex items-center justify-center p-4 sm:p-6"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" class="max-h-[300px] sm:max-h-[650px] w-auto object-cover rounded-xl shadow-2xl border-4 sm:border-8 border-[#2D2B32]"></div>
                 <div class="w-full lg:w-1/2 p-5 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#121216]">
                     <div class="flex flex-wrap gap-2 mb-3 sm:mb-4">
-                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${escapeHTML(p.metal)}</span>
+                        <span class="text-[10px] font-bold text-white px-3 py-1 rounded-full uppercase tracking-widest ${p.metal === 'Gold' ? 'bg-gold-600' : 'bg-neutral-700'}">${escapeHTML(p.metal)}</span>
                         <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">${escapeHTML(p.category)}</span>
                         <span class="text-[10px] font-bold text-white bg-[#1b1a21] px-3 py-1 rounded-full uppercase tracking-widest">Weight: ${escapeHTML(p.weight)}g</span>
                     </div>
                     <h1 class="text-2xl sm:text-4xl font-serif font-bold mb-2 sm:mb-4 text-white">${escapeHTML(p.name)}</h1>
-                    <p class="text-xl sm:text-3xl font-bold text-gold-400 mb-4">₹${breakdown.finalPrice.toLocaleString('en-IN')}</p>
-                    
+                    <p class="text-xl sm:text-3xl font-bold text-gold-400 mb-4">₹${b.finalPrice.toLocaleString('en-IN')}</p>
                     <div class="bg-black/50 p-3 sm:p-5 rounded-xl border border-[#2D2B32] mb-5 sm:mb-6 space-y-2 text-xs">
                         <p class="font-bold uppercase tracking-wider text-white border-b border-[#2D2B32] pb-2 mb-2"><i class="fas fa-calculator text-gold-400 mr-2" aria-hidden="true"></i> Price Calculation Breakdown</p>
-                        <div class="flex justify-between text-gray-300"><span>Base Metal Value (${escapeHTML(p.weight)}g):</span> <span class="font-bold text-white">₹${breakdown.baseValue.toLocaleString('en-IN')}</span></div>
-                        <div class="flex justify-between text-gray-300"><span>Making Charges:</span> <span class="font-bold text-white">₹${breakdown.making.toLocaleString('en-IN')}</span></div>
-                        <div class="flex justify-between text-gray-300"><span>GST (3%):</span> <span class="font-bold text-white">₹${breakdown.gst.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>Base Metal Value (${escapeHTML(p.weight)}g):</span> <span class="font-bold text-white">₹${b.baseValue.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>Making Charges:</span> <span class="font-bold text-white">₹${b.making.toLocaleString('en-IN')}</span></div>
+                        <div class="flex justify-between text-gray-300"><span>GST (3%):</span> <span class="font-bold text-white">₹${b.gst.toLocaleString('en-IN')}</span></div>
                     </div>
-
                     <p class="text-gray-300 leading-relaxed mb-5 sm:mb-8 text-sm">${escapeHTML(p.desc)}</p>
-                    ${p.avail === 'Available' ? `<button type="button" onclick="openEnquiryModal('${escapeHTML(p.id)}')" class="w-full py-3.5 sm:py-5 gold-gradient text-black font-extrabold text-xs uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors cursor-pointer min-h-[44px]">Reserve Masterpiece</button>` : `<button type="button" disabled class="w-full py-3.5 sm:py-5 bg-[#1b1a21] text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed min-h-[44px]">Currently Unavailable</button>`}
-                </div>
-            `;
-            navigate('detail');
+                    ${p.avail === 'Available'
+                        ? `<button type="button" onclick="openEnquiryModal('${escapeHTML(p.id)}')" class="w-full py-3.5 sm:py-5 gold-gradient text-black font-extrabold text-xs uppercase tracking-widest rounded-lg shadow-xl hover:opacity-95 transition-colors cursor-pointer min-h-[44px]">Reserve Masterpiece</button>`
+                        : `<button type="button" disabled class="w-full py-3.5 sm:py-5 bg-[#1b1a21] text-gray-500 text-xs font-bold uppercase tracking-widest rounded-lg cursor-not-allowed min-h-[44px]">Currently Unavailable</button>`}
+                </div>`;
+            if (!silent) navigate('detail');
         }
 
+        /* ---------- Enquiry & Contact (customer side) ---------- */
         function openEnquiryModal(id) {
             const p = products.find(x => x.id === id);
-            if(!p) return;
-            document.getElementById('enq-pid').value = p.id; 
+            if (!p) return;
+            document.getElementById('enq-pid').value = p.id;
             document.getElementById('enq-pname').value = p.name;
-            document.getElementById('enq-product-id').innerText = escapeHTML(p.id); 
-            document.getElementById('enq-product-name').innerText = escapeHTML(p.name);
+            document.getElementById('enq-product-id').innerText = p.id;
+            document.getElementById('enq-product-name').innerText = p.name;
             document.getElementById('enquiry-modal').classList.remove('hidden');
         }
-        function closeEnquiryModal() { document.getElementById('enquiry-modal').classList.add('hidden'); }
-        
+
+        function closeEnquiryModal() {
+            document.getElementById('enquiry-modal').classList.add('hidden');
+        }
+
         async function submitEnquiry(e) {
             e.preventDefault();
             const pidVal = sanitizeInput(document.getElementById('enq-pid').value);
@@ -1220,48 +1162,67 @@
             const phoneVal = sanitizeInput(document.getElementById('enq-phone').value);
             const cityVal = sanitizeInput(document.getElementById('enq-city').value);
 
-            if (!nameVal || !phoneVal || !cityVal) {
-                return Swal.fire('Error', 'Please fill in all fields.', 'error');
-            }
-            if (!validatePhone(phoneVal)) {
-                return Swal.fire('Invalid Phone', 'Please enter a valid mobile number.', 'error');
-            }
+            if (!nameVal || !phoneVal || !cityVal) return Swal.fire('Error', 'Please fill in all fields.', 'error');
+            if (!validatePhone(phoneVal)) return Swal.fire('Invalid Phone', 'Please enter a valid mobile number.', 'error');
 
-            let newEnq = { id: 'ENQ-' + Math.floor(Math.random()*10000), pid: pidVal, pname: pnameVal, name: nameVal, phone: phoneVal, city: cityVal, status: 'Pending', date: new Date().toLocaleDateString() };
-            
-            if(window.db && window.firebaseModules) {
+            try {
                 const { collection, addDoc } = window.firebaseModules;
-                const docRef = await addDoc(collection(window.db, "enquiries"), newEnq);
-                newEnq.firebaseId = docRef.id;
+                await addDoc(collection(window.db, 'enquiries'), {
+                    pid: pidVal, pname: pnameVal, name: nameVal, phone: phoneVal, city: cityVal,
+                    status: 'Pending', date: new Date().toLocaleDateString('en-IN'), createdAt: Date.now()
+                });
+                closeEnquiryModal();
+                Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' });
+                e.target.reset();
+            } catch (err) {
+                Swal.fire('Error', 'Request send nahi ho paya: ' + err.message, 'error');
             }
-            enquiries.unshift(newEnq);
-
-            closeEnquiryModal(); 
-            Swal.fire({ title: 'Request Sent', icon: 'success', confirmButtonColor: '#D4AF37' }); 
-            e.target.reset();
         }
 
+        async function handleGeneralContact(e) {
+            e.preventDefault();
+            const nameVal = sanitizeInput(document.getElementById('contact-name').value);
+            const phoneVal = sanitizeInput(document.getElementById('contact-phone').value);
+            const msgVal = sanitizeInput(document.getElementById('contact-msg').value);
+
+            if (!nameVal || !phoneVal || !msgVal) return Swal.fire('Error', 'Please fill in all required fields.', 'error');
+            if (!validatePhone(phoneVal)) return Swal.fire('Invalid Phone', 'Please enter a valid mobile number.', 'error');
+
+            try {
+                const { collection, addDoc } = window.firebaseModules;
+                await addDoc(collection(window.db, 'messages'), {
+                    name: nameVal, phone: phoneVal, message: msgVal,
+                    date: new Date().toLocaleDateString('en-IN'), createdAt: Date.now()
+                });
+                Swal.fire({ title: 'Message Sent Successfully', text: 'Our team will contact you soon.', icon: 'success', confirmButtonColor: '#D4AF37' });
+                e.target.reset();
+            } catch (err) {
+                Swal.fire('Error', 'Message send nahi ho paya: ' + err.message, 'error');
+            }
+        }
+
+        /* ---------- Admin: auth & tabs ---------- */
         function handleSimpleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('simple-user').value.trim();
             const p = document.getElementById('simple-pass').value.trim();
-            
+
             let actualUser = '';
             let actualPass = '';
             try {
                 actualUser = atob(adminAuthEnc.u);
                 actualPass = atob(adminAuthEnc.p);
-            } catch(err) {
+            } catch (err) {
                 actualUser = adminAuthEnc.u;
                 actualPass = adminAuthEnc.p;
             }
 
-            if(u === actualUser && p === actualPass) {
-                isLoggedIn = true; 
+            if (u === actualUser && p === actualPass) {
+                isLoggedIn = true;
                 localStorage.setItem('rani_admin_auth', 'true');
                 localStorage.setItem('rani_admin_time', Date.now().toString());
                 document.getElementById('nav-admin-btn').textContent = 'Dashboard';
-                document.getElementById('simple-user').value = ''; 
+                document.getElementById('simple-user').value = '';
                 document.getElementById('simple-pass').value = '';
                 Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Login Successful', showConfirmButton: false, timer: 1500 });
                 setTimeout(() => navigate('admin-dashboard'), 500);
@@ -1270,52 +1231,52 @@
             }
         }
 
-        function handleLogout(showMsg = false) { 
-            isLoggedIn = false; 
-            localStorage.removeItem('rani_admin_auth'); 
+        function handleLogout(showMsg = false) {
+            isLoggedIn = false;
+            localStorage.removeItem('rani_admin_auth');
             localStorage.removeItem('rani_admin_time');
-            document.getElementById('nav-admin-btn').textContent = 'Admin Portal'; 
-            navigate('home'); 
-            if(showMsg) Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: 'Logged Out', showConfirmButton: false, timer: 1500 }); 
+            document.getElementById('nav-admin-btn').textContent = 'Admin Portal';
+            navigate('home');
+            if (showMsg) Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: 'Logged Out', showConfirmButton: false, timer: 1500 });
         }
 
         function switchAdminTab(tab) {
-            document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden')); 
+            document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
             const targetTab = document.getElementById('admin-tab-' + tab);
-            if(targetTab) targetTab.classList.remove('hidden');
+            if (targetTab) targetTab.classList.remove('hidden');
 
-            document.querySelectorAll('.admin-tab').forEach(el => { el.classList.remove('active'); el.classList.add('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white'); });
-            const activeTab = document.getElementById('tab-' + tab); 
-            if(activeTab) {
-                activeTab.classList.remove('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white'); 
+            document.querySelectorAll('.admin-tab').forEach(el => {
+                el.classList.remove('active');
+                el.classList.add('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white');
+            });
+            const activeTab = document.getElementById('tab-' + tab);
+            if (activeTab) {
+                activeTab.classList.remove('text-neutral-400', 'hover:bg-[#1b1a21]', 'hover:text-white');
                 activeTab.classList.add('active');
             }
         }
 
         function updateDashboardStats() {
-            const pStat = document.getElementById('stat-products');
-            if(pStat) pStat.innerText = products.length;
-            const eStat = document.getElementById('stat-enquiries');
-            if(eStat) eStat.innerText = enquiries.length;
-            const mStat = document.getElementById('stat-messages');
-            if(mStat) mStat.innerText = contactMessages.length;
+            document.getElementById('stat-products').innerText = products.length;
+            document.getElementById('stat-enquiries').innerText = enquiries.length;
+            document.getElementById('stat-messages').innerText = contactMessages.length;
             const pendingEnq = enquiries.filter(e => e.status === 'Pending').length;
-            const pendStat = document.getElementById('stat-pending');
-            if(pendStat) pendStat.innerText = pendingEnq;
-            
+            document.getElementById('stat-pending').innerText = pendingEnq;
+
             const badgeEnq = document.getElementById('badge-pending');
-            if(badgeEnq) {
-                if(pendingEnq > 0) { badgeEnq.innerText = pendingEnq; badgeEnq.classList.remove('hidden'); } else { badgeEnq.classList.add('hidden'); }
-            }
+            if (pendingEnq > 0) { badgeEnq.innerText = pendingEnq; badgeEnq.classList.remove('hidden'); }
+            else badgeEnq.classList.add('hidden');
+
             const badgeMsg = document.getElementById('badge-messages');
-            if(badgeMsg) {
-                if(contactMessages.length > 0) { badgeMsg.innerText = contactMessages.length; badgeMsg.classList.remove('hidden'); } else { badgeMsg.classList.add('hidden'); }
-            }
+            if (contactMessages.length > 0) { badgeMsg.innerText = contactMessages.length; badgeMsg.classList.remove('hidden'); }
+            else badgeMsg.classList.add('hidden');
         }
 
+        /* ---------- Admin: products ---------- */
         async function handleAddProduct(e) {
             e.preventDefault();
-            if(!tempProductImageBase64) return Swal.fire('Error', 'Please select an image', 'error');
+            if (!tempProductImageBase64) return Swal.fire('Error', 'Please select an image', 'error');
+            if (!window.db) return Swal.fire('Error', 'Database connected nahi hai', 'error');
 
             const pName = sanitizeInput(document.getElementById('p-name').value);
             const pMetal = sanitizeInput(document.getElementById('p-metal').value);
@@ -1325,150 +1286,135 @@
             const pDesc = sanitizeInput(document.getElementById('p-desc').value);
             const pAvail = sanitizeInput(document.getElementById('p-avail').value);
 
-            if (isNaN(pWeight) || pWeight <= 0) {
-                return Swal.fire('Error', 'Please enter a valid product weight.', 'error');
-            }
+            if (isNaN(pWeight) || pWeight <= 0) return Swal.fire('Error', 'Please enter a valid product weight.', 'error');
 
-            let newProd = {
-                id: 'RJ-' + (1000 + products.length + 1), 
-                name: pName, 
-                metal: pMetal,
-                category: pCat, 
-                weight: pWeight, 
-                making: pMaking,
-                desc: pDesc, 
-                avail: pAvail, 
-                image: tempProductImageBase64, 
-                date: Date.now() 
-            };
+            // Unique ID: sabse bada existing number + 1 (delete ke baad bhi duplicate nahi banegi)
+            const maxNo = products.reduce((m, p) => Math.max(m, parseInt(String(p.id).replace('RJ-', ''), 10) || 0), 1000);
 
-            if(window.db && window.firebaseModules) {
+            try {
                 const { collection, addDoc } = window.firebaseModules;
-                const docRef = await addDoc(collection(window.db, "products"), newProd);
-                newProd.firebaseId = docRef.id;
+                await addDoc(collection(window.db, 'products'), {
+                    id: 'RJ-' + (maxNo + 1), name: pName, metal: pMetal, category: pCat,
+                    weight: pWeight, making: pMaking, desc: pDesc, avail: pAvail,
+                    image: tempProductImageBase64, date: Date.now()
+                });
+                e.target.reset();
+                document.getElementById('p-img-preview').classList.add('hidden');
+                tempProductImageBase64 = '';
+                Swal.fire({ title: 'Success!', text: 'Product saved!', icon: 'success', confirmButtonColor: '#D4AF37' });
+                switchAdminTab('manage-products');
+            } catch (err) {
+                Swal.fire('Error', 'Save nahi ho paya: ' + err.message, 'error');
             }
-            products.unshift(newProd);
-
-            e.target.reset();
-            document.getElementById('p-img-preview').classList.add('hidden');
-            tempProductImageBase64 = '';
-
-            Swal.fire({ title: 'Success!', text: 'Product saved to cloud database with full breakdown support!', icon: 'success', confirmButtonColor: '#D4AF37' }); 
-            updateDashboardStats(); renderAdminProductsTable(); switchAdminTab('manage-products');
         }
 
         function renderAdminProductsTable() {
             const tableElem = document.getElementById('admin-products-table');
-            if(!tableElem) return;
+            if (!tableElem) return;
+            if (products.length === 0) {
+                tableElem.innerHTML = '<tr><td colspan="8" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Products Found</td></tr>';
+                return;
+            }
             tableElem.innerHTML = products.map(p => {
-                let bd = calculateDetailedPrice(p);
+                const bd = calculateDetailedPrice(p);
                 return `
                     <tr class="hover:bg-[#1b1a21]/40 transition-colors">
                         <td class="p-4 sm:p-5 flex items-center space-x-3 sm:space-x-4"><img src="${escapeHTML(p.image)}" alt="${escapeHTML(p.name)}" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-cover border border-[#2D2B32]"><div><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(p.name)}</p><p class="text-[10px] text-neutral-400 font-bold uppercase">${escapeHTML(p.id)}</p></div></td>
-                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase text-white ${p.metal==='Gold'?'bg-gold-600':'bg-neutral-700'}">${escapeHTML(p.metal)}</span><p class="text-xs text-neutral-300 mt-1">${escapeHTML(p.weight)}g (${escapeHTML(p.category)})</p></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase text-white ${p.metal === 'Gold' ? 'bg-gold-600' : 'bg-neutral-700'}">${escapeHTML(p.metal)}</span><p class="text-xs text-neutral-300 mt-1">${escapeHTML(p.weight)}g (${escapeHTML(p.category)})</p></td>
                         <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.baseValue.toLocaleString('en-IN')}</td>
                         <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.making.toLocaleString('en-IN')}</td>
                         <td class="p-4 sm:p-5 text-xs font-bold text-neutral-300">₹${bd.gst.toLocaleString('en-IN')}</td>
                         <td class="p-4 sm:p-5 text-xs sm:font-black text-gold-400">₹${bd.finalPrice.toLocaleString('en-IN')}</td>
-                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase ${p.avail==='Available'?'bg-green-500/20 text-green-400 border border-green-500/30':'bg-red-500/20 text-red-400 border border-red-500/30'}">${escapeHTML(p.avail)}</span></td>
+                        <td class="p-4 sm:p-5"><span class="px-2.5 sm:px-3 py-1 text-[10px] rounded-full font-bold uppercase ${p.avail === 'Available' ? 'bg-green-500/20 text-green-400 border border-green-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">${escapeHTML(p.avail)}</span></td>
                         <td class="p-4 sm:p-5 text-right"><button type="button" aria-label="Toggle ${escapeHTML(p.name)} availability" onclick="toggleAvailability('${escapeHTML(p.firebaseId)}')" class="text-blue-400 p-2 hover:text-white bg-transparent border-none cursor-pointer" title="Toggle Stock"><i class="fas fa-sync-alt" aria-hidden="true"></i></button><button type="button" aria-label="Delete ${escapeHTML(p.name)}" onclick="deleteProduct('${escapeHTML(p.firebaseId)}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer" title="Delete"><i class="fas fa-trash-alt" aria-hidden="true"></i></button></td>
-                    </tr>
-                `;
+                    </tr>`;
             }).join('');
         }
 
-        async function toggleAvailability(firebaseId) { 
-            const p = products.find(x => x.firebaseId === firebaseId); 
-            if(p) { 
-                p.avail = p.avail === 'Available' ? 'Out of Stock' : 'Available'; 
-                if(window.db && window.firebaseModules) {
-                    const { doc, updateDoc } = window.firebaseModules;
-                    await updateDoc(doc(window.db, "products", firebaseId), { avail: p.avail });
-                }
-                renderAdminProductsTable(); 
-            } 
+        async function toggleAvailability(firebaseId) {
+            const p = products.find(x => x.firebaseId === firebaseId);
+            if (!p) return;
+            const { doc, updateDoc } = window.firebaseModules;
+            await updateDoc(doc(window.db, 'products', firebaseId), {
+                avail: p.avail === 'Available' ? 'Out of Stock' : 'Available'
+            });
         }
 
-        async function deleteProduct(firebaseId) { 
-            Swal.fire({ title: 'Delete Item?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
-                if (res.isConfirmed) { 
-                    if(window.db && window.firebaseModules) {
-                        const { doc, deleteDoc } = window.firebaseModules;
-                        await deleteDoc(doc(window.db, "products", firebaseId));
-                    }
-                    products = products.filter(p => p.firebaseId !== firebaseId); 
-                    renderAdminProductsTable(); 
-                    updateDashboardStats(); 
-                } 
-            }); 
+        function confirmThen(title, action) {
+            Swal.fire({ title, icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' })
+                .then(res => { if (res.isConfirmed) action(); });
         }
 
+        function deleteProduct(firebaseId) {
+            confirmThen('Delete Item?', async () => {
+                const { doc, deleteDoc } = window.firebaseModules;
+                await deleteDoc(doc(window.db, 'products', firebaseId));
+            });
+        }
+
+        /* ---------- Admin: enquiries ---------- */
         function renderEnquiriesTable() {
-            const filterElem = document.getElementById('enquiry-filter');
-            const filter = filterElem ? filterElem.value : 'All'; 
-            let filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
+            const filter = document.getElementById('enquiry-filter').value;
+            const filtered = filter === 'All' ? enquiries : enquiries.filter(e => e.status === filter);
             const enqTable = document.getElementById('admin-enquiries-table');
-            if(!enqTable) return;
-            enqTable.innerHTML = filtered.length === 0 ? '<tr><td colspan="5" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Enquiries Found</td></tr>' : filtered.map(e => `
-                <tr class="hover:bg-[#1b1a21]/45 transition-colors">
-                    <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${escapeHTML(e.date)}</td>
-                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(e.name)}</p><p class="text-[11px] text-blue-400 font-bold">${escapeHTML(e.phone)}</p></td>
-                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(e.pname)}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${escapeHTML(e.pid)}</p></td>
-                    <td class="p-4 sm:p-5 flex items-center space-x-3">
-                        <button type="button" onclick="toggleEnquiryStatus('${escapeHTML(e.firebaseId)}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border cursor-pointer ${e.status==='Pending'?'border-yellow-500/40 text-yellow-400 bg-yellow-500/10':'border-green-500/40 text-green-400 bg-green-500/10'}">${escapeHTML(e.status)}</button>
-                        <button type="button" aria-label="Reply via WhatsApp to ${escapeHTML(e.name)}" onclick="openReplyModal('${escapeHTML(e.name)}', '${escapeHTML(e.phone)}', 'Enquiry for ${escapeHTML(e.pname)}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm" aria-hidden="true"></i></button>
-                    </td>
-                    <td class="p-4 sm:p-5 text-right"><button type="button" aria-label="Delete enquiry" onclick="deleteEnquiry('${escapeHTML(e.firebaseId)}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash" aria-hidden="true"></i></button></td>
-                </tr>
-            `).join('');
+            if (!enqTable) return;
+            enqTable.innerHTML = filtered.length === 0
+                ? '<tr><td colspan="5" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Enquiries Found</td></tr>'
+                : filtered.map(e => `
+                    <tr class="hover:bg-[#1b1a21]/45 transition-colors">
+                        <td class="p-4 sm:p-5 text-xs font-bold text-neutral-400">${escapeHTML(e.date)}</td>
+                        <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(e.name)}</p><p class="text-[11px] text-blue-400 font-bold">${escapeHTML(e.phone)}</p></td>
+                        <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(e.pname)}</p><p class="text-[10px] text-gold-400 font-bold uppercase">${escapeHTML(e.pid)}</p></td>
+                        <td class="p-4 sm:p-5 flex items-center space-x-3">
+                            <button type="button" onclick="toggleEnquiryStatus('${escapeHTML(e.firebaseId)}')" class="px-3 py-1 text-[10px] rounded-full font-bold uppercase border cursor-pointer ${e.status === 'Pending' ? 'border-yellow-500/40 text-yellow-400 bg-yellow-500/10' : 'border-green-500/40 text-green-400 bg-green-500/10'}">${escapeHTML(e.status)}</button>
+                            <button type="button" aria-label="Reply via WhatsApp to ${escapeHTML(e.name)}" onclick="openReplyModal('${escapeHTML(e.name)}', '${escapeHTML(e.phone)}', 'Enquiry for ${escapeHTML(e.pname)}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm" aria-hidden="true"></i></button>
+                        </td>
+                        <td class="p-4 sm:p-5 text-right"><button type="button" aria-label="Delete enquiry" onclick="deleteEnquiry('${escapeHTML(e.firebaseId)}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash" aria-hidden="true"></i></button></td>
+                    </tr>`).join('');
         }
 
-        async function toggleEnquiryStatus(firebaseId) { 
-            const enq = enquiries.find(e => e.firebaseId === firebaseId); 
-            if(enq) { 
-                enq.status = enq.status === 'Pending' ? 'Contacted' : 'Pending'; 
-                if(window.db && window.firebaseModules) {
-                    const { doc, updateDoc } = window.firebaseModules;
-                    await updateDoc(doc(window.db, "enquiries", firebaseId), { status: enq.status });
-                }
-                renderEnquiriesTable(); 
-                updateDashboardStats(); 
-            } 
+        async function toggleEnquiryStatus(firebaseId) {
+            const enq = enquiries.find(e => e.firebaseId === firebaseId);
+            if (!enq) return;
+            const { doc, updateDoc } = window.firebaseModules;
+            await updateDoc(doc(window.db, 'enquiries', firebaseId), {
+                status: enq.status === 'Pending' ? 'Contacted' : 'Pending'
+            });
         }
 
-        async function deleteEnquiry(firebaseId) { 
-            Swal.fire({ title: 'Remove?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
-                if (res.isConfirmed) { 
-                    if(window.db && window.firebaseModules) {
-                        const { doc, deleteDoc } = window.firebaseModules;
-                        await deleteDoc(doc(window.db, "enquiries", firebaseId));
-                    }
-                    enquiries = enquiries.filter(e => e.firebaseId !== firebaseId); 
-                    renderEnquiriesTable(); 
-                    updateDashboardStats(); 
-                } 
-            }); 
+        function deleteEnquiry(firebaseId) {
+            confirmThen('Remove?', async () => {
+                const { doc, deleteDoc } = window.firebaseModules;
+                await deleteDoc(doc(window.db, 'enquiries', firebaseId));
+            });
         }
 
-        let activeReplyPhone = '';
-        let activeReplyName = '';
-
+        /* ---------- Admin: messages ---------- */
         function renderMessagesTable() {
             const msgTable = document.getElementById('admin-messages-table');
-            if(!msgTable) return;
-            msgTable.innerHTML = contactMessages.length === 0 ? '<tr><td colspan="4" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Messages Found</td></tr>' : contactMessages.map(m => `
-                <tr class="hover:bg-[#1b1a21]/40 transition-colors">
-                    <td class="p-4 sm:p-5 text-[10px] font-bold text-neutral-400 uppercase">${escapeHTML(m.date)}</td>
-                    <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(m.name)}</p><p class="text-[11px] text-blue-400 font-bold">${escapeHTML(m.phone)}</p></td>
-                    <td class="p-4 sm:p-5 flex items-center justify-between space-x-4 bg-black/40 p-3 rounded-xl border border-[#2D2B32]">
-                        <p class="text-xs sm:text-sm text-neutral-300">${escapeHTML(m.message)}</p>
-                        <button type="button" aria-label="Reply via WhatsApp to ${escapeHTML(m.name)}" onclick="openReplyModal('${escapeHTML(m.name)}', '${escapeHTML(m.phone)}', '${escapeHTML(m.message)}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all shrink-0 cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm" aria-hidden="true"></i></button>
-                    </td>
-                    <td class="p-4 sm:p-5 text-right"><button type="button" aria-label="Delete message" onclick="deleteMessage('${escapeHTML(m.firebaseId)}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash" aria-hidden="true"></i></button></td>
-                </tr>
-            `).join('');
+            if (!msgTable) return;
+            msgTable.innerHTML = contactMessages.length === 0
+                ? '<tr><td colspan="4" class="p-8 text-center text-neutral-500 font-bold uppercase text-xs">No Messages Found</td></tr>'
+                : contactMessages.map(m => `
+                    <tr class="hover:bg-[#1b1a21]/40 transition-colors">
+                        <td class="p-4 sm:p-5 text-[10px] font-bold text-neutral-400 uppercase">${escapeHTML(m.date)}</td>
+                        <td class="p-4 sm:p-5"><p class="font-bold text-xs sm:text-sm text-white">${escapeHTML(m.name)}</p><p class="text-[11px] text-blue-400 font-bold">${escapeHTML(m.phone)}</p></td>
+                        <td class="p-4 sm:p-5 flex items-center justify-between space-x-4 bg-black/40 p-3 rounded-xl border border-[#2D2B32]">
+                            <p class="text-xs sm:text-sm text-neutral-300">${escapeHTML(m.message)}</p>
+                            <button type="button" aria-label="Reply via WhatsApp to ${escapeHTML(m.name)}" onclick="openReplyModal('${escapeHTML(m.name)}', '${escapeHTML(m.phone)}', '${escapeHTML(m.message)}')" class="inline-flex items-center justify-center w-8 h-8 bg-green-600 hover:bg-green-500 text-white rounded-lg shadow transition-all shrink-0 cursor-pointer" title="Reply on WhatsApp"><i class="fab fa-whatsapp text-sm" aria-hidden="true"></i></button>
+                        </td>
+                        <td class="p-4 sm:p-5 text-right"><button type="button" aria-label="Delete message" onclick="deleteMessage('${escapeHTML(m.firebaseId)}')" class="text-red-400 p-2 hover:text-white bg-transparent border-none cursor-pointer"><i class="fas fa-trash" aria-hidden="true"></i></button></td>
+                    </tr>`).join('');
         }
 
+        function deleteMessage(firebaseId) {
+            confirmThen('Delete?', async () => {
+                const { doc, deleteDoc } = window.firebaseModules;
+                await deleteDoc(doc(window.db, 'messages', firebaseId));
+            });
+        }
+
+        /* ---------- WhatsApp reply ---------- */
         function openReplyModal(name, phone, contextText) {
             activeReplyName = name;
             activeReplyPhone = phone;
@@ -1478,36 +1424,25 @@
             document.getElementById('reply-modal').classList.remove('hidden');
         }
 
-        function closeReplyModal() { document.getElementById('reply-modal').classList.add('hidden'); }
-
-        function sendWhatsAppReplyNow() {
-            let msgText = document.getElementById('reply-msg-text').value;
-            let cleanPhone = activeReplyPhone.replace(/[^0-9]/g, '');
-            if(cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
-            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`, '_blank', 'noopener,noreferrer');
-            closeReplyModal();
+        function closeReplyModal() {
+            document.getElementById('reply-modal').classList.add('hidden');
         }
 
-        async function deleteMessage(firebaseId) { 
-            Swal.fire({ title: 'Delete?', icon: 'warning', showCancelButton: true, confirmButtonColor: '#d33', background: '#111', color: '#fff' }).then(async (res) => { 
-                if (res.isConfirmed) { 
-                    if(window.db && window.firebaseModules) {
-                        const { doc, deleteDoc } = window.firebaseModules;
-                        await deleteDoc(doc(window.db, "messages", firebaseId));
-                    }
-                    contactMessages = contactMessages.filter(m => m.firebaseId !== firebaseId); 
-                    renderMessagesTable(); 
-                    updateDashboardStats(); 
-                } 
-            }); 
+        function sendWhatsAppReplyNow() {
+            const msgText = document.getElementById('reply-msg-text').value;
+            let cleanPhone = activeReplyPhone.replace(/[^0-9]/g, '');
+            if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+            window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msgText)}`, '_blank', 'noopener,noreferrer');
+            closeReplyModal();
         }
 
         window.onload = () => { navigate('home'); };
     </script>
 
+    <!-- REAL-TIME: Firestore onSnapshot listeners -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCKfXyuq7-FMC4bEFuHBuK_CMP-G9B3BPQ",
@@ -1523,13 +1458,22 @@
         const db = getFirestore(app);
 
         window.db = db;
-        window.firebaseModules = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc };
+        window.firebaseModules = { collection, addDoc, updateDoc, deleteDoc, doc, setDoc };
 
-        console.log("Firestore Database Connected Successfully!");
+        const toList = snap => snap.docs.map(d => ({ firebaseId: d.id, ...d.data() }));
+        const onErr = name => err => console.error(`${name} listener error:`, err);
 
-        if (typeof initFirebaseApp === 'function') {
-            initFirebaseApp();
-        }
+        onSnapshot(collection(db, 'settings'), snap => {
+            const map = {};
+            snap.forEach(d => { map[d.id] = d.data(); });
+            window.applyRemoteSettings(map);
+        }, onErr('Settings'));
+
+        onSnapshot(collection(db, 'products'), snap => window.applyRemoteProducts(toList(snap)), onErr('Products'));
+        onSnapshot(collection(db, 'enquiries'), snap => window.applyRemoteEnquiries(toList(snap)), onErr('Enquiries'));
+        onSnapshot(collection(db, 'messages'), snap => window.applyRemoteMessages(toList(snap)), onErr('Messages'));
+
+        console.log('Firestore real-time listeners active');
     </script>
 </body>
 </html>
