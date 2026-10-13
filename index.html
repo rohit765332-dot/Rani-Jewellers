@@ -6,7 +6,6 @@
     <meta name="description" content="Rani Jewellers - Luxury Gold & Silver Boutique. Discover hallmarked 18K gold and 925 sterling silver fine jewellery with live market pricing and bespoke craftsmanship.">
     <meta name="theme-color" content="#030206">
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data: blob:; font-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
@@ -277,7 +276,6 @@
                     <h1 class="text-3xl sm:text-5xl font-serif font-bold mb-3">Contact Concierge</h1>
                     <div class="w-16 sm:w-24 h-1 bg-gold-500 mx-auto mt-3 sm:mt-6" aria-hidden="true"></div>
                 </div>
-
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                     <div class="bg-[#121216] p-6 sm:p-10 rounded-2xl shadow-2xl relative overflow-hidden border border-[#2D2B32]">
                         <h2 class="text-xl sm:text-3xl font-serif mb-6 sm:mb-10 text-gold-400">Store Directory</h2>
@@ -327,18 +325,18 @@
                         <h1 class="text-2xl sm:text-3xl font-serif font-bold text-white">Admin Portal</h1>
                         <p class="mt-2 text-xs text-gray-400 font-bold uppercase tracking-widest">Authorized Access Only</p>
                     </div>
-                    <form class="mt-6 sm:mt-10 space-y-6" onsubmit="handleSimpleLogin(event)">
+                    <form class="mt-6 sm:mt-10 space-y-6" onsubmit="handleAdminLogin(event)">
                         <div class="space-y-4">
                             <div>
-                                <label for="simple-user" class="block text-xs font-bold text-gray-400 uppercase mb-2">Username</label>
-                                <input id="simple-user" type="text" autocomplete="username" required class="w-full px-4 py-3 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white focus:border-gold-500 min-h-[44px]">
+                                <label for="simple-user" class="block text-xs font-bold text-gray-400 uppercase mb-2">Admin Email</label>
+                                <input id="simple-user" type="email" autocomplete="username" required class="w-full px-4 py-3 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white focus:border-gold-500 min-h-[44px]">
                             </div>
                             <div>
                                 <label for="simple-pass" class="block text-xs font-bold text-gray-400 uppercase mb-2">Password</label>
                                 <input id="simple-pass" type="password" autocomplete="current-password" required class="w-full px-4 py-3 sm:py-4 border border-[#2D2B32] rounded-lg outline-none bg-[#1b1a21] text-sm font-bold text-white focus:border-gold-500 min-h-[44px]">
                             </div>
                         </div>
-                        <button type="submit" class="w-full flex justify-center items-center py-3.5 sm:py-4 font-extrabold uppercase tracking-widest text-sm rounded-lg text-black gold-gradient shadow-lg cursor-pointer min-h-[44px]">Authenticate</button>
+                        <button type="submit" id="admin-login-btn" class="w-full flex justify-center items-center py-3.5 sm:py-4 font-extrabold uppercase tracking-widest text-sm rounded-lg text-black gold-gradient shadow-lg cursor-pointer min-h-[44px]">Authenticate</button>
                     </form>
                 </div>
             </div>
@@ -378,7 +376,6 @@
                         <button type="button" onclick="switchAdminTab('banners')" id="tab-banners" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-image w-6 text-base text-gold-400" aria-hidden="true"></i> Home Banners</button>
                         <button type="button" onclick="switchAdminTab('settings')" id="tab-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-cog w-6 text-base text-gold-400" aria-hidden="true"></i> Contacts</button>
                         <button type="button" onclick="switchAdminTab('about-settings')" id="tab-about-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-pen-nib w-6 text-base text-gold-400" aria-hidden="true"></i> About Page</button>
-                        <button type="button" onclick="switchAdminTab('auth-settings')" id="tab-auth-settings" class="admin-tab w-full flex items-center px-4 py-3 rounded-xl font-bold text-xs tracking-wider uppercase text-neutral-400 hover:bg-[#1b1a21] hover:text-white transition-all bg-transparent border-none cursor-pointer text-left min-h-[44px]"><i class="fas fa-key w-6 text-base text-gold-400" aria-hidden="true"></i> Credentials</button>
                     </nav>
 
                     <div class="p-4 border-t border-[#2D2B32] bg-black/40">
@@ -441,20 +438,6 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer min-h-[44px]">Save Collection Banners</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div id="admin-tab-auth-settings" class="admin-content hidden">
-                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2 font-serif">Change Admin Username & Password</h2>
-                        <p class="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-6">Update credentials for local session authentication</p>
-                        <div class="bg-[#121216] p-5 sm:p-8 rounded-2xl shadow-xl border border-[#2D2B32] max-w-3xl">
-                            <form onsubmit="saveCredentials(event)">
-                                <div class="space-y-6">
-                                    <div><label for="new-admin-user" class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Username</label><input type="text" id="new-admin-user" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white focus:border-gold-500 min-h-[44px]"></div>
-                                    <div><label for="new-admin-pass" class="block text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">New Admin Password</label><input type="password" id="new-admin-pass" required class="w-full p-3 sm:p-4 border border-[#2D2B32] rounded-xl outline-none font-bold text-sm bg-[#1b1a21] text-white focus:border-gold-500 min-h-[44px]"></div>
-                                </div>
-                                <button type="submit" class="mt-6 sm:mt-8 gold-gradient text-black font-extrabold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl uppercase tracking-widest text-xs shadow-lg hover:opacity-95 transition-all cursor-pointer min-h-[44px]">Update Credentials</button>
                             </form>
                         </div>
                     </div>
@@ -685,12 +668,12 @@
                 ctx.fill();
             });
 
-            let centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
-            let centerY = canvas.height * 0.5;
+            const centerX = canvas.width > 768 ? canvas.width * 0.72 : canvas.width * 0.5;
+            const centerY = canvas.height * 0.5;
 
             ctx.beginPath();
             ctx.arc(centerX, centerY, 20, 0, Math.PI * 2);
-            let sunGrad = ctx.createRadialGradient(centerX, centerY, 2, centerX, centerY, 20);
+            const sunGrad = ctx.createRadialGradient(centerX, centerY, 2, centerX, centerY, 20);
             sunGrad.addColorStop(0, '#FFF700');
             sunGrad.addColorStop(1, '#FF8C00');
             ctx.fillStyle = sunGrad;
@@ -707,8 +690,8 @@
                 ctx.stroke();
 
                 p.angle += p.speed * 0.5;
-                let px = centerX + Math.cos(p.angle) * p.distance;
-                let py = centerY + Math.sin(p.angle) * p.distance;
+                const px = centerX + Math.cos(p.angle) * p.distance;
+                const py = centerY + Math.sin(p.angle) * p.distance;
 
                 ctx.beginPath();
                 ctx.arc(px, py, p.radius, 0, Math.PI * 2);
@@ -737,7 +720,6 @@
                 .replace(/'/g, '&#039;');
         }
 
-        // Save ke waqt sirf trim; HTML escape render ke waqt hota hai (double-encoding fix)
         function sanitizeInput(str) {
             return String(str || '').trim();
         }
@@ -757,7 +739,6 @@
         let contactMessages = [];
         let shopDetails = { phone: '+91 98765 43210', email: 'info@ranijewellers.com', address: 'Rani Jewellers Main Bazaar, City Center, 380001' };
         let aboutDetails = { title: 'Our Heritage & Craftsmanship', story: 'Rani Jewellers is a trusted name in the world of fine gold and silver jewellery.' };
-        let adminAuthEnc = { u: 'YWRtaW4=', p: 'UmFuaUAxMjM=' };
         let currentDetailId = null;
         let tempProductImageBase64 = '';
         let tempBannerGoldBase64 = '';
@@ -765,21 +746,16 @@
         let activeReplyPhone = '';
         let activeReplyName = '';
 
-        /* ---------- Session ---------- */
-        function checkAdminSession() {
-            const authTime = parseInt(localStorage.getItem('rani_admin_time') || '0', 10);
-            const now = Date.now();
-            return localStorage.getItem('rani_admin_auth') === 'true' && (now - authTime < 86400000);
-        }
-        let isLoggedIn = checkAdminSession();
+        /* ---------- Admin auth state (Firebase Auth) ---------- */
+        let isLoggedIn = false;
+        let authReady = false;
 
         /* ---------- REAL-TIME HANDLERS (module script se call hote hain) ---------- */
         function applyRemoteSettings(map) {
-            if (map.rates)      marketRates = { ...marketRates, ...map.rates };
-            if (map.banners)    collectionBanners = { ...collectionBanners, ...map.banners };
-            if (map.shop)       shopDetails = { ...shopDetails, ...map.shop };
-            if (map.about)      aboutDetails = { ...aboutDetails, ...map.about };
-            if (map.authSecure) adminAuthEnc = map.authSecure;
+            if (map.rates) marketRates = { ...marketRates, ...map.rates };
+            if (map.banners) collectionBanners = { ...collectionBanners, ...map.banners };
+            if (map.shop) shopDetails = { ...shopDetails, ...map.shop };
+            if (map.about) aboutDetails = { ...aboutDetails, ...map.about };
             refreshAllViews();
         }
 
@@ -844,7 +820,6 @@
         /* ---------- Settings / Rates ---------- */
         async function saveSettingToFirebase(docName, dataObj) {
             try {
-                if (!window.db || !window.firebaseModules) return;
                 const { doc, setDoc } = window.firebaseModules;
                 await setDoc(doc(window.db, 'settings', docName), dataObj);
             } catch (e) {
@@ -934,12 +909,10 @@
             document.getElementById('ticker-silver-rate').innerText = '₹' + (marketRates.silver || 900).toLocaleString('en-IN');
             const g = document.getElementById('admin-gold-rate');
             const s = document.getElementById('admin-silver-rate');
-            // Admin jab type kar raha ho to uska input overwrite na ho
             if (g && document.activeElement !== g) g.value = marketRates.gold;
             if (s && document.activeElement !== s) s.value = marketRates.silver;
         }
 
-        // Admin form fields ko tabhi update karo jab wo focus mein na hon
         function setIfNotFocused(id, value) {
             const el = document.getElementById(id);
             if (el && document.activeElement !== el) el.value = value;
@@ -963,17 +936,6 @@
             document.getElementById('footer-about-story').innerText = (aboutDetails.story || '').substring(0, 100) + '...';
             setIfNotFocused('set-about-title', aboutDetails.title || '');
             setIfNotFocused('set-about-story', aboutDetails.story || '');
-
-            const cu = document.getElementById('new-admin-user');
-            if (cu && document.activeElement !== cu) {
-                try {
-                    cu.value = atob(adminAuthEnc.u);
-                    document.getElementById('new-admin-pass').value = atob(adminAuthEnc.p);
-                } catch (err) {
-                    cu.value = adminAuthEnc.u || 'admin';
-                    document.getElementById('new-admin-pass').value = adminAuthEnc.p || '';
-                }
-            }
 
             document.getElementById('home-gold-banner').src = collectionBanners.gold;
             document.getElementById('home-silver-banner').src = collectionBanners.silver;
@@ -1000,16 +962,6 @@
             };
             await saveSettingToFirebase('about', aboutDetails);
             Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'About Updated', showConfirmButton: false, timer: 1500 });
-        }
-
-        async function saveCredentials(e) {
-            e.preventDefault();
-            const rawU = document.getElementById('new-admin-user').value.trim();
-            const rawP = document.getElementById('new-admin-pass').value.trim();
-            if (!rawU || !rawP) return Swal.fire('Error', 'Username and Password cannot be empty.', 'error');
-            adminAuthEnc = { u: btoa(rawU), p: btoa(rawP) };
-            await saveSettingToFirebase('authSecure', adminAuthEnc);
-            Swal.fire({ title: 'Credentials Updated!', text: 'Admin credentials updated securely in database!', icon: 'success', confirmButtonColor: '#D4AF37' });
         }
 
         /* ---------- Navigation ---------- */
@@ -1201,45 +1153,46 @@
             }
         }
 
-        /* ---------- Admin: auth & tabs ---------- */
-        function handleSimpleLogin(e) {
+        /* ---------- Admin: auth (Firebase Auth) ---------- */
+        async function handleAdminLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('simple-user').value.trim();
-            const p = document.getElementById('simple-pass').value.trim();
-
-            let actualUser = '';
-            let actualPass = '';
+            const email = document.getElementById('simple-user').value.trim();
+            const password = document.getElementById('simple-pass').value;
+            const btn = document.getElementById('admin-login-btn');
+            btn.disabled = true;
+            btn.textContent = 'Checking...';
             try {
-                actualUser = atob(adminAuthEnc.u);
-                actualPass = atob(adminAuthEnc.p);
-            } catch (err) {
-                actualUser = adminAuthEnc.u;
-                actualPass = adminAuthEnc.p;
-            }
-
-            if (u === actualUser && p === actualPass) {
-                isLoggedIn = true;
-                localStorage.setItem('rani_admin_auth', 'true');
-                localStorage.setItem('rani_admin_time', Date.now().toString());
-                document.getElementById('nav-admin-btn').textContent = 'Dashboard';
+                await window.firebaseAuth.signIn(email, password);
                 document.getElementById('simple-user').value = '';
                 document.getElementById('simple-pass').value = '';
                 Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Login Successful', showConfirmButton: false, timer: 1500 });
-                setTimeout(() => navigate('admin-dashboard'), 500);
-            } else {
-                Swal.fire('Error', 'Incorrect Username or Password', 'error');
+            } catch (err) {
+                Swal.fire('Error', 'Email ya password galat hai.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Authenticate';
             }
         }
 
-        function handleLogout(showMsg = false) {
-            isLoggedIn = false;
-            localStorage.removeItem('rani_admin_auth');
-            localStorage.removeItem('rani_admin_time');
-            document.getElementById('nav-admin-btn').textContent = 'Admin Portal';
+        async function handleLogout(showMsg = false) {
+            await window.firebaseAuth.signOutAdmin();
             navigate('home');
             if (showMsg) Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: 'Logged Out', showConfirmButton: false, timer: 1500 });
         }
 
+        // Auth state: refresh ke baad bhi login rahega, login/logout par UI update hogi
+        function onAdminAuthChanged(user) {
+            isLoggedIn = !!user;
+            document.getElementById('nav-admin-btn').textContent = isLoggedIn ? 'Dashboard' : 'Admin Portal';
+            if (isLoggedIn) {
+                if (isActivePage('admin-login')) navigate('admin-dashboard');
+            } else {
+                if (isActivePage('admin-dashboard')) navigate('home');
+            }
+            refreshAllViews();
+        }
+
+        /* ---------- Admin: tabs ---------- */
         function switchAdminTab(tab) {
             document.querySelectorAll('.admin-content').forEach(el => el.classList.add('hidden'));
             const targetTab = document.getElementById('admin-tab-' + tab);
@@ -1276,7 +1229,6 @@
         async function handleAddProduct(e) {
             e.preventDefault();
             if (!tempProductImageBase64) return Swal.fire('Error', 'Please select an image', 'error');
-            if (!window.db) return Swal.fire('Error', 'Database connected nahi hai', 'error');
 
             const pName = sanitizeInput(document.getElementById('p-name').value);
             const pMetal = sanitizeInput(document.getElementById('p-metal').value);
@@ -1288,7 +1240,6 @@
 
             if (isNaN(pWeight) || pWeight <= 0) return Swal.fire('Error', 'Please enter a valid product weight.', 'error');
 
-            // Unique ID: sabse bada existing number + 1 (delete ke baad bhi duplicate nahi banegi)
             const maxNo = products.reduce((m, p) => Math.max(m, parseInt(String(p.id).replace('RJ-', ''), 10) || 0), 1000);
 
             try {
@@ -1439,10 +1390,11 @@
         window.onload = () => { navigate('home'); };
     </script>
 
-    <!-- REAL-TIME: Firestore onSnapshot listeners -->
+    <!-- REAL-TIME + FIREBASE AUTH -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, onSnapshot, addDoc, updateDoc, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCKfXyuq7-FMC4bEFuHBuK_CMP-G9B3BPQ",
@@ -1456,9 +1408,14 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
         window.db = db;
         window.firebaseModules = { collection, addDoc, updateDoc, deleteDoc, doc, setDoc };
+        window.firebaseAuth = {
+            signIn: (email, password) => signInWithEmailAndPassword(auth, email, password),
+            signOutAdmin: () => signOut(auth)
+        };
 
         const toList = snap => snap.docs.map(d => ({ firebaseId: d.id, ...d.data() }));
         const onErr = name => err => console.error(`${name} listener error:`, err);
@@ -1473,7 +1430,8 @@
         onSnapshot(collection(db, 'enquiries'), snap => window.applyRemoteEnquiries(toList(snap)), onErr('Enquiries'));
         onSnapshot(collection(db, 'messages'), snap => window.applyRemoteMessages(toList(snap)), onErr('Messages'));
 
-        console.log('Firestore real-time listeners active');
+        // Admin login state: refresh ke baad bhi session Firebase khud restore karta hai
+        onAuthStateChanged(auth, user => window.onAdminAuthChanged(user));
     </script>
 </body>
 </html>
